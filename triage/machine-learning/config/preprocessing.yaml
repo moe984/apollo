@@ -1,0 +1,126 @@
+# =============================================================================
+# ES notable preprocessing, and the operating point
+#
+# Read by BOTH the training pipeline and the serving API, so the two cannot
+# drift. Every frozen release records `rules_sha256` — a hash of the RULES
+# sections only — in its manifest.
+#
+# `operating_threshold` is deliberately NOT part of that hash. Recalibrating the
+# threshold retrains nothing, so it must not invalidate a release.
+#
+# Everything not listed here is KEPT. This is a blocklist, not an allowlist: a
+# CEF key never seen before flows through with no code change. It simply
+# contributes nothing until the next retrain, because the model's vocabulary has
+# no terms for it.
+# =============================================================================
+schema_version: 2
+name: ES notable preprocessing
+
+# -----------------------------------------------------------------------------
+# Which artifact of the container is the alert.
+#
+# A container carries up to four artifact families and only the ES notable
+# predates the analyst:
+#   * the ES notable            — rule_id present, no soar_event. THIS ONE.
+#   * a settings/metrics blob   — carries SA_DISPOSITION, which IS the label
+#   * soar_event=* artifacts    — written while the container is worked
+#   * a Slack/escalation note   — exists only once escalated to a human
+#
+# Absence of soar_event is NOT sufficient: two of the four families lack it.
+# -----------------------------------------------------------------------------
+artifact_selection:
+  require_present: [rule_id]
+  require_absent:  [SA_DISPOSITION, soar_event]
+
+# -----------------------------------------------------------------------------
+# Keys that never reach the model. 44 across 7 groups.
+# -----------------------------------------------------------------------------
+drop_keys:
+
+  splunk_plumbing:
+    reason: internal Splunk storage handles; no bearing on the alert
+    keys: [_bkt, _cd, _si, _indextime, _sourcetype, _eventtype_color]
+
+  per_event_identifiers:
+    reason: >-
+      unique to one alert — a memorised handle on a single training row, never a
+      pattern that transfers
+    keys: [event_id, rule_id, orig_sid, orig_rid, source_event_id, event_hash]
+
+  timestamps:
+    reason: >-
+      encode WHEN, not WHAT. The not-benign base rate ran 6.5% -> 25.3% across
+      the training window, so a date predicts the window and nothing beyond it
+    keys: [_time, time, timestamp, orig_time, post_time, receipt_time,
+           sla_receipt, info_max_time, info_min_time, info_search_time]
+
+  date_parts:
+    reason: the same, pre-split by Splunk into components
+    keys: [date_hour, date_mday, date_wday, date_year, date_minute,
+           date_month, date_second, date_zone]
+
+  console_urls:
+    reason: per-alert links back into ES or SOAR; unique handles
+    keys: [es_notable_url, ES_NOTABLE_URL, container_url, ES_URL]
+
+  triage_state:
+    reason: >-
+      LEAKAGE — describes ES-side triage, which is set AFTER the alert arrives
+      and after an analyst has touched it
+    keys: [status, status_default, status_end, status_group, status_label,
+           status_description, owner, owner_realname]
+
+  serving_alignment:
+    reason: >-
+      present on only one side of the SOAR/Apollo boundary. Leaving them in makes
+      the training string and the serving string differ for the same alert
+      (mean 0.042, max 0.38). See APOLLO_MAPPING.md
+    keys: [extract_artifacts, splunk_query]
+
+# -----------------------------------------------------------------------------
+empty_values:
+  reason: the field exists but was not filled in
+  values: [none, "null", "-", unknown]
+
+# Matched on the VALUE, not the key. The notable carries timestamps under at
+# least twenty different names and inside filenames and rule descriptions, so a
+# key blocklist cannot catch them. If scrubbing empties a field, the field goes.
+scrub_time_values:
+  matches: [ISO dates, epochs and long numeric ids, bare years 2020-2039, clock times]
+  pattern: >-
+    20\d{2}[-/]\d{1,2}[-/]\d{1,2}(?:[T ][\d:.]+(?:Z|[+-]\d{2}:?\d{2})?)?|\b\d{9,}(?:\.\d+)?\b|\b20[2-3]\d\b|\b\d{1,2}:\d{2}(?::\d{2})?\b
+
+rendering:
+  format: key value
+  reason: >-
+    pairs rather than bare values, so a word bigram can bind a field to its
+    reading — `severity low` and `urgency low` stay distinguishable terms
+  keys_sorted: true
+  lowercase: true
+
+# =============================================================================
+# THE OPERATING POINT - not part of rules_sha256
+#
+# The line through the model's scores. Below it an alert is called benign and
+# the AI closes it. Changing this retrains nothing.
+#
+# Chosen by the Clopper-Pearson exact upper bound on the AI lane's error rate:
+# the widest threshold whose 95% upper bound stays under `tolerance`. Observing
+# zero mistakes in a small lane bounds the true rate at 3/n, not at 0 - which is
+# why a naive zero-miss threshold failed on three of six rolling windows.
+#
+# Recalibrate monthly:  .venv/bin/python calibrate.py --write
+# =============================================================================
+operating_threshold:
+  value: 0.007093
+  calibrated_at: '2026-09-24'
+  method: Clopper-Pearson exact upper bound on the AI-lane error rate, 95% confidence
+  tolerance: 0.01
+  calibrated_on:
+    train_through: '2026-06-02'
+    calibrate: 2026-06-03 .. 2026-07-28
+    validate: 2026-07-29 .. 2026-09-23
+  measured:
+    on_window: 2026-07-29 .. 2026-09-23
+    auto_closed_pct: 6.38
+    misses: 6

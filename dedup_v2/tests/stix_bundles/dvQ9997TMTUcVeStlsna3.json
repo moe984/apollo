@@ -1,0 +1,55 @@
+{
+  "alert_id": "dvQ9997TMTUcVeStlsna3",
+  "source": "splunk",
+  "severity": "HIGH",
+  "status": "queued",
+  "created_at": "2026-07-10T12:00:17.000Z",
+  "stix_bundle": {
+    "id": "bundle--ad2f5123-432e-4515-bc5c-bc5a211c2e85",
+    "type": "bundle",
+    "objects": [
+      {
+        "id": "identity--401cd9fb-76b0-497a-81ff-a645b33fab4a",
+        "name": "Splunk",
+        "type": "identity",
+        "created": "2026-07-10T12:00:17.000Z",
+        "modified": "2026-07-10T12:00:17.000Z",
+        "description": "Splunk app: SplunkSOAR",
+        "spec_version": "2.1",
+        "identity_class": "system"
+      },
+      {
+        "id": "indicator--c4179806-23a7-4edb-be22-7cacb80d89d7",
+        "name": "ULM - OneLogin - Failed OTP Challenge",
+        "type": "indicator",
+        "created": "2026-07-10T12:00:17.000Z",
+        "modified": "2026-07-10T12:00:17.000Z",
+        "pattern": "[ipv4-addr:value = '39.152.141.239']",
+        "pattern_type": "stix",
+        "spec_version": "2.1",
+        "valid_from": "2026-07-10T12:00:17.000Z",
+        "indicator_types": [
+          "anomalous-activity"
+        ],
+        "extensions": {
+          "extension-definition--a85759ca-e4a9-43be-98b9-77f3f1fc7686": {
+            "extension_type": "property-extension",
+            "apollo_severity": "MEDIUM"
+          }
+        }
+      },
+      {
+        "id": "ipv4-addr--04a369ef-cdf1-4e6a-813f-2c134112343e",
+        "type": "ipv4-addr",
+        "value": "39.152.141.239"
+      },
+      {
+        "id": "file--037003d5-6905-424f-8cd5-cd1c29763b73",
+        "type": "file",
+        "hashes": {
+          "SHA-256": "74233b0afbe871df913acc49147c677eb4f2cc61b96d598050b917c6e7b00eda"
+        }
+      }
+    ]
+  }
+}

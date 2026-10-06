@@ -1,0 +1,55 @@
+{
+  "alert_id": "XrSQdlpFNTYMvUTP_gvpK",
+  "source": "splunk",
+  "severity": "LOW",
+  "status": "manual_review",
+  "created_at": "2026-07-10T13:00:10.000Z",
+  "stix_bundle": {
+    "id": "bundle--cca68e91-85eb-42bb-bb96-944ff465c4a3",
+    "type": "bundle",
+    "objects": [
+      {
+        "id": "identity--4db8189c-aae7-4df7-b57e-00cc97b32be3",
+        "name": "Splunk",
+        "type": "identity",
+        "created": "2026-07-10T13:00:10.000Z",
+        "modified": "2026-07-10T13:00:10.000Z",
+        "description": "Splunk app: SplunkSOAR",
+        "spec_version": "2.1",
+        "identity_class": "system"
+      },
+      {
+        "id": "indicator--4cb047c8-b07c-4a36-95fc-80080b9ab816",
+        "name": "LaTech - Palo Alto - High and Critical Threat Allowed",
+        "type": "indicator",
+        "created": "2026-07-10T13:00:10.000Z",
+        "modified": "2026-07-10T13:00:10.000Z",
+        "pattern": "[ipv4-addr:value = '139.141.239.30']",
+        "pattern_type": "stix",
+        "spec_version": "2.1",
+        "valid_from": "2026-07-10T13:00:10.000Z",
+        "indicator_types": [
+          "anomalous-activity"
+        ],
+        "extensions": {
+          "extension-definition--a85759ca-e4a9-43be-98b9-77f3f1fc7686": {
+            "extension_type": "property-extension",
+            "apollo_severity": "MEDIUM"
+          }
+        }
+      },
+      {
+        "id": "ipv4-addr--fb3b4db4-5351-4ddf-97b8-8cd062422d60",
+        "type": "ipv4-addr",
+        "value": "139.141.239.30"
+      },
+      {
+        "id": "file--f4404386-b40d-4505-a96f-2f569826d12d",
+        "type": "file",
+        "hashes": {
+          "SHA-256": "c8940d9fb1a0121bddcf50f562d625d7275d0d93a91fba0ba6301cc1c01de2ae"
+        }
+      }
+    ]
+  }
+}

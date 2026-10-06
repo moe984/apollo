@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Triage Agent LLM Consistency Experiment</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #0f1117; color: #e1e4e8; line-height: 1.6; }
+
+  .header { background: linear-gradient(135deg, #1a1e2e, #2d1b3d); padding: 40px 60px; border-bottom: 1px solid #30363d; }
+  .header h1 { font-size: 28px; font-weight: 700; color: #fff; margin-bottom: 8px; }
+  .header p { font-size: 15px; color: #8b949e; max-width: 900px; }
+  .header .badge { display: inline-block; background: #da3633; color: #fff; font-size: 11px; font-weight: 600; padding: 3px 10px; border-radius: 12px; margin-left: 12px; vertical-align: middle; }
+
+  .container { max-width: 1400px; margin: 0 auto; padding: 40px 60px; }
+
+  .config-banner { background: #161b22; border: 1px solid #30363d; border-radius: 8px; padding: 20px 28px; margin-bottom: 32px; display: flex; gap: 32px; flex-wrap: wrap; align-items: center; }
+  .config-banner h3 { color: #58a6ff; font-size: 14px; margin-bottom: 4px; }
+  .config-item { font-size: 13px; }
+  .config-item .label { color: #8b949e; }
+  .config-item .value { color: #e1e4e8; font-weight: 600; font-family: monospace; }
+
+  .finding-banner { background: #1c1210; border: 1px solid #6e3b2a; border-radius: 8px; padding: 24px 28px; margin-bottom: 40px; }
+  .finding-banner h2 { color: #f0883e; font-size: 18px; margin-bottom: 12px; }
+  .finding-banner ul { list-style: none; padding: 0; }
+  .finding-banner li { padding: 6px 0; padding-left: 20px; position: relative; color: #e1e4e8; font-size: 14px; }
+  .finding-banner li::before { content: "\26A0"; position: absolute; left: 0; }
+
+  .section { margin-bottom: 48px; }
+  .section h2 { font-size: 20px; font-weight: 600; color: #fff; margin-bottom: 8px; }
+  .section .desc { font-size: 14px; color: #8b949e; margin-bottom: 20px; }
+
+  .stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 40px; }
+  .stat-card { background: #161b22; border: 1px solid #30363d; border-radius: 8px; padding: 20px; text-align: center; }
+  .stat-card .number { font-size: 36px; font-weight: 700; }
+  .stat-card .number.green { color: #3fb950; }
+  .stat-card .number.red { color: #f85149; }
+  .stat-card .number.yellow { color: #d29922; }
+  .stat-card .label { font-size: 12px; color: #8b949e; margin-top: 4px; }
+
+  table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  th { text-align: left; padding: 10px 12px; background: #161b22; border-bottom: 2px solid #30363d; color: #8b949e; font-weight: 600; font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; }
+  td { padding: 10px 12px; border-bottom: 1px solid #21262d; }
+  tr:hover td { background: #1c2028; }
+
+  .pill { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 11px; font-weight: 600; }
+  .pill-escalate { background: #6e1d1d; color: #f85149; }
+  .pill-critical { background: #6e1d1d; color: #f85149; }
+
+  .mitre-tag { display: inline-block; background: #21262d; border: 1px solid #30363d; border-radius: 3px; padding: 1px 6px; font-size: 11px; margin: 1px 2px; font-family: monospace; }
+  .mitre-tag.always { border-color: #3fb950; color: #3fb950; }
+  .mitre-tag.sometimes { border-color: #d29922; color: #d29922; }
+
+  .heatmap { margin-top: 16px; }
+  .heatmap-row { display: flex; align-items: center; margin-bottom: 6px; }
+  .heatmap-label { width: 120px; font-size: 12px; font-family: monospace; color: #8b949e; flex-shrink: 0; }
+  .heatmap-bar-container { flex: 1; height: 28px; background: #21262d; border-radius: 4px; overflow: hidden; position: relative; }
+  .heatmap-bar { height: 100%; border-radius: 4px; display: flex; align-items: center; padding-left: 8px; font-size: 11px; font-weight: 600; }
+  .heatmap-bar.full { background: #238636; color: #fff; }
+  .heatmap-bar.partial { background: #9e6a03; color: #fff; }
+  .heatmap-pct { position: absolute; right: 8px; top: 50%; transform: translateY(-50%); font-size: 11px; color: #8b949e; }
+
+  .conf-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 16px; }
+  .conf-card { background: #161b22; border: 1px solid #30363d; border-radius: 8px; padding: 16px; text-align: center; }
+  .conf-card .value { font-size: 24px; font-weight: 700; color: #58a6ff; }
+  .conf-card .count { font-size: 14px; color: #e1e4e8; margin-top: 4px; }
+  .conf-card .pct { font-size: 12px; color: #8b949e; }
+
+  .implications-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+  .impl-card { background: #161b22; border: 1px solid #30363d; border-radius: 8px; padding: 24px; }
+  .impl-card h3 { font-size: 15px; font-weight: 600; margin-bottom: 12px; }
+  .impl-row { display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid #21262d; font-size: 13px; }
+  .impl-row:last-child { border-bottom: none; }
+  .impl-label { color: #8b949e; }
+  .impl-value { font-weight: 600; }
+  .impl-value.green { color: #3fb950; }
+  .impl-value.red { color: #f85149; }
+
+  .footer { text-align: center; padding: 40px; color: #484f58; font-size: 12px; border-top: 1px solid #21262d; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>Triage Agent LLM Consistency Experiment <span class="badge">EVIDENCE</span></h1>
+  <p>Same security alert sent to Claude Haiku 4.5 thirty times in a single execution with identical parameters matching Apollo's production triage agent configuration. This dashboard shows the variance in responses — demonstrating non-deterministic LLM behavior even at temperature=0.</p>
+</div>
+
+<div class="container">
+
+<!-- Experiment Configuration -->
+<div class="config-banner">
+  <div>
+    <h3>Experiment Configuration</h3>
+    <div style="font-size:12px;color:#8b949e;">Matches Apollo production triage agent exactly</div>
+  </div>
+  <div class="config-item"><span class="label">Model: </span><span class="value">claude-haiku-4-5-20251001</span></div>
+  <div class="config-item"><span class="label">Temperature: </span><span class="value">0.0</span></div>
+  <div class="config-item"><span class="label">Max Tokens: </span><span class="value">4096</span></div>
+  <div class="config-item"><span class="label">Total Runs: </span><span class="value">30</span></div>
+  <div class="config-item"><span class="label">Alert: </span><span class="value">CrowdStrike PowerShell + C2 callback</span></div>
+  <div class="config-item"><span class="label">Prompt: </span><span class="value">triage.classify.v1 (v2.0.0)</span></div>
+  <div class="config-item"><span class="label">Source: </span><span class="value">experiment_c2_powershell_20260508T192840Z.json</span></div>
+</div>
+
+<!-- Top-line Stats -->
+<div class="stats-grid">
+  <div class="stat-card">
+    <div class="number green">30/30</div>
+    <div class="label">Disposition: escalate<br>(consistent)</div>
+  </div>
+  <div class="stat-card">
+    <div class="number green">30/30</div>
+    <div class="label">FP Score: 0.080<br>(consistent)</div>
+  </div>
+  <div class="stat-card">
+    <div class="number yellow">3</div>
+    <div class="label">Distinct confidence values<br>(0.920, 0.940, 0.960)</div>
+  </div>
+  <div class="stat-card">
+    <div class="number red">8</div>
+    <div class="label">Unique MITRE techniques<br>(only 2 in all 30 runs)</div>
+  </div>
+</div>
+
+<!-- Key Findings -->
+<div class="finding-banner">
+  <h2>Key Findings</h2>
+  <ul>
+    <li><strong>MITRE ATT&amp;CK mapping is non-deterministic:</strong> 8 unique techniques identified across 30 runs, but only 2 (T1105, T1059.001) appeared in every single run. The other 6 techniques appear in 2/30 to 20/30 of runs.</li>
+    <li><strong>Confidence scores vary despite temperature=0:</strong> 3 distinct values observed — 0.920 (17%), 0.940 (47%), 0.960 (37%). Near policy thresholds (e.g., 0.95 for auto-close), this variance would cause different policy gate decisions for the same alert.</li>
+    <li><strong>Sub-technique granularity is inconsistent:</strong> The LLM can't decide between T1071 (parent) and T1071.001 (sub-technique) — it returns T1071 in 12/30 runs and T1071.001 in 18/30 runs. They never co-occur in the same response.</li>
+    <li><strong>Every run returns exactly 4 MITRE techniques:</strong> The first two slots are locked (T1105, T1059.001). The 3rd and 4th slots rotate between the remaining 6 techniques.</li>
+  </ul>
+</div>
+
+<!-- Confidence Distribution -->
+<div class="section">
+  <h2>Confidence Score Distribution — 30 Identical Runs</h2>
+  <p class="desc">A deterministic classifier would produce the same confidence score every time. The LLM produces 3 distinct values across 30 runs of the same input.</p>
+
+  <div class="conf-grid">
+    <div class="conf-card">
+      <div class="value">0.920</div>
+      <div class="count">5 out of 30 runs</div>
+      <div class="pct">17%</div>
+    </div>
+    <div class="conf-card">
+      <div class="value">0.940</div>
+      <div class="count">14 out of 30 runs</div>
+      <div class="pct">47%</div>
+    </div>
+    <div class="conf-card">
+      <div class="value">0.960</div>
+      <div class="count">11 out of 30 runs</div>
+      <div class="pct">37%</div>
+    </div>
+  </div>
+</div>
+
+<!-- MITRE Heatmap -->
+<div class="section">
+  <h2>MITRE ATT&amp;CK Technique Frequency — 30 Runs</h2>
+  <p class="desc">How often each identified technique appeared across 30 identical runs. Green = every run. Yellow = some runs only. A deterministic system would show 100% for all techniques.</p>
+
+  <div class="heatmap">
+    <div class="heatmap-row">
+      <div class="heatmap-label">T1105</div>
+      <div class="heatmap-bar-container"><div class="heatmap-bar full" style="width:100%">30/30 — Ingress Tool Transfer</div><span class="heatmap-pct">100%</span></div>
+    </div>
+    <div class="heatmap-row">
+      <div class="heatmap-label">T1059.001</div>
+      <div class="heatmap-bar-container"><div class="heatmap-bar full" style="width:100%">30/30 — PowerShell</div><span class="heatmap-pct">100%</span></div>
+    </div>
+    <div class="heatmap-row">
+      <div class="heatmap-label">T1027</div>
+      <div class="heatmap-bar-container"><div class="heatmap-bar partial" style="width:67%">20/30 — Obfuscated Files</div><span class="heatmap-pct">67%</span></div>
+    </div>
+    <div class="heatmap-row">
+      <div class="heatmap-label">T1071.001</div>
+      <div class="heatmap-bar-container"><div class="heatmap-bar partial" style="width:60%">18/30 — App Layer Protocol (Web)</div><span class="heatmap-pct">60%</span></div>
+    </div>
+    <div class="heatmap-row">
+      <div class="heatmap-label">T1071</div>
+      <div class="heatmap-bar-container"><div class="heatmap-bar partial" style="width:40%">12/30 — App Layer Protocol (parent)</div><span class="heatmap-pct">40%</span></div>
+    </div>
+    <div class="heatmap-row">
+      <div class="heatmap-label">T1036</div>
+      <div class="heatmap-bar-container"><div class="heatmap-bar partial" style="width:13%">4/30 — Masquerading</div><span class="heatmap-pct">13%</span></div>
+    </div>
+    <div class="heatmap-row">
+      <div class="heatmap-label">T1036.005</div>
+      <div class="heatmap-bar-container"><div class="heatmap-bar partial" style="width:13%">4/30 — Match Legit Name</div><span class="heatmap-pct">13%</span></div>
+    </div>
+    <div class="heatmap-row">
+      <div class="heatmap-label">T1036.001</div>
+      <div class="heatmap-bar-container"><div class="heatmap-bar partial" style="width:7%">2/30 — Invalid Code Signature</div><span class="heatmap-pct">7%</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- Run-by-Run Table -->
+<div class="section">
+  <h2>Run-by-Run Detail — All 30 Runs</h2>
+  <p class="desc">Every run uses identical input: same system prompt, same user prompt, same alert data, same model, same temperature. Single execution, single JSON file. <span class="mitre-tag always" style="font-size:10px;">green</span> = in all 30 runs. <span class="mitre-tag sometimes" style="font-size:10px;">yellow</span> = in some runs only.</p>
+
+  <table>
+    <thead>
+      <tr><th>#</th><th>Disposition</th><th>FP Score</th><th>Confidence</th><th>Severity</th><th>MITRE Techniques</th><th>Latency</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>1</td><td><span class="pill pill-escalate">escalate</span></td><td>0.080</td><td>0.960</td><td><span class="pill pill-critical">critical</span></td><td><span class="mitre-tag always">T1059.001</span><span class="mitre-tag sometimes">T1027</span><span class="mitre-tag sometimes">T1071.001</span><span class="mitre-tag always">T1105</span></td><td>10,057ms</td></tr>
+      <tr><td>2</td><td><span class="pill pill-escalate">escalate</span></td><td>0.080</td><td>0.940</td><td><span class="pill pill-critical">critical</span></td><td><span class="mitre-tag always">T1059.001</span><span class="mitre-tag sometimes">T1071</span><span class="mitre-tag always">T1105</span><span class="mitre-tag sometimes">T1036</span></td><td>9,136ms</td></tr>
+      <tr><td>3</td><td><span class="pill pill-escalate">escalate</span></td><td>0.080</td><td>0.920</td><td><span class="pill pill-critical">critical</span></td><td><span class="mitre-tag always">T1059.001</span><span class="mitre-tag sometimes">T1027</span><span class="mitre-tag sometimes">T1071.001</span><span class="mitre-tag always">T1105</span></td><td>10,373ms</td></tr>
+      <tr><td>4</td><td><span class="pill pill-escalate">escalate</span></td><td>0.080</td><td>0.960</td><td><span class="pill pill-critical">critical</span></td><td><span class="mitre-tag always">T1059.001</span><span class="mitre-tag sometimes">T1027</span><span class="mitre-tag sometimes">T1071.001</span><span class="mitre-tag always">T1105</span></td><td>9,354ms</td></tr>
+      <tr><td>5</td><td><span class="pill pill-escalate">escalate</span></td><td>0.080</td><td>0.940</td><td><span class="pill pill-critical">critical</span></td><td><span class="mitre-tag always">T1059.001</span><span class="mitre-tag sometimes">T1071.001</span><span class="mitre-tag always">T1105</span><span class="mitre-tag sometimes">T1036.001</span></td><td>9,529ms</td></tr>
+      <tr><td>6</td><td><span class="pill pill-escalate">escalate</span></td><td>0.080</td><td>0.940</td><td><span class="pill pill-critical">critical</span></td><td><span class="mitre-tag always">T1059.001</span><span class="mitre-tag sometimes">T1071.001</span><span class="mitre-tag sometimes">T1027</span><span class="mitre-tag always">T1105</span></td><td>9,633ms</td></tr>
+      <tr><td>7</td><td><span class="pill pill-escalate">escalate</span></td><td>0.080</td><td>0.940</td><td><span class="pill pill-critical">critical</span></td><td><span class="mitre-tag always">T1059.001</span><span class="mitre-tag sometimes">T1027</span><span class="mitre-tag sometimes">T1071.001</span><span class="mitre-tag always">T1105</span></td><td>9,327ms</td></tr>
+      <tr><td>8</td><td><span class="pill pill-escalate">escalate</span></td><td>0.080</td><td>0.920</td><td><span class="pill pill-critical">critical</span></td><td><span class="mitre-tag always">T1059.001</span><span class="mitre-tag sometimes">T1071</span><span class="mitre-tag always">T1105</span><span class="mitre-tag sometimes">T1027</span></td><td>8,920ms</td></tr>
+      <tr><td>9</td><td><span class="pill pill-escalate">escalate</span></td><td>0.080</td><td>0.920</td><td><span class="pill pill-critical">critical</span></td><td><span class="mitre-tag always">T1059.001</span><span class="mitre-tag sometimes">T1027</span><span class="mitre-tag sometimes">T1071.001</span><span class="mitre-tag always">T1105</span></td><td>9,486ms</td></tr>
+      <tr><td>10</td><td><span class="pill pill-escalate">escalate</span></td><td>0.080</td><td>0.940</td><td><span class="pill pill-critical">critical</span></td><td><span class="mitre-tag always">T1059.001</span><span class="mitre-tag sometimes">T1027</span><span class="mitre-tag sometimes">T1071.001</span><span class="mitre-tag always">T1105</span></td><td>10,283ms</td></tr>
+      <tr><td>11</td><td><span class="pill pill-escalate">escalate</span></td><td>0.080</td><td>0.940</td><td><span class="pill pill-critical">critical</span></td><td><span class="mitre-tag always">T1059.001</span><span class="mitre-tag sometimes">T1071</span><span class="mitre-tag sometimes">T1027</span><span class="mitre-tag always">T1105</span></td><td>9,438ms</td></tr>
+      <tr><td>12</td><td><span class="pill pill-escalate">escalate</span></td><td>0.080</td><td>0.940</td><td><span class="pill pill-critical">critical</span></td><td><span class="mitre-tag always">T1059.001</span><span class="mitre-tag sometimes">T1071</span><span class="mitre-tag sometimes">T1027</span><span class="mitre-tag always">T1105</span></td><td>9,011ms</td></tr>
+      <tr><td>13</td><td><span class="pill pill-escalate">escalate</span></td><td>0.080</td><td>0.960</td><td><span class="pill pill-critical">critical</span></td><td><span class="mitre-tag always">T1059.001</span><span class="mitre-tag sometimes">T1071</span><span class="mitre-tag always">T1105</span><span class="mitre-tag sometimes">T1036</span></td><td>9,894ms</td></tr>
+      <tr><td>14</td><td><span class="pill pill-escalate">escalate</span></td><td>0.080</td><td>0.960</td><td><span class="pill pill-critical">critical</span></td><td><span class="mitre-tag always">T1059.001</span><span class="mitre-tag sometimes">T1071.001</span><span class="mitre-tag always">T1105</span><span class="mitre-tag sometimes">T1036.005</span></td><td>9,326ms</td></tr>
+      <tr><td>15</td><td><span class="pill pill-escalate">escalate</span></td><td>0.080</td><td>0.940</td><td><span class="pill pill-critical">critical</span></td><td><span class="mitre-tag always">T1059.001</span><span class="mitre-tag sometimes">T1027</span><span class="mitre-tag sometimes">T1071.001</span><span class="mitre-tag always">T1105</span></td><td>11,941ms</td></tr>
+      <tr><td>16</td><td><span class="pill pill-escalate">escalate</span></td><td>0.080</td><td>0.960</td><td><span class="pill pill-critical">critical</span></td><td><span class="mitre-tag always">T1059.001</span><span class="mitre-tag sometimes">T1071.001</span><span class="mitre-tag always">T1105</span><span class="mitre-tag sometimes">T1036.001</span></td><td>8,966ms</td></tr>
+      <tr><td>17</td><td><span class="pill pill-escalate">escalate</span></td><td>0.080</td><td>0.920</td><td><span class="pill pill-critical">critical</span></td><td><span class="mitre-tag always">T1059.001</span><span class="mitre-tag sometimes">T1071</span><span class="mitre-tag always">T1105</span><span class="mitre-tag sometimes">T1036</span></td><td>8,730ms</td></tr>
+      <tr><td>18</td><td><span class="pill pill-escalate">escalate</span></td><td>0.080</td><td>0.960</td><td><span class="pill pill-critical">critical</span></td><td><span class="mitre-tag always">T1059.001</span><span class="mitre-tag sometimes">T1027</span><span class="mitre-tag sometimes">T1071.001</span><span class="mitre-tag always">T1105</span></td><td>10,047ms</td></tr>
+      <tr><td>19</td><td><span class="pill pill-escalate">escalate</span></td><td>0.080</td><td>0.960</td><td><span class="pill pill-critical">critical</span></td><td><span class="mitre-tag always">T1059.001</span><span class="mitre-tag sometimes">T1071.001</span><span class="mitre-tag sometimes">T1027</span><span class="mitre-tag always">T1105</span></td><td>9,358ms</td></tr>
+      <tr><td>20</td><td><span class="pill pill-escalate">escalate</span></td><td>0.080</td><td>0.960</td><td><span class="pill pill-critical">critical</span></td><td><span class="mitre-tag always">T1059.001</span><span class="mitre-tag sometimes">T1071.001</span><span class="mitre-tag always">T1105</span><span class="mitre-tag sometimes">T1036.005</span></td><td>9,812ms</td></tr>
+      <tr><td>21</td><td><span class="pill pill-escalate">escalate</span></td><td>0.080</td><td>0.940</td><td><span class="pill pill-critical">critical</span></td><td><span class="mitre-tag always">T1059.001</span><span class="mitre-tag sometimes">T1071</span><span class="mitre-tag sometimes">T1027</span><span class="mitre-tag always">T1105</span></td><td>9,431ms</td></tr>
+      <tr><td>22</td><td><span class="pill pill-escalate">escalate</span></td><td>0.080</td><td>0.960</td><td><span class="pill pill-critical">critical</span></td><td><span class="mitre-tag always">T1059.001</span><span class="mitre-tag sometimes">T1071</span><span class="mitre-tag always">T1105</span><span class="mitre-tag sometimes">T1036</span></td><td>9,554ms</td></tr>
+      <tr><td>23</td><td><span class="pill pill-escalate">escalate</span></td><td>0.080</td><td>0.960</td><td><span class="pill pill-critical">critical</span></td><td><span class="mitre-tag always">T1059.001</span><span class="mitre-tag sometimes">T1027</span><span class="mitre-tag sometimes">T1071.001</span><span class="mitre-tag always">T1105</span></td><td>9,595ms</td></tr>
+      <tr><td>24</td><td><span class="pill pill-escalate">escalate</span></td><td>0.080</td><td>0.960</td><td><span class="pill pill-critical">critical</span></td><td><span class="mitre-tag always">T1059.001</span><span class="mitre-tag sometimes">T1071.001</span><span class="mitre-tag always">T1105</span><span class="mitre-tag sometimes">T1036.005</span></td><td>9,876ms</td></tr>
+      <tr><td>25</td><td><span class="pill pill-escalate">escalate</span></td><td>0.080</td><td>0.940</td><td><span class="pill pill-critical">critical</span></td><td><span class="mitre-tag always">T1059.001</span><span class="mitre-tag sometimes">T1071</span><span class="mitre-tag sometimes">T1027</span><span class="mitre-tag always">T1105</span></td><td>9,193ms</td></tr>
+      <tr><td>26</td><td><span class="pill pill-escalate">escalate</span></td><td>0.080</td><td>0.940</td><td><span class="pill pill-critical">critical</span></td><td><span class="mitre-tag always">T1059.001</span><span class="mitre-tag sometimes">T1071.001</span><span class="mitre-tag always">T1105</span><span class="mitre-tag sometimes">T1036.005</span></td><td>9,513ms</td></tr>
+      <tr><td>27</td><td><span class="pill pill-escalate">escalate</span></td><td>0.080</td><td>0.940</td><td><span class="pill pill-critical">critical</span></td><td><span class="mitre-tag always">T1059.001</span><span class="mitre-tag sometimes">T1071</span><span class="mitre-tag sometimes">T1027</span><span class="mitre-tag always">T1105</span></td><td>9,232ms</td></tr>
+      <tr><td>28</td><td><span class="pill pill-escalate">escalate</span></td><td>0.080</td><td>0.940</td><td><span class="pill pill-critical">critical</span></td><td><span class="mitre-tag always">T1059.001</span><span class="mitre-tag sometimes">T1071.001</span><span class="mitre-tag sometimes">T1027</span><span class="mitre-tag always">T1105</span></td><td>9,389ms</td></tr>
+      <tr><td>29</td><td><span class="pill pill-escalate">escalate</span></td><td>0.080</td><td>0.940</td><td><span class="pill pill-critical">critical</span></td><td><span class="mitre-tag always">T1059.001</span><span class="mitre-tag sometimes">T1071</span><span class="mitre-tag sometimes">T1027</span><span class="mitre-tag always">T1105</span></td><td>9,714ms</td></tr>
+      <tr><td>30</td><td><span class="pill pill-escalate">escalate</span></td><td>0.080</td><td>0.920</td><td><span class="pill pill-critical">critical</span></td><td><span class="mitre-tag always">T1059.001</span><span class="mitre-tag sometimes">T1071</span><span class="mitre-tag always">T1105</span><span class="mitre-tag sometimes">T1027</span></td><td>9,054ms</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- Implications -->
+<div class="section">
+  <h2>Implications for Production Triage</h2>
+  <div class="implications-grid">
+    <div class="impl-card">
+      <h3 style="color:#f85149;">Non-Deterministic Output (even at temp=0)</h3>
+      <div class="impl-row"><span class="impl-label">Confidence scores</span><span class="impl-value red">3 distinct values across 30 runs</span></div>
+      <div class="impl-row"><span class="impl-label">MITRE technique mapping</span><span class="impl-value red">6 of 8 techniques appear inconsistently</span></div>
+      <div class="impl-row"><span class="impl-label">Sub-technique granularity</span><span class="impl-value red">T1071 vs T1071.001 — changes per run</span></div>
+      <div class="impl-row"><span class="impl-label">Rationale wording</span><span class="impl-value red">Different text every single run</span></div>
+      <div class="impl-row"><span class="impl-label">IOC emphasis</span><span class="impl-value red">Different IOCs cited per run</span></div>
+    </div>
+    <div class="impl-card">
+      <h3 style="color:#3fb950;">Deterministic Output (at temp=0)</h3>
+      <div class="impl-row"><span class="impl-label">Disposition</span><span class="impl-value green">escalate 30/30</span></div>
+      <div class="impl-row"><span class="impl-label">FP score</span><span class="impl-value green">0.080 all 30 runs</span></div>
+      <div class="impl-row"><span class="impl-label">Severity</span><span class="impl-value green">critical 30/30</span></div>
+      <div class="impl-row"><span class="impl-label">Top 2 MITRE techniques</span><span class="impl-value green">T1105 + T1059.001 in 30/30</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- Conclusion -->
+<div class="section">
+  <div class="finding-banner" style="background:#0d1117; border-color:#30363d;">
+    <h2 style="color:#e1e4e8;">Conclusion</h2>
+    <p style="font-size:14px; color:#8b949e; margin-top:8px; line-height:1.8;">
+      At temperature=0, the LLM's <strong style="color:#3fb950;">binary classification is stable</strong> — disposition, FP score, and severity are
+      consistent across 30 runs. However, <strong style="color:#f85149;">structured output fields are not deterministic</strong>. Confidence scores
+      vary (0.920-0.960), MITRE technique mapping is unreliable (6 of 8 techniques appear inconsistently), and the rationale
+      text changes every run. This means LLMs are <strong style="color:#e1e4e8;">acceptable for coarse-grained classification</strong> (escalate/close/review)
+      when reinforced by policy gates, but <strong style="color:#f85149;">not suitable as the sole source of truth</strong> for fine-grained structured data
+      like MITRE ATT&amp;CK mapping, numeric score calibration, or evidence grounding. These tasks should be handled by
+      deterministic systems — rule engines, trained ML classifiers, or lookup-based mappers — that produce identical
+      output for identical input.
+    </p>
+  </div>
+</div>
+
+</div>
+
+<div class="footer">
+  Apollo Triage Agent LLM Consistency Experiment &mdash; 20260508T192840Z &mdash; claude-haiku-4-5-20251001 &mdash; 30 runs, single execution &mdash; Source: experiment_c2_powershell_20260508T192840Z.json
+</div>
+
+</body>
+</html>

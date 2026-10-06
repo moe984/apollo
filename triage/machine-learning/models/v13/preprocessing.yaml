@@ -1,0 +1,131 @@
+# =============================================================================
+# v13 - THE FROZEN PREPROCESSING CONTRACT FOR THIS RELEASE
+#
+# Self-contained on purpose. A frozen release is a snapshot, and its folder has
+# to describe how to reproduce it without reference to anything that can still
+# be edited. `../../config/preprocessing.yaml` is the WORKING copy the next
+# retrain reads; this file is what v13 was actually built with.
+#
+# Serving resolves this file from MODEL_VERSION, so rolling back to another
+# release picks up that release's rules, key list and threshold together.
+#
+# `rules_sha256` below covers the four rule blocks only. The operating point is
+# excluded: moving a threshold retrains nothing and must not invalidate a
+# release fingerprint.
+# =============================================================================
+release: v13
+frozen_at: '2026-09-24T07:10:48+00:00'
+artifact_selection:
+  require_present:
+  - rule_id
+  require_absent:
+  - SA_DISPOSITION
+  - soar_event
+drop_keys:
+  splunk_plumbing:
+    reason: internal Splunk storage handles; no bearing on the alert
+    keys:
+    - _bkt
+    - _cd
+    - _si
+    - _indextime
+    - _sourcetype
+    - _eventtype_color
+  per_event_identifiers:
+    reason: unique to one alert — a memorised handle on a single training row, never a pattern
+      that transfers
+    keys:
+    - event_id
+    - rule_id
+    - orig_sid
+    - orig_rid
+    - source_event_id
+    - event_hash
+  timestamps:
+    reason: encode WHEN, not WHAT. The not-benign base rate ran 6.5% -> 25.3% across the training
+      window, so a date predicts the window and nothing beyond it
+    keys:
+    - _time
+    - time
+    - timestamp
+    - orig_time
+    - post_time
+    - receipt_time
+    - sla_receipt
+    - info_max_time
+    - info_min_time
+    - info_search_time
+  date_parts:
+    reason: the same, pre-split by Splunk into components
+    keys:
+    - date_hour
+    - date_mday
+    - date_wday
+    - date_year
+    - date_minute
+    - date_month
+    - date_second
+    - date_zone
+  console_urls:
+    reason: per-alert links back into ES or SOAR; unique handles
+    keys:
+    - es_notable_url
+    - ES_NOTABLE_URL
+    - container_url
+    - ES_URL
+  triage_state:
+    reason: LEAKAGE — describes ES-side triage, which is set AFTER the alert arrives and after
+      an analyst has touched it
+    keys:
+    - status
+    - status_default
+    - status_end
+    - status_group
+    - status_label
+    - status_description
+    - owner
+    - owner_realname
+  serving_alignment:
+    reason: present on only one side of the SOAR/Apollo boundary. Leaving them in makes the
+      training string and the serving string differ for the same alert (mean 0.042, max 0.38).
+      See APOLLO_MAPPING.md
+    keys:
+    - extract_artifacts
+    - splunk_query
+empty_values:
+  reason: the field exists but was not filled in
+  values:
+  - none
+  - 'null'
+  - '-'
+  - unknown
+scrub_time_values:
+  matches:
+  - ISO dates
+  - epochs and long numeric ids
+  - bare years 2020-2039
+  - clock times
+  pattern: 20\d{2}[-/]\d{1,2}[-/]\d{1,2}(?:[T ][\d:.]+(?:Z|[+-]\d{2}:?\d{2})?)?|\b\d{9,}(?:\.\d+)?\b|\b20[2-3]\d\b|\b\d{1,2}:\d{2}(?::\d{2})?\b
+rendering:
+  format: key value
+  reason: pairs rather than bare values, so a word bigram can bind a field to its reading
+    — `severity low` and `urgency low` stay distinguishable terms
+  keys_sorted: true
+  lowercase: true
+features:
+  input_column: text_v13
+  tfidf_min_df: 2
+  key_list: null
+  description: the 326 ES notable keys present on >=1% of alerts, plus the six non-identity
+    entity types SecureBERT-NER extracted at >=0.999
+operating_threshold:
+  value: 0.00154
+  calibrated: false
+  method: the release's own zero-miss operating point, from out-of-fold scores across the
+    whole training window - NOT calibrated on a recent window
+  measured:
+    'on': out-of-fold, 5 expanding forward folds
+    auto_closed_pct: 1.0
+    misses: 0
+  warning: a whole-window zero-miss point under-delivers on recent traffic. Run `calibrate.py
+    --version v13 --write` before serving this release.

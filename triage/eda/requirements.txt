@@ -1,0 +1,3 @@
+pandas>=2.2
+dash>=3.0
+plotly>=6.0

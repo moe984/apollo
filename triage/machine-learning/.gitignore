@@ -1,0 +1,9 @@
+!models/
+*.log
+*.parquet
+.DS_Store
+.ipynb_checkpoints/
+.venv/
+__pycache__/
+model.joblib
+training-data/

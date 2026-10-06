@@ -1,0 +1,55 @@
+{
+  "alert_id": "omcnjME71AHIouyA3pkVz",
+  "source": "splunk",
+  "severity": "MEDIUM",
+  "status": "queued",
+  "created_at": "2026-07-10T12:00:10.000Z",
+  "stix_bundle": {
+    "id": "bundle--32f1d5d2-87e3-46e3-9d09-a8d121f2688a",
+    "type": "bundle",
+    "objects": [
+      {
+        "id": "identity--8a39cb88-353a-4829-9ee7-09ed2446fc7e",
+        "name": "Splunk",
+        "type": "identity",
+        "created": "2026-07-10T12:00:10.000Z",
+        "modified": "2026-07-10T12:00:10.000Z",
+        "description": "Splunk app: SplunkSOAR",
+        "spec_version": "2.1",
+        "identity_class": "system"
+      },
+      {
+        "id": "indicator--6c70b7a0-7dda-4243-9b00-5c0ebeec6883",
+        "name": "NSULA - Defender - Leaked Credentials Detected",
+        "type": "indicator",
+        "created": "2026-07-10T12:00:10.000Z",
+        "modified": "2026-07-10T12:00:10.000Z",
+        "pattern": "[ipv4-addr:value = '58.156.204.215']",
+        "pattern_type": "stix",
+        "spec_version": "2.1",
+        "valid_from": "2026-07-10T12:00:10.000Z",
+        "indicator_types": [
+          "anomalous-activity"
+        ],
+        "extensions": {
+          "extension-definition--a85759ca-e4a9-43be-98b9-77f3f1fc7686": {
+            "extension_type": "property-extension",
+            "apollo_severity": "MEDIUM"
+          }
+        }
+      },
+      {
+        "id": "ipv4-addr--0888c32c-f9e2-4356-82f7-c491f507f168",
+        "type": "ipv4-addr",
+        "value": "58.156.204.215"
+      },
+      {
+        "id": "file--74c8848e-ea7e-4a28-9174-c46cecc9fdf0",
+        "type": "file",
+        "hashes": {
+          "SHA-256": "0043b68b8c45807d902fd7bda7a6257a33d245a167d6c3777ab97fa212de203b"
+        }
+      }
+    ]
+  }
+}

@@ -1,0 +1,696 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dedup Engine Dashboard</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4"></script>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #0f1117; color: #e1e4e8; padding: 24px; overflow-y: scroll; }
+  h1 { font-size: 22px; font-weight: 600; margin-bottom: 20px; color: #f0f0f0; }
+  .cards { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; margin-bottom: 20px; }
+  .card { background: #161b22; border: 1px solid #30363d; border-radius: 8px; padding: 20px; text-align: center; }
+  .card .value { font-size: 32px; font-weight: 700; }
+  .card .label { font-size: 13px; color: #8b949e; margin-top: 4px; }
+  .card.dup .value { color: #f85149; }
+  .card.new .value { color: #3fb950; }
+  .card.total .value { color: #58a6ff; }
+  .card.similar .value { color: #d29922; }
+  .charts { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; margin-bottom: 20px; }
+  .chart-box { background: #161b22; border: 1px solid #30363d; border-radius: 8px; padding: 20px; }
+  .chart-box h2 { font-size: 14px; color: #8b949e; margin-bottom: 12px; font-weight: 500; }
+  .chart-box canvas { max-height: 260px; }
+  .alerts-section { background: #161b22; border: 1px solid #30363d; border-radius: 8px; padding: 20px; overflow-x: auto; }
+  .alerts-section h2 { font-size: 14px; color: #8b949e; margin-bottom: 12px; font-weight: 500; }
+  .alerts-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
+  .alerts-header .count { font-size: 12px; color: #8b949e; }
+  table { width: 100%; border-collapse: collapse; font-size: 12px; }
+  th { text-align: left; padding: 8px 10px; border-bottom: 1px solid #30363d; color: #8b949e; font-weight: 500; cursor: pointer; user-select: none; white-space: nowrap; }
+  th:hover { color: #e1e4e8; }
+  th .sort-arrow { font-size: 10px; margin-left: 4px; }
+  td { padding: 6px 10px; border-bottom: 1px solid #21262d; }
+  .filter-row input, .filter-row select { background: #0d1117; border: 1px solid #30363d; color: #e1e4e8; padding: 4px 8px; font-size: 11px; border-radius: 4px; width: 100%; }
+  .filter-row td { padding: 4px 10px; }
+  .badge { display: inline-block; padding: 2px 8px; border-radius: 10px; font-size: 11px; font-weight: 600; }
+  .badge-duplicate { background: #f8514922; color: #f85149; }
+  .badge-similar { background: #d2992222; color: #d29922; }
+  .badge-new { background: #3fb95022; color: #3fb950; }
+  .badge-parent { background: #8957e522; color: #a371f7; }
+  .badge-child { background: #1f6feb22; color: #58a6ff; }
+  .badge-standalone { background: #6e768122; color: #8b949e; }
+  .mono { font-family: 'SF Mono', 'Fira Code', monospace; font-size: 11px; color: #8b949e; }
+  .slots { font-size: 11px; color: #8b949e; }
+  .slot-match { color: #3fb950; }
+  .slot-miss { color: #f85149; }
+  .ioc-tag { display: inline-block; padding: 1px 6px; margin: 1px 2px; border-radius: 3px; font-size: 10px; font-weight: 600; cursor: default; }
+  .ioc-tag.slot-match { background: #3fb95022; border: 1px solid #3fb950; }
+  .ioc-tag.slot-partial { background: #d2992222; border: 1px solid #d29922; color: #d29922; }
+  .ioc-tag.slot-miss { background: #f8514922; border: 1px solid #f85149; }
+  .pagination { display: flex; align-items: center; gap: 8px; margin-top: 12px; justify-content: center; }
+  .pagination button { background: #21262d; border: 1px solid #30363d; color: #e1e4e8; padding: 6px 12px; border-radius: 4px; cursor: pointer; font-size: 12px; }
+  .pagination button:hover { background: #30363d; }
+  .pagination button:disabled { opacity: 0.4; cursor: default; }
+  .pagination .page-info { font-size: 12px; color: #8b949e; }
+  .loading { text-align: center; padding: 60px; color: #8b949e; }
+  /* --- Verdict explainability (decision panel) --- */
+  .caret { cursor: pointer; color: #8b949e; width: 22px; text-align: center; user-select: none; font-size: 10px; }
+  tr.alert-row { cursor: pointer; }
+  tr.alert-row:hover > td { background: #1c2230; }
+  tr.alert-row.open > td { background: #1c2230; }
+  .detail-row > td { background: #0d1117; padding: 0; }
+  .detail-panel { padding: 16px 20px; border-left: 2px solid #30363d; }
+  .reason { font-size: 13px; line-height: 1.55; color: #e1e4e8; background: #161b22; border: 1px solid #30363d; border-left: 3px solid #58a6ff; padding: 10px 14px; border-radius: 4px; margin-bottom: 14px; }
+  .reason.duplicate { border-left-color: #f85149; }
+  .reason.similar { border-left-color: #d29922; }
+  .reason.new { border-left-color: #3fb950; }
+  .reason .why-label { font-weight: 600; color: #8b949e; text-transform: uppercase; font-size: 10px; letter-spacing: .6px; display: block; margin-bottom: 5px; }
+  .steps { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; margin-bottom: 14px; font-size: 11px; }
+  .step { display: inline-flex; align-items: center; gap: 5px; padding: 4px 9px; border-radius: 12px; background: #161b22; border: 1px solid #30363d; color: #8b949e; }
+  .step.pass { color: #3fb950; border-color: #3fb95055; }
+  .step.fail { color: #f85149; border-color: #f8514955; }
+  .step.skip { color: #6e7681; }
+  .step-arrow { color: #6e7681; }
+  .evidence-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 10px; margin-bottom: 14px; }
+  .ev-item { background: #161b22; border: 1px solid #30363d; border-radius: 6px; padding: 8px 10px; }
+  .ev-item .k { font-size: 10px; color: #8b949e; text-transform: uppercase; letter-spacing: .4px; }
+  .ev-item .v { font-size: 13px; color: #e1e4e8; margin-top: 3px; font-family: 'SF Mono', monospace; word-break: break-word; }
+  .ev-item .v.pass { color: #3fb950; }
+  .ev-item .v.fail { color: #f85149; }
+  .ev-item .v.warn { color: #d29922; }
+  .ev-item .sub { font-size: 10px; color: #6e7681; margin-top: 2px; }
+  .ioc-detail { width: 100%; border-collapse: collapse; margin-top: 4px; }
+  .ioc-detail caption { text-align: left; font-size: 10px; color: #8b949e; text-transform: uppercase; letter-spacing: .4px; margin-bottom: 4px; }
+  .ioc-detail th, .ioc-detail td { text-align: left; padding: 4px 8px; border-bottom: 1px solid #21262d; font-size: 11px; }
+  .ioc-detail th { color: #8b949e; font-weight: 500; }
+  .ioc-detail td.status-match { color: #3fb950; }
+  .ioc-detail td.status-partial { color: #d29922; }
+  .ioc-detail td.status-miss { color: #f85149; }
+  .ioc-detail .val { font-family: 'SF Mono', monospace; color: #c9d1d9; }
+  /* --- Parent/child bundle comparison --- */
+  .compare { margin-top: 16px; }
+  .cmp-head { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin-bottom: 8px; font-size: 11px; color: #8b949e; }
+  .cmp-head .anchor { font-family: 'SF Mono', monospace; color: #58a6ff; }
+  .cmp-head .arrow { color: #6e7681; }
+  .cmp-head select { background: #0d1117; border: 1px solid #30363d; color: #e1e4e8; padding: 4px 8px; font-size: 11px; border-radius: 4px; max-width: 420px; }
+  .cmp-label { font-size: 10px; color: #8b949e; text-transform: uppercase; letter-spacing: .4px; margin-bottom: 6px; display: block; }
+  .cmp-table { width: 100%; border-collapse: collapse; }
+  .cmp-table th, .cmp-table td { text-align: left; padding: 5px 10px; border-bottom: 1px solid #21262d; font-size: 11px; vertical-align: top; }
+  .cmp-table th { color: #8b949e; font-weight: 500; }
+  .cmp-table td.field { color: #8b949e; width: 110px; white-space: nowrap; }
+  .cmp-table td.val { font-family: 'SF Mono', monospace; color: #c9d1d9; word-break: break-word; width: 40%; }
+  .cmp-table td.val.mismatch { color: #f0b7b3; }
+  .cmp-table td.status { width: 90px; font-weight: 600; white-space: nowrap; }
+  .cmp-same { color: #3fb950; }
+  .cmp-diff { color: #f85149; }
+  .cmp-partial { color: #d29922; }
+  .cmp-missing { color: #6e7681; font-style: italic; }
+  /* stacked one-on-one comparison: parent | match, one row per child */
+  .cmp-stack { width: 100%; border-collapse: collapse; }
+  .cmp-stack > thead th { text-align: left; font-size: 10px; color: #8b949e; text-transform: uppercase; letter-spacing: .4px; padding: 4px 12px; border-bottom: 1px solid #30363d; width: 50%; }
+  .cmp-stack > tbody > tr > td { vertical-align: top; padding: 10px 12px; border-bottom: 1px solid #21262d; width: 50%; }
+  .cmp-stack .parent-cell { background: #12161d; }
+  .cmp-stack .parent-cell.empty { background: #0d1117; }
+  .tile-head { display: flex; align-items: center; gap: 6px; margin-bottom: 6px; }
+  .tile-head .cid { font-family: 'SF Mono', monospace; color: #58a6ff; font-size: 10px; }
+  .tile-head .cscore { color: #6e7681; font-size: 10px; }
+  table.tile { border-collapse: collapse; width: 100%; }
+  table.tile td { padding: 3px 6px; font-size: 11px; border-bottom: 1px solid #1b2029; vertical-align: top; }
+  table.tile td.tf { color: #8b949e; width: 92px; white-space: nowrap; }
+  table.tile td.tv { font-family: 'SF Mono', monospace; color: #c9d1d9; word-break: break-word; }
+  table.tile td.tv.c-same { color: #3fb950; }
+  table.tile td.tv.c-diff { color: #f0b7b3; }
+  table.tile td.tv.c-partial { color: #d29922; }
+  table.tile .mk { font-size: 10px; margin-left: 4px; }
+  @media (max-width: 900px) {
+    .cards { grid-template-columns: repeat(2, 1fr); }
+    .charts, .tables-top { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+<h1>Dedup Engine Dashboard</h1>
+<div id="app" class="loading">Loading...</div>
+
+<script>
+const COLORS = {
+  DUPLICATE: '#f85149', SIMILAR: '#d29922', NEW: '#3fb950',
+  HIGH: '#f85149', MEDIUM: '#d29922', INFO: '#58a6ff', UNKNOWN: '#8b949e'
+};
+const PAGE_SIZE = 30;
+
+let _allAlerts = [];
+let _filteredAlerts = [];
+let _currentPage = 0;
+let _sortCol = null;
+let _sortAsc = true;
+let _filters = {};
+let _expanded = new Set();
+let _thresholds = { layer1_confidence: 80, layer2_fuzzy: 80 };
+let _alertById = {};       // alert_id -> log entry
+let _clusters = {};        // parent alert_id -> { children: [entries] }
+
+async function load() {
+  const resp = await fetch('/api/v1/dashboard/data');
+  const data = await resp.json();
+  _allAlerts = data.all_alerts || [];
+  _filteredAlerts = _allAlerts;
+  _thresholds = data.thresholds || _thresholds;
+  buildClusters();
+  render(data);
+}
+
+// Group matched alerts (SIMILAR/DUPLICATE) under the parent they matched.
+function buildClusters() {
+  _alertById = {};
+  _clusters = {};
+  for (const e of _allAlerts) _alertById[e.alert_id] = e;
+  for (const e of _allAlerts) {
+    const pid = e.matched_alert_id;
+    if (!pid) continue;                       // NEW / no parent
+    (_clusters[pid] = _clusters[pid] || { children: [] }).children.push(e);
+  }
+  // Keep children in arrival order (parent first-arrived, children after)
+  for (const pid in _clusters) {
+    _clusters[pid].children.sort((a, b) => String(a.timestamp).localeCompare(String(b.timestamp)));
+  }
+}
+
+// Relationship role of a bundle within its dedup cluster.
+//   Parent     — a NEW that later had duplicates/similars matched to it
+//   Child      — a DUPLICATE or SIMILAR (points to a parent)
+//   Standalone — a NEW nothing has matched (yet)
+function roleOf(e) {
+  const c = _clusters[e.alert_id];
+  if (c && c.children.length) return { role: 'Parent', count: c.children.length };
+  if (e.matched_alert_id) return { role: 'Child', count: 0 };
+  return { role: 'Standalone', count: 0 };
+}
+
+function roleBadge(e) {
+  const r = roleOf(e);
+  if (r.role === 'Parent') return `<span class="badge badge-parent">Parent &middot; ${r.count}</span>`;
+  if (r.role === 'Child') return `<span class="badge badge-child">Child</span>`;
+  return `<span class="badge badge-standalone">Standalone</span>`;
+}
+
+function render(d) {
+  const app = document.getElementById('app');
+  app.className = '';
+  app.innerHTML = `
+    <div class="cards">
+      <div class="card total"><div class="value">${d.total}</div><div class="label">Total Alerts</div></div>
+      <div class="card dup"><div class="value">${d.verdicts.DUPLICATE || 0}</div><div class="label">Duplicates</div></div>
+      <div class="card new"><div class="value">${d.verdicts.NEW || 0}</div><div class="label">New</div></div>
+      <div class="card similar"><div class="value">${d.verdicts.SIMILAR || 0}</div><div class="label">Similar</div></div>
+    </div>
+    <div class="charts">
+      <div class="chart-box"><h2>Verdict Distribution</h2><canvas id="ch-verdict"></canvas></div>
+      <div class="chart-box"><h2>Confidence Distribution</h2><canvas id="ch-confidence"></canvas></div>
+      <div class="chart-box"><h2>Severity x Verdict</h2><canvas id="ch-severity"></canvas></div>
+      <div class="chart-box"><h2>Slot Match / Miss</h2><canvas id="ch-slots"></canvas></div>
+    </div>
+    <div class="alerts-section">
+      <div class="alerts-header">
+        <h2>All Alerts</h2>
+        <span class="count" id="alert-count"></span>
+      </div>
+      <table id="tbl-alerts">
+        <thead id="tbl-alerts-head"></thead>
+        <tbody id="tbl-alerts-body"></tbody>
+      </table>
+      <div class="pagination" id="pagination"></div>
+    </div>
+  `;
+  drawVerdict(d);
+  drawConfidence(d);
+  drawSeverity(d);
+  drawSlots(d);
+  renderAlertHead();
+  renderAlertTable();
+}
+
+function chartOpts(type) {
+  return {
+    responsive: true, maintainAspectRatio: false,
+    plugins: { legend: { labels: { color: '#8b949e', font: { size: 11 } } } },
+    scales: type === 'bar' ? {
+      x: { ticks: { color: '#8b949e' }, grid: { color: '#21262d' } },
+      y: { ticks: { color: '#8b949e' }, grid: { color: '#21262d' } }
+    } : undefined
+  };
+}
+
+function drawVerdict(d) {
+  const labels = ['DUPLICATE', 'SIMILAR', 'NEW'];
+  new Chart(document.getElementById('ch-verdict'), {
+    type: 'doughnut',
+    data: { labels, datasets: [{ data: labels.map(l => d.verdicts[l] || 0), backgroundColor: labels.map(l => COLORS[l]), borderWidth: 0 }] },
+    options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'bottom', labels: { color: '#8b949e' } } } }
+  });
+}
+
+function drawConfidence(d) {
+  const labels = Object.keys(d.confidence_buckets);
+  const values = labels.map(k => d.confidence_buckets[k]);
+  new Chart(document.getElementById('ch-confidence'), {
+    type: 'bar',
+    data: { labels, datasets: [{ data: values, backgroundColor: '#58a6ff', borderWidth: 0 }] },
+    options: { ...chartOpts('bar'), plugins: { legend: { display: false } } }
+  });
+}
+
+function drawSeverity(d) {
+  const sevs = Object.keys(d.severity_verdicts).sort();
+  const verdicts = ['DUPLICATE', 'SIMILAR', 'NEW'];
+  new Chart(document.getElementById('ch-severity'), {
+    type: 'bar',
+    data: { labels: sevs, datasets: verdicts.map(v => ({ label: v, data: sevs.map(s => d.severity_verdicts[s][v] || 0), backgroundColor: COLORS[v] })) },
+    options: { ...chartOpts('bar'), scales: { ...chartOpts('bar').scales, x: { ...chartOpts('bar').scales.x, stacked: true }, y: { ...chartOpts('bar').scales.y, stacked: true } } }
+  });
+}
+
+function drawSlots(d) {
+  const slots = Object.keys(d.slot_stats).sort();
+  new Chart(document.getElementById('ch-slots'), {
+    type: 'bar',
+    data: { labels: slots, datasets: [
+      { label: 'Matched', data: slots.map(s => d.slot_stats[s].matched || 0), backgroundColor: '#3fb950' },
+      { label: 'Missed', data: slots.map(s => d.slot_stats[s].missed || 0), backgroundColor: '#f85149' }
+    ]},
+    options: { ...chartOpts('bar'), scales: { ...chartOpts('bar').scales, x: { ...chartOpts('bar').scales.x, stacked: true }, y: { ...chartOpts('bar').scales.y, stacked: true } } }
+  });
+}
+
+function badge(verdict) {
+  return `<span class="badge badge-${verdict.toLowerCase()}">${verdict}</span>`;
+}
+
+
+
+
+// --- Alert Table with pagination, sorting, filtering ---
+
+const IOC_TYPES = ['ip', 'user', 'email', 'domain', 'url', 'file_hash'];
+const COLS = [
+  { key: 'alert_id', label: 'Alert ID', type: 'text' },
+  { key: 'severity', label: 'Severity', type: 'select', options: ['', 'HIGH', 'MEDIUM', 'INFO'] },
+  { key: 'verdict', label: 'Verdict', type: 'select', options: ['', 'DUPLICATE', 'SIMILAR', 'NEW'] },
+  { key: 'role', label: 'Role', type: 'select', options: ['', 'Parent', 'Child', 'Standalone'] },
+  { key: 'hash_confidence', label: 'Hash', type: 'text' },
+  { key: 'fuzzy_score', label: 'Fuzzy', type: 'text' },
+  { key: 'stix_context_similarity', label: 'STIX Obj', type: 'text' },
+  { key: 'stix_observable_by_type', label: 'Obs/Type', type: 'text' },
+  { key: 'stix_observable_by_value', label: 'Obs/Value', type: 'text' },
+  { key: 'rule', label: 'Rule', type: 'text' },
+  { key: 'iocs', label: 'IOCs', type: 'text' },
+  { key: 'matched_alert_id', label: 'Matched', type: 'text' },
+];
+
+function applyFilters() {
+  _filteredAlerts = _allAlerts.filter(e => {
+    for (const col of COLS) {
+      const f = _filters[col.key];
+      if (!f) continue;
+      const fl = f.toLowerCase();
+      if (col.key === 'hash_confidence' || col.key === 'fuzzy_score' || col.key === 'stix_context_similarity' || col.key === 'stix_observable_by_type' || col.key === 'stix_observable_by_value') {
+        const raw = col.key === 'fuzzy_score' ? ((e.score_breakdown || {}).fuzzy_score || 0) : (e[col.key] || 0);
+        const val = String(raw > 0 ? (col.key === 'hash_confidence' ? (raw * 100).toFixed(0) + '%' : raw.toFixed(0)) : '0');
+        if (!val.toLowerCase().includes(fl)) return false;
+      } else if (col.key === 'iocs') {
+        const allIocs = Object.entries(e.input_iocs || {}).map(([t, v]) => t + ':' + v.join(',')).join(' ');
+        if (!allIocs.toLowerCase().includes(fl)) return false;
+      } else if (col.key === 'role') {
+        if (!roleOf(e).role.toLowerCase().includes(fl)) return false;
+      } else if (col.key === 'rule') {
+        if (!(e.rule || '').toLowerCase().includes(fl)) return false;
+      } else {
+        const val = String(e[col.key] || '');
+        if (!val.toLowerCase().includes(fl)) return false;
+      }
+    }
+    return true;
+  });
+  _currentPage = 0;
+  renderAlertTable();
+}
+
+function sortBy(key) {
+  if (_sortCol === key) {
+    _sortAsc = !_sortAsc;
+  } else {
+    _sortCol = key;
+    _sortAsc = true;
+  }
+  _filteredAlerts.sort((a, b) => {
+    let va, vb;
+    if (key === 'hash_confidence') { va = a.hash_confidence || 0; vb = b.hash_confidence || 0; }
+    else if (key === 'fuzzy_score') { va = (a.score_breakdown || {}).fuzzy_score || 0; vb = (b.score_breakdown || {}).fuzzy_score || 0; }
+    else if (key === 'stix_context_similarity') { va = a.stix_context_similarity || 0; vb = b.stix_context_similarity || 0; }
+    else if (key === 'stix_observable_by_type') { va = a.stix_observable_by_type || 0; vb = b.stix_observable_by_type || 0; }
+    else if (key === 'stix_observable_by_value') { va = a.stix_observable_by_value || 0; vb = b.stix_observable_by_value || 0; }
+    else if (key === 'iocs') {
+      va = Object.values(a.input_iocs || {}).flat().join(' ').toLowerCase();
+      vb = Object.values(b.input_iocs || {}).flat().join(' ').toLowerCase();
+    }
+    else if (key === 'role') { va = roleOf(a).role; vb = roleOf(b).role; }
+    else { va = String(a[key] || '').toLowerCase(); vb = String(b[key] || '').toLowerCase(); }
+    if (va < vb) return _sortAsc ? -1 : 1;
+    if (va > vb) return _sortAsc ? 1 : -1;
+    return 0;
+  });
+  renderAlertHead();
+  renderAlertTable();
+}
+
+function renderAlertHead() {
+  const head = document.getElementById('tbl-alerts-head');
+  let html = '<tr><th title="Expand for the decision reason"></th>';
+  for (const col of COLS) {
+    const arrow = _sortCol === col.key ? (_sortAsc ? ' &#9650;' : ' &#9660;') : '';
+    html += `<th onclick="sortBy('${col.key}')">${col.label}<span class="sort-arrow">${arrow}</span></th>`;
+  }
+  html += '</tr><tr class="filter-row"><td></td>';
+  for (const col of COLS) {
+    if (col.type === 'select') {
+      const val = _filters[col.key] || '';
+      html += `<td><select onchange="_filters['${col.key}']=this.value;applyFilters()">`;
+      for (const o of col.options) html += `<option value="${o}" ${val === o ? 'selected' : ''}>${o || 'All'}</option>`;
+      html += '</select></td>';
+    } else {
+      const val = _filters[col.key] || '';
+      html += `<td><input type="text" placeholder="Filter..." value="${val}" oninput="_filters['${col.key}']=this.value;applyFilters()"></td>`;
+    }
+  }
+  html += '</tr>';
+  head.innerHTML = html;
+}
+
+function renderAlertTable() {
+  const totalPages = Math.ceil(_filteredAlerts.length / PAGE_SIZE);
+  const start = _currentPage * PAGE_SIZE;
+  const page = _filteredAlerts.slice(start, start + PAGE_SIZE);
+
+  document.getElementById('alert-count').textContent = `${_filteredAlerts.length} alerts`;
+
+  // Body only — don't touch the head/filters
+  const body = document.getElementById('tbl-alerts-body');
+  let html = '';
+  for (const e of page) {
+    const aid = e.alert_id;
+    const mid = e.matched_alert_id || '';
+    const conf = e.hash_confidence > 0 ? (e.hash_confidence * 100).toFixed(0) + '%' : '';
+    const fuzzy = (e.score_breakdown || {}).fuzzy_score;
+    const fuzzyDisplay = fuzzy > 0 ? fuzzy.toFixed(0) : '';
+    const ctxSim = e.stix_context_similarity > 0 ? e.stix_context_similarity.toFixed(0) : '';
+    const obsType = e.stix_observable_by_type > 0 ? e.stix_observable_by_type.toFixed(0) : '';
+    const obsVal = e.stix_observable_by_value > 0 ? e.stix_observable_by_value.toFixed(0) : '';
+    const rule = (e.rule || '').substring(0, 40);
+    const iocs = e.input_iocs || {};
+    const matched = e.matched_slots || [];
+    const fuzzyScores = (e.score_breakdown || {}).per_type_scores || {};
+    const iocTags = IOC_TYPES.map(t => {
+      const vals = (iocs[t] || []).join(', ');
+      if (!vals) return '';
+      let cls;
+      if (matched.includes(t)) {
+        cls = 'slot-match';
+      } else if (fuzzyScores[t] !== undefined && fuzzyScores[t] >= 50) {
+        cls = 'slot-match';
+      } else if (fuzzyScores[t] !== undefined && fuzzyScores[t] > 0) {
+        cls = 'slot-partial';
+      } else {
+        cls = 'slot-miss';
+      }
+      const scoreInfo = fuzzyScores[t] !== undefined ? ` (fuzzy: ${fuzzyScores[t].toFixed(0)}%)` : '';
+      return `<span class="ioc-tag ${cls}" title="${vals}${scoreInfo}">${t}</span>`;
+    }).filter(Boolean).join(' ');
+    const open = _expanded.has(aid);
+    html += `<tr class="alert-row${open ? ' open' : ''}" onclick="toggleRow('${jsStr(aid)}')">
+      <td class="caret">${open ? '&#9660;' : '&#9654;'}</td>
+      <td class="mono">${aid}</td>
+      <td>${e.severity}</td>
+      <td>${badge(e.verdict)}</td>
+      <td>${roleBadge(e)}</td>
+      <td>${conf}</td>
+      <td>${fuzzyDisplay}</td>
+      <td>${ctxSim}</td>
+      <td>${obsType}</td>
+      <td>${obsVal}</td>
+      <td title="${e.rule || ''}" style="max-width:180px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${rule}</td>
+      <td>${iocTags}</td>
+      <td class="mono">${mid}</td>
+    </tr>`;
+    if (open) {
+      html += `<tr class="detail-row"><td colspan="${COLS.length + 1}">${buildDetailPanel(e)}</td></tr>`;
+    }
+  }
+  body.innerHTML = html;
+
+  // Pagination
+  const pag = document.getElementById('pagination');
+  pag.innerHTML = `
+    <button onclick="_currentPage=0;renderAlertTable()" ${_currentPage === 0 ? 'disabled' : ''}>First</button>
+    <button onclick="_currentPage--;renderAlertTable()" ${_currentPage === 0 ? 'disabled' : ''}>Prev</button>
+    <span class="page-info">Page ${_currentPage + 1} of ${totalPages || 1}</span>
+    <button onclick="_currentPage++;renderAlertTable()" ${_currentPage >= totalPages - 1 ? 'disabled' : ''}>Next</button>
+    <button onclick="_currentPage=${totalPages - 1};renderAlertTable()" ${_currentPage >= totalPages - 1 ? 'disabled' : ''}>Last</button>
+  `;
+}
+
+// --- Verdict explainability -------------------------------------------------
+
+function jsStr(s) { return String(s).replace(/\\/g, '\\\\').replace(/'/g, "\\'"); }
+function esc(s) { return String(s == null ? '' : s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;'); }
+
+function toggleRow(aid) {
+  if (_expanded.has(aid)) _expanded.delete(aid); else _expanded.add(aid);
+  renderAlertTable();
+}
+
+// Plain-language "why" for a verdict, derived only from what the engine logged.
+function verdictReason(e) {
+  const sb = e.score_breakdown || {};
+  const mid = e.matched_alert_id || '';
+  const t1 = _thresholds.layer1_confidence, t2 = _thresholds.layer2_fuzzy;
+  if (e.verdict === 'DUPLICATE') {
+    const matched = (e.matched_slots || []).join(', ') || 'none';
+    const missed = (e.missed_slots || []).length ? (e.missed_slots).join(', ') : 'none';
+    const conf = Math.round((e.hash_confidence || 0) * 100);
+    return `Flagged as a <b>DUPLICATE</b> of <span class="mono">${esc(mid)}</span> by Layer&nbsp;1 (exact hash match). ` +
+      `Both alerts fired the <b>same rule</b> inside the <b>same ${winMin(e)}-minute window</b>, and their indicator-of-compromise slots are identical where present ` +
+      `(matched: <span class="slot-match">${esc(matched)}</span>; missed: ${esc(missed)}). ` +
+      `That gives a hash confidence of <b>${conf}%</b>, at or above the <b>${t1}%</b> duplicate threshold.`;
+  }
+  if (e.verdict === 'SIMILAR') {
+    const per = sb.per_type_scores || {};
+    const parts = Object.entries(per).map(([k, v]) => `${esc(k)} ${Math.round(v)}%`).join(', ');
+    const fz = Math.round(sb.fuzzy_score || 0);
+    return `Flagged as <b>SIMILAR</b> to <span class="mono">${esc(mid)}</span> by Layer&nbsp;2 (fuzzy match). ` +
+      `It was <b>not</b> a duplicate because it fired a <b>different rule</b> ` +
+      `("${esc(sb.incoming_rule || e.rule)}" vs. "${esc(sb.matched_rule || '')}"), so Layer&nbsp;1 was skipped. ` +
+      `Comparing IOC values instead, the overall similarity is <b>${fz}%</b> (${parts || 'n/a'}), at or above the <b>${t2}%</b> similarity threshold — ` +
+      `overlapping observables, but not identical.`;
+  }
+  // NEW
+  if (sb.data_quality_warning) {
+    return `Recorded as <b>NEW</b> and flagged as a <b>data-quality issue</b>: ${esc(sb.data_quality_warning)}. ` +
+      `With no IOCs to compare, neither layer can match it, so it is stored as a new alert.`;
+  }
+  return `Recorded as <b>NEW</b>. No earlier alert in the same ${winMin(e)}-minute window shared this rule with enough IOC overlap to clear the <b>${t1}%</b> Layer&nbsp;1 threshold, ` +
+    `and no different-rule alert was fuzzy-similar enough to clear the <b>${t2}%</b> Layer&nbsp;2 threshold. This is the first time these observables have been seen.`;
+}
+
+function winMin(e) {
+  const tb = e.time_bucket || {};
+  return tb.window_minutes != null ? tb.window_minutes : 30;
+}
+
+// The layer-by-layer decision path as chips.
+function decisionSteps(e) {
+  const sb = e.score_breakdown || {};
+  const t1 = _thresholds.layer1_confidence, t2 = _thresholds.layer2_fuzzy;
+  const chip = (cls, txt) => `<span class="step ${cls}">${txt}</span>`;
+  const arrow = '<span class="step-arrow">&rarr;</span>';
+  const out = [];
+  if (e.verdict === 'DUPLICATE') {
+    out.push(chip('pass', `Layer 1 &#10003; hash ${Math.round((e.hash_confidence || 0) * 100)}% &ge; ${t1}%`));
+    out.push(arrow, chip('pass', 'Verdict: DUPLICATE'));
+  } else if (e.verdict === 'SIMILAR') {
+    out.push(chip('fail', 'Layer 1 &#10007; different rule'));
+    out.push(arrow, chip('pass', `Layer 2 &#10003; fuzzy ${Math.round(sb.fuzzy_score || 0)}% &ge; ${t2}%`));
+    out.push(arrow, chip('pass', 'Verdict: SIMILAR'));
+  } else {
+    if (sb.data_quality_warning) {
+      out.push(chip('skip', 'No IOCs extracted'), arrow, chip('fail', 'Layer 1 &#10007;'), arrow, chip('fail', 'Layer 2 &#10007;'));
+    } else {
+      out.push(chip('fail', `Layer 1 &#10007; < ${t1}%`), arrow, chip('fail', `Layer 2 &#10007; < ${t2}%`));
+    }
+    out.push(arrow, chip('pass', 'Verdict: NEW'));
+  }
+  return `<div class="steps">${out.join(' ')}</div>`;
+}
+
+// Per-IOC evidence: value(s) and how each slot compared to the matched alert.
+function iocEvidenceTable(e) {
+  const iocs = e.input_iocs || {};
+  const types = Object.keys(iocs);
+  if (!types.length) return '';
+  const matched = new Set(e.matched_slots || []);
+  const missed = new Set(e.missed_slots || []);
+  const per = (e.score_breakdown || {}).per_type_scores || {};
+  let rows = '';
+  for (const t of types.sort()) {
+    const vals = (iocs[t] || []).join(', ');
+    let cls, status;
+    if (matched.has(t)) { cls = 'status-match'; status = 'identical'; }
+    else if (per[t] !== undefined) {
+      const s = Math.round(per[t]);
+      if (per[t] >= _thresholds.layer2_fuzzy) { cls = 'status-match'; status = `fuzzy ${s}%`; }
+      else if (per[t] > 0) { cls = 'status-partial'; status = `fuzzy ${s}% (partial)`; }
+      else { cls = 'status-miss'; status = 'no overlap'; }
+    } else if (missed.has(t)) { cls = 'status-miss'; status = 'differs'; }
+    else { cls = ''; status = e.verdict === 'NEW' ? 'stored (no match)' : '—'; }
+    rows += `<tr><td>${esc(t)}</td><td class="val">${esc(vals)}</td><td class="${cls}">${status}</td></tr>`;
+  }
+  return `<table class="ioc-detail"><caption>Indicators compared</caption>` +
+    `<thead><tr><th>Type</th><th>Value</th><th>vs. matched alert</th></tr></thead><tbody>${rows}</tbody></table>`;
+}
+
+function evItem(k, v, cls, sub) {
+  return `<div class="ev-item"><div class="k">${k}</div><div class="v ${cls || ''}">${v}</div>${sub ? `<div class="sub">${sub}</div>` : ''}</div>`;
+}
+
+function scoreEvidence(e) {
+  const sb = e.score_breakdown || {};
+  const t1 = _thresholds.layer1_confidence, t2 = _thresholds.layer2_fuzzy;
+  const items = [];
+  if (e.verdict === 'DUPLICATE') {
+    const c = Math.round((e.hash_confidence || 0) * 100);
+    items.push(evItem('Hash confidence', c + '%', c >= t1 ? 'pass' : 'fail', `threshold ${t1}%`));
+  }
+  if (e.verdict === 'SIMILAR') {
+    const f = Math.round(sb.fuzzy_score || 0);
+    items.push(evItem('Fuzzy similarity', f + '%', f >= t2 ? 'pass' : 'fail', `threshold ${t2}%`));
+  }
+  if (e.stix_context_similarity > 0) items.push(evItem('STIX context', Math.round(e.stix_context_similarity) + '%', '', 'cross-check'));
+  if (e.stix_observable_by_type > 0) items.push(evItem('Observable / type', Math.round(e.stix_observable_by_type) + '%', '', 'cross-check'));
+  if (e.stix_observable_by_value > 0) items.push(evItem('Observable / value', Math.round(e.stix_observable_by_value) + '%', '', 'cross-check'));
+  const cand = (e.candidate_counts || []).length;
+  items.push(evItem('Candidates scored', String(cand), '', 'in window'));
+  const tb = e.time_bucket || {};
+  if (tb.window_start) {
+    const w = `${String(tb.window_start).substring(11, 16)}&ndash;${String(tb.window_end || '').substring(11, 16)} UTC`;
+    items.push(evItem('Time window', w, '', `${winMin(e)} min bucket`));
+  }
+  if (e.matched_alert_id) items.push(evItem('Matched alert', `<span class="mono">${esc(e.matched_alert_id)}</span>`, '', e.verdict === 'SIMILAR' ? esc(sb.matched_rule || '') : 'same rule'));
+  return `<div class="evidence-grid">${items.join('')}</div>`;
+}
+
+// Fields compared between parent and child bundle content.
+const CMP_FIELDS = [
+  { label: 'Rule', k: 'alert_name', list: false },
+  { label: 'Severity', k: 'severity', list: false },
+  { label: 'IP', k: 'ips', list: true },
+  { label: 'User', k: 'usernames', list: true },
+  { label: 'Email', k: 'emails', list: true },
+  { label: 'Domain', k: 'domains', list: true },
+  { label: 'URL', k: 'urls', list: true },
+  { label: 'File hash', k: 'file_hashes', list: true },
+  { label: 'Description', k: 'description', list: false },
+];
+
+function _fieldVals(entry, f) {
+  const ia = entry.input_alert || {};
+  if (f.list) return (ia[f.k] || []).slice();
+  const v = ia[f.k] != null ? ia[f.k] : (entry[f.k] || '');
+  return v === '' ? [] : [String(v)];
+}
+
+function cmpClass(parent, child, f) {
+  const pv = _fieldVals(parent, f), cv = _fieldVals(child, f);
+  if (!pv.length && !cv.length) return '';
+  const ps = new Set(pv.map(x => x.toLowerCase())), cs = new Set(cv.map(x => x.toLowerCase()));
+  const inter = [...ps].filter(x => cs.has(x));
+  if (pv.length && cv.length && ps.size === cs.size && inter.length === ps.size) return 'c-same';
+  if (inter.length) return 'c-partial';
+  return 'c-diff';
+}
+
+function scoreText(c) {
+  const sb = c.score_breakdown || {};
+  return c.verdict === 'DUPLICATE'
+    ? `hash ${Math.round((c.hash_confidence || 0) * 100)}%`
+    : `fuzzy ${Math.round(sb.fuzzy_score || 0)}%`;
+}
+
+// One bundle rendered as a compact field tile. For a child tile, each field is
+// colored/marked by how it compares to the parent.
+function bundleTile(entry, parent, isParent, fields) {
+  const head = isParent
+    ? `<div class="tile-head"><span class="badge badge-parent">Parent</span>` +
+      `<span class="cid" title="${esc(entry.alert_id)}">${esc(entry.alert_id)}</span></div>`
+    : `<div class="tile-head">${badge(entry.verdict)}` +
+      `<span class="cid" title="${esc(entry.alert_id)}">${esc(entry.alert_id)}</span>` +
+      `<span class="cscore">${esc(scoreText(entry))}</span></div>`;
+  let rows = '';
+  for (const f of fields) {
+    const vals = _fieldVals(entry, f);
+    const disp = vals.length ? esc(vals.join(', ')) : '<span class="cmp-missing">&mdash;</span>';
+    let cls = '', mark = '';
+    if (!isParent) {
+      cls = cmpClass(parent, entry, f);
+      mark = cls === 'c-same' ? '&#10003;' : cls === 'c-diff' ? '&#10007;' : cls === 'c-partial' ? '&#8776;' : '';
+    }
+    rows += `<tr><td class="tf">${f.label}</td><td class="tv ${cls}">${disp}` +
+      `${mark ? `<span class="mk">${mark}</span>` : ''}</td></tr>`;
+  }
+  return `${head}<table class="tile"><tbody>${rows}</tbody></table>`;
+}
+
+// Stacked one-on-one: parent on the left (shown once), each match on the right,
+// one row per child. For rows after the first the parent side is left empty.
+function comparePanel(e) {
+  const isChild = !!e.matched_alert_id;
+  const parentId = isChild ? e.matched_alert_id : e.alert_id;
+  const cluster = _clusters[parentId];
+  if (!cluster || !cluster.children.length) return '';
+  const parent = _alertById[parentId];
+  if (!parent) {
+    return `<div class="compare"><span class="cmp-label">Compare content</span>` +
+      `<div class="cmp-missing">Parent bundle not in the current log view — cannot compare.</div></div>`;
+  }
+  const children = cluster.children.map(c => _alertById[c.alert_id]).filter(Boolean);
+  const n = children.length;
+  const fields = CMP_FIELDS.filter(f =>
+    _fieldVals(parent, f).length || children.some(c => _fieldVals(c, f).length));
+
+  let body = '';
+  children.forEach((c, i) => {
+    const pcell = i === 0
+      ? `<td class="parent-cell">${bundleTile(parent, null, true, fields)}</td>`
+      : `<td class="parent-cell empty"></td>`;
+    body += `<tr>${pcell}<td class="child-cell">${bundleTile(c, parent, false, fields)}</td></tr>`;
+  });
+
+  return `<div class="compare">` +
+    `<span class="cmp-label">Compare content — parent vs. ${n} match${n === 1 ? '' : 'es'} in this cluster</span>` +
+    `<table class="cmp-stack"><thead><tr><th>Parent</th><th>Match</th></tr></thead><tbody>${body}</tbody></table>` +
+  `</div>`;
+}
+
+function buildDetailPanel(e) {
+  const klass = e.verdict.toLowerCase();
+  return `<div class="detail-panel">` +
+    `<div class="reason ${klass}"><span class="why-label">Why this verdict</span>${verdictReason(e)}</div>` +
+    decisionSteps(e) +
+    scoreEvidence(e) +
+    iocEvidenceTable(e) +
+    comparePanel(e) +
+    `</div>`;
+}
+
+load();
+</script>
+</body>
+</html>

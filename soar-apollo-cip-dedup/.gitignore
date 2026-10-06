@@ -1,0 +1,5 @@
+.env
+__pycache__/
+*.pyc
+# local-only superseded scratch (old one-off scripts, fixtures, captures)
+prod/_archive/

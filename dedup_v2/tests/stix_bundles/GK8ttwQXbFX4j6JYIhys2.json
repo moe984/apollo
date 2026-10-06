@@ -1,0 +1,55 @@
+{
+  "alert_id": "GK8ttwQXbFX4j6JYIhys2",
+  "source": "splunk",
+  "severity": "LOW",
+  "status": "queued",
+  "created_at": "2026-07-10T12:00:15.000Z",
+  "stix_bundle": {
+    "id": "bundle--fe21f79f-5059-4712-8335-c6a3c49b06a2",
+    "type": "bundle",
+    "objects": [
+      {
+        "id": "identity--ac50b923-8449-4ac8-993c-60d09f62489e",
+        "name": "Splunk",
+        "type": "identity",
+        "created": "2026-07-10T12:00:15.000Z",
+        "modified": "2026-07-10T12:00:15.000Z",
+        "description": "Splunk app: SplunkSOAR",
+        "spec_version": "2.1",
+        "identity_class": "system"
+      },
+      {
+        "id": "indicator--9ece5ec3-f95b-42dc-9d5b-6fc4027e73d8",
+        "name": "LSU - O365 - Suspicious Rights Delegation",
+        "type": "indicator",
+        "created": "2026-07-10T12:00:15.000Z",
+        "modified": "2026-07-10T12:00:15.000Z",
+        "pattern": "[ipv4-addr:value = '161.27.113.131']",
+        "pattern_type": "stix",
+        "spec_version": "2.1",
+        "valid_from": "2026-07-10T12:00:15.000Z",
+        "indicator_types": [
+          "anomalous-activity"
+        ],
+        "extensions": {
+          "extension-definition--a85759ca-e4a9-43be-98b9-77f3f1fc7686": {
+            "extension_type": "property-extension",
+            "apollo_severity": "MEDIUM"
+          }
+        }
+      },
+      {
+        "id": "ipv4-addr--f6a0abd9-5aca-411b-93f4-fa19c40d8cb6",
+        "type": "ipv4-addr",
+        "value": "161.27.113.131"
+      },
+      {
+        "id": "file--898d1c39-cec7-497c-8cf6-1a356067d702",
+        "type": "file",
+        "hashes": {
+          "SHA-256": "ca5c721f05184610f9a645403753f2775d2cc664a05b68c5ddc308934fd9a430"
+        }
+      }
+    ]
+  }
+}

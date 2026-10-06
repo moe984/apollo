@@ -1,0 +1,55 @@
+{
+  "alert_id": "2IST8kyxDy50IXIuREnEW",
+  "source": "splunk",
+  "severity": "HIGH",
+  "status": "queued",
+  "created_at": "2026-07-10T12:00:13.000Z",
+  "stix_bundle": {
+    "id": "bundle--51b106a9-1973-46bd-81bf-73ab51b3a7e0",
+    "type": "bundle",
+    "objects": [
+      {
+        "id": "identity--ea1c60ac-4bc9-4d1f-87a8-d36aba679934",
+        "name": "Splunk",
+        "type": "identity",
+        "created": "2026-07-10T12:00:13.000Z",
+        "modified": "2026-07-10T12:00:13.000Z",
+        "description": "Splunk app: SplunkSOAR",
+        "spec_version": "2.1",
+        "identity_class": "system"
+      },
+      {
+        "id": "indicator--f3a19c7e-0b88-43a0-aaf6-31b25d2c78e9",
+        "name": "LADELTA - Crowdstrike - Attacker Methodology Detected",
+        "type": "indicator",
+        "created": "2026-07-10T12:00:13.000Z",
+        "modified": "2026-07-10T12:00:13.000Z",
+        "pattern": "[ipv4-addr:value = '88.35.165.190']",
+        "pattern_type": "stix",
+        "spec_version": "2.1",
+        "valid_from": "2026-07-10T12:00:13.000Z",
+        "indicator_types": [
+          "anomalous-activity"
+        ],
+        "extensions": {
+          "extension-definition--a85759ca-e4a9-43be-98b9-77f3f1fc7686": {
+            "extension_type": "property-extension",
+            "apollo_severity": "MEDIUM"
+          }
+        }
+      },
+      {
+        "id": "ipv4-addr--f1917376-c170-44e6-99f8-f96aa2d4ca2a",
+        "type": "ipv4-addr",
+        "value": "88.35.165.190"
+      },
+      {
+        "id": "file--1e400c3d-dcd8-4efc-bd4b-b33ee42aa1f8",
+        "type": "file",
+        "hashes": {
+          "SHA-256": "aed27685c86b74d6d2d6e5e100e8d4875a4a99fbb808b8f46c442737aadb5690"
+        }
+      }
+    ]
+  }
+}

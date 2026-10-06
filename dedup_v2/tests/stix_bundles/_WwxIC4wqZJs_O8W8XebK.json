@@ -1,0 +1,55 @@
+{
+  "alert_id": "_WwxIC4wqZJs_O8W8XebK",
+  "source": "splunk",
+  "severity": "CRITICAL",
+  "status": "manual_review",
+  "created_at": "2026-07-10T13:00:04.000Z",
+  "stix_bundle": {
+    "id": "bundle--2ec740b5-2c92-42b1-a93c-83e5ada75915",
+    "type": "bundle",
+    "objects": [
+      {
+        "id": "identity--a107c0f4-4a0e-44dd-9565-74f497fc45e1",
+        "name": "Splunk",
+        "type": "identity",
+        "created": "2026-07-10T13:00:04.000Z",
+        "modified": "2026-07-10T13:00:04.000Z",
+        "description": "Splunk app: SplunkSOAR",
+        "spec_version": "2.1",
+        "identity_class": "system"
+      },
+      {
+        "id": "indicator--7ba5cea6-c0ea-4179-9836-2db67ba5a797",
+        "name": "LSU - Windows - Basic Brute Force Detection",
+        "type": "indicator",
+        "created": "2026-07-10T13:00:04.000Z",
+        "modified": "2026-07-10T13:00:04.000Z",
+        "pattern": "[ipv4-addr:value = '159.237.137.182']",
+        "pattern_type": "stix",
+        "spec_version": "2.1",
+        "valid_from": "2026-07-10T13:00:04.000Z",
+        "indicator_types": [
+          "anomalous-activity"
+        ],
+        "extensions": {
+          "extension-definition--a85759ca-e4a9-43be-98b9-77f3f1fc7686": {
+            "extension_type": "property-extension",
+            "apollo_severity": "MEDIUM"
+          }
+        }
+      },
+      {
+        "id": "ipv4-addr--f7092d6a-2573-495f-bcca-341703de3ce2",
+        "type": "ipv4-addr",
+        "value": "159.237.137.182"
+      },
+      {
+        "id": "file--f36c5829-eb7b-46b3-b71f-4032fefa187d",
+        "type": "file",
+        "hashes": {
+          "SHA-256": "b5acb9c6b3dc2bcc90b3e75ae86212d1066396ea0ad7196551fe0fb882415a26"
+        }
+      }
+    ]
+  }
+}

@@ -1,0 +1,70 @@
+{
+  "note": "Transformer experiments against dataset12.parquet. No release was cut - every variant lost to the TF-IDF router ml/v9. Artifacts deleted; these are the measurements.",
+  "baseline": {
+    "model": "ml/v9",
+    "stack": "TF-IDF over the ES notable -> averaged SGD",
+    "holdout_roc": 0.8097,
+    "holdout_pr": 0.5549,
+    "oof_roc": 0.8523,
+    "oof_pr": 0.6888
+  },
+  "split": "70/30 forward by close_time, 22699 train / 9728 test, 22.6% human-lane",
+  "runs": [
+    {
+      "name": "ATTACK-BERT fine-tuned, classifies directly",
+      "max_len": 256,
+      "order": "priority",
+      "epochs": 3,
+      "best_epoch": 3,
+      "fits_in_context_pct": 5.5,
+      "roc": 0.7866,
+      "pr": 0.5006,
+      "accuracy": 78.28,
+      "f1": 39.19
+    },
+    {
+      "name": "fine-tuned ATTACK-BERT -> embedding -> SGD",
+      "coverage": "chunked (100%)",
+      "alpha": 0.0001,
+      "roc": 0.7822,
+      "pr": 0.4922,
+      "accuracy": 79.18,
+      "f1": 30.1
+    },
+    {
+      "name": "frozen ATTACK-BERT chunked -> SGD",
+      "coverage": "chunked (100%)",
+      "alpha": 1e-06,
+      "roc": 0.7596,
+      "pr": 0.4638,
+      "accuracy": 77.45,
+      "f1": 34.74
+    },
+    {
+      "name": "frozen ATTACK-BERT truncated -> SGD",
+      "coverage": "512 tokens (43.8%)",
+      "alpha": 1e-06,
+      "roc": 0.7588,
+      "pr": 0.4656,
+      "accuracy": 77.49,
+      "f1": 35.78
+    }
+  ],
+  "context_hypothesis": {
+    "question": "does the 512-token cap explain the gap?",
+    "test": "split each alert into 512-token windows, embed each, mean-pool: 32427 alerts -> 60744 windows, 100% coverage",
+    "truncated_roc": 0.7588,
+    "chunked_roc": 0.7596,
+    "delta": 0.0008,
+    "conclusion": "context is NOT the bottleneck; a long-context encoder would not have helped"
+  },
+  "modernbert": {
+    "context": 8192,
+    "mps_ms_per_step": 126467,
+    "cpu_ms_per_step": 1443,
+    "ratio": "88x slower on MPS than CPU",
+    "cpu_min_per_epoch": 136,
+    "conclusion": "unusable on Apple silicon; kernels have no Metal implementation"
+  },
+  "why": "The signal is lexical identity - which account, which subnet, which rule - not semantics. TF-IDF keeps 168,679 tokens as independent dimensions; mean-pooling to 768 averages that away."
+}

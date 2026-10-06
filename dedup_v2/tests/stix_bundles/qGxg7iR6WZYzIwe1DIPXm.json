@@ -1,0 +1,55 @@
+{
+  "alert_id": "qGxg7iR6WZYzIwe1DIPXm",
+  "source": "splunk",
+  "severity": "LOW",
+  "status": "queued",
+  "created_at": "2026-07-10T12:00:27.000Z",
+  "stix_bundle": {
+    "id": "bundle--171f88a3-2c08-4c6f-a14b-f7b721da0df6",
+    "type": "bundle",
+    "objects": [
+      {
+        "id": "identity--bd5f8b99-4c7e-4724-94bb-c4820c81c77c",
+        "name": "Splunk",
+        "type": "identity",
+        "created": "2026-07-10T12:00:27.000Z",
+        "modified": "2026-07-10T12:00:27.000Z",
+        "description": "Splunk app: SplunkSOAR",
+        "spec_version": "2.1",
+        "identity_class": "system"
+      },
+      {
+        "id": "indicator--727a9ca7-9496-49cf-8df5-02f7ce425c1f",
+        "name": "RPCC - Azure - Unfamiliar Sign-in Properties",
+        "type": "indicator",
+        "created": "2026-07-10T12:00:27.000Z",
+        "modified": "2026-07-10T12:00:27.000Z",
+        "pattern": "[ipv4-addr:value = '72.248.172.247']",
+        "pattern_type": "stix",
+        "spec_version": "2.1",
+        "valid_from": "2026-07-10T12:00:27.000Z",
+        "indicator_types": [
+          "anomalous-activity"
+        ],
+        "extensions": {
+          "extension-definition--a85759ca-e4a9-43be-98b9-77f3f1fc7686": {
+            "extension_type": "property-extension",
+            "apollo_severity": "MEDIUM"
+          }
+        }
+      },
+      {
+        "id": "ipv4-addr--56eb7cab-6c46-4781-a30b-e52f28cac6d0",
+        "type": "ipv4-addr",
+        "value": "72.248.172.247"
+      },
+      {
+        "id": "file--b1275a1f-a024-4a74-8f7c-73a5a2e3f009",
+        "type": "file",
+        "hashes": {
+          "SHA-256": "e5d726d56382ed9d1fd196202cec9bbae9d07a0fd4c6b6771df7381b88528518"
+        }
+      }
+    ]
+  }
+}

@@ -1,0 +1,107 @@
+[
+  {
+    "pass": 1,
+    "index": 1,
+    "csv_alert_id": "test10qdMY2U1yQ8uQp0uu",
+    "apollo_alert_id": "nKzhdfCo4YAinVbF5LVYK",
+    "http_status": 201,
+    "apollo_status": "normalized",
+    "latency_ms": 411,
+    "response": {
+      "status": "normalized",
+      "alertId": "nKzhdfCo4YAinVbF5LVYK",
+      "stixBundleId": "bundle--c1375caa-95ff-4dbd-bfdc-acc1d2df016e"
+    }
+  },
+  {
+    "pass": 1,
+    "index": 2,
+    "csv_alert_id": "test11qdMY2U1yQ8uQp0uu",
+    "apollo_alert_id": "nKzhdfCo4YAinVbF5LVYK",
+    "http_status": 200,
+    "apollo_status": "deduplicated",
+    "latency_ms": 294,
+    "response": {
+      "status": "deduplicated",
+      "groupedWith": "nKzhdfCo4YAinVbF5LVYK"
+    }
+  },
+  {
+    "pass": 1,
+    "index": 3,
+    "csv_alert_id": "test12fdMY2U1yQ8uQp0uu",
+    "apollo_alert_id": "nKzhdfCo4YAinVbF5LVYK",
+    "http_status": 200,
+    "apollo_status": "deduplicated",
+    "latency_ms": 186,
+    "response": {
+      "status": "deduplicated",
+      "groupedWith": "nKzhdfCo4YAinVbF5LVYK"
+    }
+  },
+  {
+    "pass": 1,
+    "index": 4,
+    "csv_alert_id": "test13fdMY2U1yQ8uQp0uu",
+    "apollo_alert_id": "nKzhdfCo4YAinVbF5LVYK",
+    "http_status": 200,
+    "apollo_status": "deduplicated",
+    "latency_ms": 273,
+    "response": {
+      "status": "deduplicated",
+      "groupedWith": "nKzhdfCo4YAinVbF5LVYK"
+    }
+  },
+  {
+    "pass": 2,
+    "index": 1,
+    "csv_alert_id": "test10qdMY2U1yQ8uQp0uu",
+    "apollo_alert_id": "nKzhdfCo4YAinVbF5LVYK",
+    "http_status": 200,
+    "apollo_status": "deduplicated",
+    "latency_ms": 1080,
+    "response": {
+      "status": "deduplicated",
+      "groupedWith": "nKzhdfCo4YAinVbF5LVYK"
+    }
+  },
+  {
+    "pass": 2,
+    "index": 2,
+    "csv_alert_id": "test11qdMY2U1yQ8uQp0uu",
+    "apollo_alert_id": "nKzhdfCo4YAinVbF5LVYK",
+    "http_status": 200,
+    "apollo_status": "deduplicated",
+    "latency_ms": 224,
+    "response": {
+      "status": "deduplicated",
+      "groupedWith": "nKzhdfCo4YAinVbF5LVYK"
+    }
+  },
+  {
+    "pass": 2,
+    "index": 3,
+    "csv_alert_id": "test12fdMY2U1yQ8uQp0uu",
+    "apollo_alert_id": "nKzhdfCo4YAinVbF5LVYK",
+    "http_status": 200,
+    "apollo_status": "deduplicated",
+    "latency_ms": 221,
+    "response": {
+      "status": "deduplicated",
+      "groupedWith": "nKzhdfCo4YAinVbF5LVYK"
+    }
+  },
+  {
+    "pass": 2,
+    "index": 4,
+    "csv_alert_id": "test13fdMY2U1yQ8uQp0uu",
+    "apollo_alert_id": "nKzhdfCo4YAinVbF5LVYK",
+    "http_status": 200,
+    "apollo_status": "deduplicated",
+    "latency_ms": 204,
+    "response": {
+      "status": "deduplicated",
+      "groupedWith": "nKzhdfCo4YAinVbF5LVYK"
+    }
+  }
+]

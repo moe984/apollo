@@ -1,0 +1,208 @@
+/* Tokens are defined per theme and swapped by the header toggle, so dark mode is
+   a selected set of values rather than an automatic flip. */
+:root, #root[data-theme="light"] {
+  color-scheme: light;
+  --surface: #fcfcfb; --plane: #f9f9f7;
+  --ink: #0b0b0b; --ink-2: #52514e; --muted: #898781;
+  --grid: #e1e0d9; --axis: #c3c2b7;
+  --border: rgba(11, 11, 11, 0.10);
+  --accent: #2a78d6;
+}
+html:has(#root[data-theme="dark"]), #root[data-theme="dark"] {
+  color-scheme: dark;
+  --surface: #1a1a19; --plane: #0d0d0d;
+  --ink: #ffffff; --ink-2: #c3c2b7; --muted: #898781;
+  --grid: #2c2c2a; --axis: #383835;
+  --border: rgba(255, 255, 255, 0.10);
+  --accent: #3987e5;
+}
+
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+body {
+  background: var(--plane, #f9f9f7);
+  font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+#root {
+  background: var(--plane);
+  color: var(--ink);
+  min-height: 100vh;
+  padding: 28px max(16px, 3vw) 48px;
+}
+
+/* ---- header -------------------------------------------------------------- */
+.head {
+  display: flex; align-items: flex-start; justify-content: space-between;
+  gap: 16px; margin-bottom: 20px;
+}
+.head h1 { font-size: 19px; font-weight: 600; letter-spacing: -0.01em; margin: 0 0 4px; }
+.head p { margin: 0; font-size: 12px; color: var(--ink-2); }
+.ghost-btn {
+  background: var(--surface); color: var(--ink-2);
+  border: 1px solid var(--border); border-radius: 8px;
+  padding: 7px 14px; font: inherit; font-size: 12px; cursor: pointer;
+  min-height: 32px;
+}
+.ghost-btn:hover { color: var(--ink); border-color: var(--axis); }
+
+/* ---- filter row (one row, scopes everything below) ----------------------- */
+.filters {
+  display: flex; flex-wrap: wrap; gap: 12px 16px; align-items: flex-end;
+  background: var(--surface);
+  border-radius: 12px; padding: 14px 16px; margin-bottom: 20px;
+}
+.filter { min-width: 190px; }
+/* the customer tab's own picker row: a drill-down, one step in from the global row */
+.filter.grow { flex: 1 1 240px; }
+.filter label {
+  display: block; font-size: 10px; text-transform: uppercase;
+  letter-spacing: 0.06em; color: var(--muted); margin-bottom: 6px;
+}
+.filter .Select-placeholder, .filter .Select-value-label { font-size: 12px; }
+
+/* ---- stat tiles ---------------------------------------------------------- */
+.tiles {
+  display: grid; gap: 12px; margin-bottom: 20px;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+}
+.tile {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: 12px; padding: 14px 16px;
+}
+.tile-label {
+  font-size: 10px; text-transform: uppercase; letter-spacing: 0.06em;
+  color: var(--muted); margin-bottom: 8px;
+}
+/* proportional figures on the big number; tabular-nums stays in tables/ticks */
+.tile-value { font-size: 26px; font-weight: 600; letter-spacing: -0.02em; color: var(--ink); }
+.tile-sub { font-size: 11px; color: var(--ink-2); margin-top: 4px; }
+
+/* ---- tabs ---------------------------------------------------------------- */
+.tabs-parent { margin-bottom: 16px; }
+.tabs {
+  display: flex; gap: 4px; justify-content: flex-start;
+  border-bottom: 1px solid var(--border) !important;
+}
+.tab {
+  flex: 0 0 auto !important;
+  background: transparent !important; border: none !important;
+  color: var(--muted) !important; font-size: 12px !important; font-weight: 500;
+  padding: 8px 14px !important; cursor: pointer;
+  border-bottom: 2px solid transparent !important; border-radius: 0 !important;
+}
+.tab:hover { color: var(--ink-2) !important; }
+.tab--selected {
+  background: transparent !important; color: var(--ink) !important;
+  border-bottom: 2px solid var(--accent) !important;
+}
+.tabs-content { padding-top: 16px; }
+
+/* ---- chart cards --------------------------------------------------------- */
+.grid {
+  display: grid; gap: 16px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+@media (max-width: 1020px) { .grid { grid-template-columns: 1fr; } }
+.card.span2 { grid-column: 1 / -1; }
+/* a card that sits outside .grid still needs the card chrome and full width */
+.card.standalone { margin-bottom: 16px; }
+.card {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: 12px; padding: 16px 16px 8px;
+}
+.card.wide { grid-column: 1 / -1; margin-top: 16px; padding-bottom: 16px; }
+.card-head h2 { font-size: 13px; font-weight: 600; margin: 0 0 4px; color: var(--ink); }
+.card-head p { font-size: 11px; color: var(--muted); margin: 0 0 4px; }
+
+.foot { margin-top: 24px; }
+.foot p { font-size: 11px; color: var(--muted); margin: 0; max-width: 90ch; }
+
+/* plotly's modebar sits on the card surface, so tone it to the theme */
+.modebar { background: transparent !important; }
+.modebar-btn path { fill: var(--muted) !important; }
+.modebar-btn:hover path, .modebar-btn.active path { fill: var(--ink-2) !important; }
+.modebar-group { background: transparent !important; }
+
+/* ---- pager --------------------------------------------------------------- */
+.pager {
+  display: flex; align-items: center; gap: 12px; margin: 4px 0 8px;
+}
+.pager .ghost-btn { padding: 5px 12px; min-height: 28px; }
+.pager-label { font-size: 11px; color: var(--muted); }
+.pager-sort { display: flex; align-items: center; gap: 8px; margin-left: auto; }
+.pager-sort label {
+  font-size: 10px; text-transform: uppercase; letter-spacing: 0.06em;
+  color: var(--muted);
+}
+.pager-sort .dash-dropdown-wrapper { min-width: 180px; }
+
+/* ---- dash 4 control internals ------------------------------------------- */
+/* Dash ships these controls with fixed light colours; re-point them at the
+   theme tokens so both modes are a deliberate set of values. */
+.dash-datepicker, .dash-dropdown {
+  background: var(--surface) !important;
+  border: 1px solid var(--border) !important;
+  border-radius: 8px !important;
+  color: var(--ink) !important;
+  min-height: 36px;
+}
+.dash-datepicker-input {
+  background: transparent !important; color: var(--ink) !important;
+  font: inherit !important; font-size: 12px !important;
+}
+.dash-datepicker-input::placeholder { color: var(--muted) !important; }
+.dash-datepicker-range-arrow, .dash-datepicker-caret-icon,
+.dash-dropdown-trigger-icon { color: var(--muted) !important; fill: currentColor !important; }
+.dash-dropdown-value { color: var(--ink) !important; font-size: 12px !important; }
+.dash-dropdown-placeholder { color: var(--muted) !important; }
+.dash-dropdown-chip, .dash-dropdown-multi-value {
+  background: var(--plane) !important; color: var(--ink) !important;
+  border: 1px solid var(--border) !important;
+}
+.dash-dropdown-content, .dash-dropdown-options, .dash-datepicker-calendar,
+.dash-datepicker-content, .dash-datepicker-popup {
+  background: var(--surface) !important; color: var(--ink) !important;
+  border: 1px solid var(--border) !important; border-radius: 10px !important;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.18) !important;
+}
+.dash-dropdown-option, .dash-datepicker-day { color: var(--ink) !important; }
+.dash-dropdown-option:hover, .dash-datepicker-day:hover { background: var(--plane) !important; }
+.dash-dropdown-option[aria-selected="true"], .dash-datepicker-day.selected {
+  background: var(--accent) !important; color: #fff !important;
+}
+.dash-dropdown-search, .dash-dropdown-search-container, .dash-dropdown-actions {
+  background: var(--surface) !important; color: var(--ink) !important;
+  border-color: var(--border) !important;
+}
+.dash-dropdown-search::placeholder { color: var(--muted) !important; }
+.dash-dropdown-search-icon { color: var(--muted) !important; }
+.dash-dropdown-action-button {
+  background: transparent !important; color: var(--accent) !important;
+  border-color: var(--border) !important; font-size: 11px !important;
+}
+.dash-dropdown-option .dash-options-list-option-text { color: var(--ink) !important; }
+.dash-options-list-option-text { color: var(--ink-2) !important; font-size: 12px; }
+.dash-options-list-option.selected .dash-options-list-option-text { color: var(--ink) !important; }
+.dash-options-list-option-checkbox { accent-color: var(--accent); }
+
+/* Dash 4 draws a second bordered box inside the datepicker and a purple focus
+   ring outside the dropdown. The parent already carries the hairline, so the
+   inner one reads as a double line, and the ring is Dash's colour rather than
+   ours. Collapse both onto the theme tokens. */
+.dash-datepicker-input-wrapper {
+  border: none !important; border-radius: 0 !important;
+}
+.dash-dropdown, .dash-datepicker { outline: none !important; }
+.dash-dropdown:focus-within, .dash-datepicker:focus-within {
+  border-color: var(--accent) !important;
+}
+
+/* data table */
+.dash-table-container .dash-spreadsheet-container { border: none !important; }
+.dash-table-container input { color: var(--ink) !important; background: var(--surface) !important; }
+.dash-table-container .dash-filter input::placeholder { color: var(--muted) !important; }
+
+@media (max-width: 560px) {
+  .grid { grid-template-columns: 1fr; }
+  .filter, .filter.grow { flex: 1 1 100%; min-width: 0; }
+}

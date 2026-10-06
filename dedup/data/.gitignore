@@ -1,0 +1,9 @@
+# Keep lightweight summaries and metadata in git.
+# Exclude full alert payloads (stix_bundle + raw_payload can be large).
+*.csv
+alerts-*[!-]*.json
+!alerts-*-lite.json
+!pull-summary.json
+!dedup-review-queue.json
+!dedup-feedback-stats.json
+!use-case-registry.json

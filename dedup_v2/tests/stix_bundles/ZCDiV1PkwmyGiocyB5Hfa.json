@@ -1,0 +1,55 @@
+{
+  "alert_id": "ZCDiV1PkwmyGiocyB5Hfa",
+  "source": "splunk",
+  "severity": "LOW",
+  "status": "queued",
+  "created_at": "2026-07-10T12:00:19.000Z",
+  "stix_bundle": {
+    "id": "bundle--64f47bb0-2fc4-47d7-8e40-68d942c73262",
+    "type": "bundle",
+    "objects": [
+      {
+        "id": "identity--7c410bca-cfde-4387-a217-bd7360e09af2",
+        "name": "Splunk",
+        "type": "identity",
+        "created": "2026-07-10T12:00:19.000Z",
+        "modified": "2026-07-10T12:00:19.000Z",
+        "description": "Splunk app: SplunkSOAR",
+        "spec_version": "2.1",
+        "identity_class": "system"
+      },
+      {
+        "id": "indicator--84c02b80-db03-48fb-ad69-6dd2e38ffcc2",
+        "name": "MCNEESE - Azure - Failed Logins Outside of USA",
+        "type": "indicator",
+        "created": "2026-07-10T12:00:19.000Z",
+        "modified": "2026-07-10T12:00:19.000Z",
+        "pattern": "[ipv4-addr:value = '133.172.185.243']",
+        "pattern_type": "stix",
+        "spec_version": "2.1",
+        "valid_from": "2026-07-10T12:00:19.000Z",
+        "indicator_types": [
+          "anomalous-activity"
+        ],
+        "extensions": {
+          "extension-definition--a85759ca-e4a9-43be-98b9-77f3f1fc7686": {
+            "extension_type": "property-extension",
+            "apollo_severity": "MEDIUM"
+          }
+        }
+      },
+      {
+        "id": "ipv4-addr--fb00e8e8-002a-4d4e-b987-2806fcb8a3ef",
+        "type": "ipv4-addr",
+        "value": "133.172.185.243"
+      },
+      {
+        "id": "file--02d9de71-4ce1-474f-81a5-d96f2c4751ee",
+        "type": "file",
+        "hashes": {
+          "SHA-256": "28fbb54334e252eb2f133ce17a428c81732668fc510497f4a53fffe08eda2b3f"
+        }
+      }
+    ]
+  }
+}

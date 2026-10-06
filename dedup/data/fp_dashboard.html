@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Hash Dedup FP Analysis</title>
+<script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/plotly.js-dist@2.35.2/plotly.min.js"></script>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #0f172a; color: #e2e8f0; padding: 24px; }
+  h1 { font-size: 24px; margin-bottom: 4px; color: #f8fafc; }
+  h2 { font-size: 15px; margin: 16px 0 8px; color: #94a3b8; }
+  .subtitle { color: #64748b; margin-bottom: 20px; font-size: 14px; }
+  .stats { display: flex; gap: 12px; margin-bottom: 20px; flex-wrap: wrap; }
+  .stat { background: #1e293b; border-radius: 8px; padding: 14px 20px; min-width: 120px; }
+  .stat-value { font-size: 28px; font-weight: 700; color: #f8fafc; }
+  .stat-label { color: #64748b; font-size: 12px; margin-top: 2px; }
+  .charts { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 20px; }
+  .chart-box { background: #1e293b; border-radius: 8px; padding: 12px; }
+  .chart-box.full { grid-column: 1 / -1; }
+  .section { margin-top: 28px; border-top: 1px solid #334155; padding-top: 16px; }
+  table { width: 100%; border-collapse: collapse; font-size: 11px; }
+  th { text-align: left; padding: 5px 8px; background: #334155; color: #94a3b8; font-weight: 600; position: sticky; top: 0; cursor: pointer; }
+  th:hover { background: #475569; }
+  td { padding: 5px 8px; border-bottom: 1px solid #1e293b; max-width: 300px; line-height: 1.4; white-space: normal; word-break: break-word; }
+  td > span.clamp { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+  td:hover > span.clamp { -webkit-line-clamp: unset; }
+  tr:hover td { background: #1e293b; }
+  .table-scroll { max-height: 500px; overflow: auto; background: #1e293b; border-radius: 8px; }
+  .diff { color: #fb7185; }
+  .same { color: #4ade80; }
+  .empty { color: #475569; }
+  .dim { color: #475569; }
+  .verdict-fp { color: #fb7185; font-weight: 700; }
+  .verdict-tp { color: #4ade80; font-weight: 700; }
+  .verdict-unknown { color: #fbbf24; font-weight: 700; }
+  .verdict-test { color: #475569; font-weight: 700; }
+  #loading { text-align: center; padding: 60px; color: #64748b; font-size: 16px; }
+</style>
+</head>
+<body>
+
+<h1>Hash Dedup FP Analysis</h1>
+<p class="subtitle">Source: fp_analysis.csv</p>
+
+<div id="loading">Loading fp_analysis.csv...</div>
+<div id="dashboard" style="display:none">
+
+<div style="display: flex; gap: 16px; margin-bottom: 20px; align-items: stretch;">
+  <div style="background: #1e293b; border-radius: 8px; padding: 18px 24px; font-size: 13px; line-height: 1.7; color: #cbd5e1; flex: 1;">
+    <h2 style="color: #f8fafc; margin-bottom: 8px; font-size: 15px;">What is Hash Dedup?</h2>
+    <p style="margin-bottom: 8px;">When a security alert arrives, the system creates a fingerprint by hashing four fields together: <b>source IP</b>, <b>destination IPs</b>, <b>alert rule name</b>, and a <b>30-minute time bucket</b>. If two alerts produce the same hash within the same time window, the system treats them as the same incident — the first alert gets investigated, and the second is silently suppressed.</p>
+    <p>This works when the hash has strong, unique data. It fails when key fields are missing. If both IPs are empty, the hash collapses to just the rule name and time bucket, causing unrelated alerts to look identical and get grouped together.</p>
+  </div>
+  <div id="statCards" style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; min-width: 340px;"></div>
+</div>
+
+<div class="charts">
+  <div class="chart-box"><div id="overlapChart"></div></div>
+  <div class="chart-box" id="overlapExplainer" style="padding: 20px 24px; font-size: 13px; line-height: 1.7; color: #cbd5e1;"></div>
+  <div class="chart-box"><div id="verdictChart"></div></div>
+  <div class="chart-box" id="verdictExplainer" style="padding: 20px 24px; font-size: 13px; line-height: 1.7; color: #cbd5e1;"></div>
+</div>
+
+
+</div>
+
+<script>
+const LAYOUT = {
+  paper_bgcolor: '#1e293b', plot_bgcolor: '#1e293b',
+  font: { color: '#94a3b8', size: 12 },
+  margin: { t: 30, b: 40, l: 50, r: 20 },
+};
+const PIE = { ...LAYOUT, margin: { t: 40, b: 10, l: 10, r: 10 }, height: 300, showlegend: true, legend: { font: { size: 11 } } };
+const BAR = { ...LAYOUT, height: 300, margin: { t: 40, b: 40, l: 50, r: 20 }, xaxis: { gridcolor: '#334155' }, yaxis: { gridcolor: '#334155' } };
+const CFG = { displayModeBar: false, responsive: true };
+
+function count(arr, fn) {
+  const c = {};
+  for (const item of arr) { const k = fn(item); c[k] = (c[k] || 0) + 1; }
+  return c;
+}
+
+function stat(value, label) {
+  return '<div class="stat"><div class="stat-value">' + value + '</div><div class="stat-label">' + label + '</div></div>';
+}
+
+function toBool(v) { return v === true || v === 'True'; }
+
+async function main() {
+  let rows;
+  try {
+    rows = await new Promise((resolve, reject) => {
+      Papa.parse('fp_analysis.csv', {
+        download: true, header: true, skipEmptyLines: true,
+        complete: r => resolve(r.data),
+        error: e => reject(e),
+      });
+    });
+  } catch (e) {
+    document.getElementById('loading').textContent = 'Error loading fp_analysis.csv.';
+    return;
+  }
+
+  const real = rows.filter(r => !toBool(r.is_test));
+  const tests = rows.filter(r => toBool(r.is_test));
+
+  const srcEmpty = real.filter(r => toBool(r.hash_src_empty)).length;
+  const destEmpty = real.filter(r => toBool(r.hash_dest_empty)).length;
+  const bothEmpty = real.filter(r => toBool(r.hash_src_empty) && toBool(r.hash_dest_empty)).length;
+  const titleDiff = real.filter(r => r.title_match === 'different').length;
+  const iocDiff = real.filter(r => r.ioc_match === 'different').length;
+  const acctDiff = real.filter(r => r.account_match === 'different').length;
+
+  document.getElementById('statCards').innerHTML = [
+    stat(rows.length, 'Total Pairs'),
+    stat(real.length, 'Real Pairs'),
+    stat(bothEmpty, 'Both IPs Empty'),
+    stat(iocDiff, 'Different IOC'),
+    stat(titleDiff, 'Different Title'),
+    stat(acctDiff, 'Different Account'),
+  ].join('');
+
+  // Overlap
+  const diffCount = r => (r.title_match === 'different' ? 1 : 0) + (r.ioc_match === 'different' ? 1 : 0) + (r.account_match === 'different' ? 1 : 0);
+  const overlapCounts = count(real, diffCount);
+  const olLabels = ['0 fields differ', '1 field differs', '2 fields differ', '3 fields differ'];
+  const olValues = [0,1,2,3].map(i => overlapCounts[i] || 0);
+  Plotly.newPlot('overlapChart', [{
+    x: olLabels, y: olValues, type: 'bar',
+    marker: { color: ['#4ade80', '#fbbf24', '#fb923c', '#fb7185'] },
+    text: olValues, textposition: 'outside',
+  }], { ...BAR,
+    title: { text: 'Fields Differing Per Pair', font: { size: 14, color: '#94a3b8' } },
+    xaxis: { ...BAR.xaxis, tickfont: { size: 10 } },
+    yaxis: { ...BAR.yaxis, title: 'Number of pairs', range: [0, Math.max(...olValues) * 1.15] },
+  }, CFG);
+
+  // Overlap explainer
+  document.getElementById('overlapExplainer').innerHTML =
+    '<h2 style="color:#f8fafc; margin-bottom:12px; font-size:15px;">What each bar means</h2>' +
+    '<p style="margin-bottom:10px;"><span style="color:#4ade80; font-weight:700;">0 fields differ (' + olValues[0] + ' pairs)</span></p>' +
+    '<p style="margin-bottom:14px;">Title, IOC, and account all match between the two alerts. The system may have been right to group them, but we cannot confirm without analyst review. These are the UNKNOWN and TP pairs.</p>' +
+    '<p style="margin-bottom:10px;"><span style="color:#fbbf24; font-weight:700;">1 field differs (' + olValues[1] + ' pairs)</span></p>' +
+    '<p style="margin-bottom:14px;">One field does not match — usually the IOC (a different URL or file hash). The alerts are likely unrelated incidents that got grouped because the hash had no IP to distinguish them.</p>' +
+    '<p style="margin-bottom:10px;"><span style="color:#fb923c; font-weight:700;">2 fields differ (' + olValues[2] + ' pairs)</span></p>' +
+    '<p style="margin-bottom:14px;">Two out of three fields do not match. Stronger evidence the alerts have nothing to do with each other.</p>' +
+    '<p style="margin-bottom:10px;"><span style="color:#fb7185; font-weight:700;">3 fields differ (' + olValues[3] + ' pairs)</span></p>' +
+    '<p>Title, IOC, and account are all different. Completely unrelated incidents grouped together. The clearest false positives.</p>';
+
+  // Verdict: TP vs FP — per alert and per canonical
+  const fpAlerts = real.filter(r => r.verdict === 'FP');
+  const tpAlerts = real.filter(r => r.verdict === 'TP');
+  const tpCount = tpAlerts.length;
+  const fpCount = fpAlerts.length;
+  const fpCanonicals = new Set(fpAlerts.map(r => r.canonical_id)).size;
+  const tpCanonicals = new Set(tpAlerts.map(r => r.canonical_id)).size;
+
+  Plotly.newPlot('verdictChart', [
+    {
+      x: ['True Positive', 'False Positive'],
+      y: [tpCount, fpCount],
+      type: 'bar',
+      name: 'Alerts suppressed',
+      marker: { color: ['#4ade80', '#fb7185'] },
+      text: [tpCount, fpCount],
+      textposition: 'outside',
+    },
+    {
+      x: ['True Positive', 'False Positive'],
+      y: [tpCanonicals, fpCanonicals],
+      type: 'bar',
+      name: 'Canonical groups',
+      marker: { color: ['#22c55e', '#e11d48'] },
+      text: [tpCanonicals, fpCanonicals],
+      textposition: 'outside',
+    },
+  ], { ...BAR,
+    title: { text: 'Verdict: Per Alert vs Per Canonical', font: { size: 14, color: '#94a3b8' } },
+    xaxis: { ...BAR.xaxis, type: 'category' },
+    yaxis: { ...BAR.yaxis, title: 'Count', range: [0, Math.max(tpCount, fpCount) * 1.15] },
+    barmode: 'group',
+    legend: { font: { size: 11, color: '#94a3b8' } },
+  }, CFG);
+
+  // Verdict explainer
+  document.getElementById('verdictExplainer').innerHTML =
+    '<h2 style="color:#f8fafc; margin-bottom:12px; font-size:15px;">What the bars mean</h2>' +
+    '<p style="margin-bottom:10px;"><span style="color:#4ade80; font-weight:700;">True Positive</span></p>' +
+    '<p style="margin-bottom:4px;"><b>Alerts suppressed (' + tpCount + '):</b> Alerts the system correctly identified as duplicates. These were genuinely the same event — same IP, same user, sub-second gaps.</p>' +
+    '<p style="margin-bottom:14px;"><b>Canonical groups (' + tpCanonicals + '):</b> Each parent alert absorbed exactly one correct duplicate. Clean 1:1 match.</p>' +
+    '<p style="margin-bottom:10px;"><span style="color:#fb7185; font-weight:700;">False Positive</span></p>' +
+    '<p style="margin-bottom:4px;"><b>Alerts suppressed (' + fpCount + '):</b> Real alerts the system wrongly killed. Different users, different URLs, different IOCs — but they shared the same empty hash because no IP was extracted.</p>' +
+    '<p><b>Canonical groups (' + fpCanonicals + '):</b> Only ' + fpCanonicals + ' parent alerts caused all ' + fpCount + ' suppressions. Some parents absorbed up to 7 unrelated incidents that were never investigated.</p>';
+
+
+
+  document.getElementById('loading').style.display = 'none';
+  document.getElementById('dashboard').style.display = 'block';
+}
+
+main();
+</script>
+</body>
+</html>

@@ -1,0 +1,55 @@
+{
+  "alert_id": "VyWDdtDUv9l8APt2Ac_ti",
+  "source": "splunk",
+  "severity": "MEDIUM",
+  "status": "queued",
+  "created_at": "2026-07-10T12:00:22.000Z",
+  "stix_bundle": {
+    "id": "bundle--72921f62-226c-443a-b505-73145f0a8f43",
+    "type": "bundle",
+    "objects": [
+      {
+        "id": "identity--1c6bfeda-4b88-4eda-991f-48ea56839227",
+        "name": "Splunk",
+        "type": "identity",
+        "created": "2026-07-10T12:00:22.000Z",
+        "modified": "2026-07-10T12:00:22.000Z",
+        "description": "Splunk app: SplunkSOAR",
+        "spec_version": "2.1",
+        "identity_class": "system"
+      },
+      {
+        "id": "indicator--b39f9b98-03e4-4e82-b27d-5b83084fba1f",
+        "name": "BRCC - Windows - Logs Deleted or Logging Disabled",
+        "type": "indicator",
+        "created": "2026-07-10T12:00:22.000Z",
+        "modified": "2026-07-10T12:00:22.000Z",
+        "pattern": "[ipv4-addr:value = '222.148.166.111']",
+        "pattern_type": "stix",
+        "spec_version": "2.1",
+        "valid_from": "2026-07-10T12:00:22.000Z",
+        "indicator_types": [
+          "anomalous-activity"
+        ],
+        "extensions": {
+          "extension-definition--a85759ca-e4a9-43be-98b9-77f3f1fc7686": {
+            "extension_type": "property-extension",
+            "apollo_severity": "MEDIUM"
+          }
+        }
+      },
+      {
+        "id": "ipv4-addr--bbe92bbc-94aa-4b95-9560-110cc4e0ed9d",
+        "type": "ipv4-addr",
+        "value": "222.148.166.111"
+      },
+      {
+        "id": "file--baa2467d-eb22-493b-9fb4-88e01b20f51c",
+        "type": "file",
+        "hashes": {
+          "SHA-256": "4a43ca8e4d035b0c2273ecfd564271dc27f59820a224949512d013e1af672e3a"
+        }
+      }
+    ]
+  }
+}

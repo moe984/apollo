@@ -1,0 +1,55 @@
+{
+  "alert_id": "ArhPvcggSI4kqzhlA8ZtB",
+  "source": "splunk",
+  "severity": "CRITICAL",
+  "status": "queued",
+  "created_at": "2026-07-10T12:00:12.000Z",
+  "stix_bundle": {
+    "id": "bundle--565d579a-a9f6-4c59-a6fe-29df949b239d",
+    "type": "bundle",
+    "objects": [
+      {
+        "id": "identity--2a6c366a-4809-47eb-a270-fa391797c214",
+        "name": "Splunk",
+        "type": "identity",
+        "created": "2026-07-10T12:00:12.000Z",
+        "modified": "2026-07-10T12:00:12.000Z",
+        "description": "Splunk app: SplunkSOAR",
+        "spec_version": "2.1",
+        "identity_class": "system"
+      },
+      {
+        "id": "indicator--cc9d44ad-edab-4dff-9c9c-760f439aea40",
+        "name": "RPCC - Defender - Student Mass Phishing Detection",
+        "type": "indicator",
+        "created": "2026-07-10T12:00:12.000Z",
+        "modified": "2026-07-10T12:00:12.000Z",
+        "pattern": "[ipv4-addr:value = '63.161.138.234']",
+        "pattern_type": "stix",
+        "spec_version": "2.1",
+        "valid_from": "2026-07-10T12:00:12.000Z",
+        "indicator_types": [
+          "anomalous-activity"
+        ],
+        "extensions": {
+          "extension-definition--a85759ca-e4a9-43be-98b9-77f3f1fc7686": {
+            "extension_type": "property-extension",
+            "apollo_severity": "MEDIUM"
+          }
+        }
+      },
+      {
+        "id": "ipv4-addr--867a3356-59e6-45ba-ae1e-f9701c41ec73",
+        "type": "ipv4-addr",
+        "value": "63.161.138.234"
+      },
+      {
+        "id": "file--f63e89f1-000a-4fe6-80a4-a0bfb1b66ae4",
+        "type": "file",
+        "hashes": {
+          "SHA-256": "888a56ef42433de1c2b0d1c1c7da88a6e154ae7123154cab37edd9c57a4b8696"
+        }
+      }
+    ]
+  }
+}

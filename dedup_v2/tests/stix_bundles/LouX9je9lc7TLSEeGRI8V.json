@@ -1,0 +1,55 @@
+{
+  "alert_id": "LouX9je9lc7TLSEeGRI8V",
+  "source": "splunk",
+  "severity": "CRITICAL",
+  "status": "queued",
+  "created_at": "2026-07-10T12:00:04.000Z",
+  "stix_bundle": {
+    "id": "bundle--4d563568-86e8-48b1-82de-1d6369645852",
+    "type": "bundle",
+    "objects": [
+      {
+        "id": "identity--dfa71e68-cc7a-473f-a7be-0415f8ba2c83",
+        "name": "Splunk",
+        "type": "identity",
+        "created": "2026-07-10T12:00:04.000Z",
+        "modified": "2026-07-10T12:00:04.000Z",
+        "description": "Splunk app: SplunkSOAR",
+        "spec_version": "2.1",
+        "identity_class": "system"
+      },
+      {
+        "id": "indicator--1913347c-3900-481e-bed1-22e2648ef6ff",
+        "name": "MCNEESE - Defender - New High Severity Alerts",
+        "type": "indicator",
+        "created": "2026-07-10T12:00:04.000Z",
+        "modified": "2026-07-10T12:00:04.000Z",
+        "pattern": "[ipv4-addr:value = '144.131.245.55']",
+        "pattern_type": "stix",
+        "spec_version": "2.1",
+        "valid_from": "2026-07-10T12:00:04.000Z",
+        "indicator_types": [
+          "anomalous-activity"
+        ],
+        "extensions": {
+          "extension-definition--a85759ca-e4a9-43be-98b9-77f3f1fc7686": {
+            "extension_type": "property-extension",
+            "apollo_severity": "MEDIUM"
+          }
+        }
+      },
+      {
+        "id": "ipv4-addr--e9e20e45-50b9-4204-9a78-eba166f2ab26",
+        "type": "ipv4-addr",
+        "value": "144.131.245.55"
+      },
+      {
+        "id": "file--ed39e1c8-8fdc-403a-a202-60758c65d4f5",
+        "type": "file",
+        "hashes": {
+          "SHA-256": "2ebb14437d5468cfa2b65f828f84364541017b3962dcc265b61739a9a918daa2"
+        }
+      }
+    ]
+  }
+}

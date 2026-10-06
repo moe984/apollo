@@ -1,0 +1,81 @@
+{
+  "micro": {
+    "precision": 0.9682371625198518,
+    "recall": 0.9859838274932614,
+    "f1": 0.9770299145299146
+  },
+  "macro_f1": 0.970952470354203,
+  "per_entity": {
+    "IPV4": {
+      "precision": 0.93,
+      "recall": 0.9612403100775194,
+      "f1": 0.9453621346886912,
+      "gold": 387,
+      "pred": 400
+    },
+    "IPV6": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "gold": 22,
+      "pred": 22
+    },
+    "HASH": {
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1": 0.0,
+      "gold": 0,
+      "pred": 2
+    },
+    "EMAIL": {
+      "precision": 0.974477958236659,
+      "recall": 0.997624703087886,
+      "f1": 0.9859154929577465,
+      "gold": 421,
+      "pred": 431
+    },
+    "USERNAME": {
+      "precision": 0.9858064516129033,
+      "recall": 0.9986928104575163,
+      "f1": 0.9922077922077923,
+      "gold": 1530,
+      "pred": 1550
+    },
+    "MACHINE": {
+      "precision": 0.9940209267563528,
+      "recall": 0.9970014992503748,
+      "f1": 0.9955089820359281,
+      "gold": 667,
+      "pred": 669
+    },
+    "FILENAME": {
+      "precision": 0.9885057471264368,
+      "recall": 1.0,
+      "f1": 0.9942196531791908,
+      "gold": 344,
+      "pred": 348
+    },
+    "FILEPATH": {
+      "precision": 0.8623595505617978,
+      "recall": 0.9056047197640118,
+      "f1": 0.8834532374100719,
+      "gold": 339,
+      "pred": 356
+    },
+    "URL": {
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1": 0.0,
+      "gold": 0,
+      "pred": 0
+    }
+  },
+  "heldout_recall": 0.936768149882904,
+  "heldout_gold": 427,
+  "heldout_tp": 400,
+  "model": "securebert2-ner-alerts-v2",
+  "split": "test",
+  "n_rows": 484,
+  "seconds": 33.2,
+  "label_source": "weak supervision \u2014 agreement with the labeling functions, not verified ground truth"
+}

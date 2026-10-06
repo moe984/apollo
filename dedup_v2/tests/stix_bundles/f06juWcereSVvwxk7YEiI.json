@@ -1,0 +1,55 @@
+{
+  "alert_id": "f06juWcereSVvwxk7YEiI",
+  "source": "splunk",
+  "severity": "CRITICAL",
+  "status": "queued",
+  "created_at": "2026-07-10T12:00:24.000Z",
+  "stix_bundle": {
+    "id": "bundle--8e280a3a-f744-4435-b73c-6e533a2ace56",
+    "type": "bundle",
+    "objects": [
+      {
+        "id": "identity--31e32f08-f76a-4558-a4aa-5c40b12f9ecf",
+        "name": "Splunk",
+        "type": "identity",
+        "created": "2026-07-10T12:00:24.000Z",
+        "modified": "2026-07-10T12:00:24.000Z",
+        "description": "Splunk app: SplunkSOAR",
+        "spec_version": "2.1",
+        "identity_class": "system"
+      },
+      {
+        "id": "indicator--8cf52103-1f27-450b-b60d-7b13e9aad930",
+        "name": "GRAM - O365 - Suspicious Rights Delegation",
+        "type": "indicator",
+        "created": "2026-07-10T12:00:24.000Z",
+        "modified": "2026-07-10T12:00:24.000Z",
+        "pattern": "[ipv4-addr:value = '18.2.196.29']",
+        "pattern_type": "stix",
+        "spec_version": "2.1",
+        "valid_from": "2026-07-10T12:00:24.000Z",
+        "indicator_types": [
+          "anomalous-activity"
+        ],
+        "extensions": {
+          "extension-definition--a85759ca-e4a9-43be-98b9-77f3f1fc7686": {
+            "extension_type": "property-extension",
+            "apollo_severity": "MEDIUM"
+          }
+        }
+      },
+      {
+        "id": "ipv4-addr--d7b305b0-1b05-403a-832f-34bc569310df",
+        "type": "ipv4-addr",
+        "value": "18.2.196.29"
+      },
+      {
+        "id": "file--c82162b1-8f7e-44db-af85-cadb814fbf01",
+        "type": "file",
+        "hashes": {
+          "SHA-256": "5b1ff03ae04b48a9318199c812f328a72a2f430946a94e7d91f9db686415b10c"
+        }
+      }
+    ]
+  }
+}

@@ -1,0 +1,61 @@
+intent	alert_id	parent_id	rule_name
+PARENT/NEW	UVYBcaQDl-2VcVaR0Hr8Y	-	LSU - Windows - Basic Brute Force Detection
+PARENT/NEW	MUat94m02_Ka8QTyxs73M	-	SUBR - O365 - Multiple User Creations Within Short Time
+PARENT/NEW	oMqLgPDSvkGTFnxxVliTW	-	ULM - Linux - Unauthorized User Attempted a Sudo Command
+PARENT/NEW	Sdd_TamP286dxciPA-wrp	-	LaTech - Palo Alto - High and Critical Threat Allowed
+PARENT/NEW	LouX9je9lc7TLSEeGRI8V	-	MCNEESE - Defender - New High Severity Alerts
+PARENT/NEW	22xyaEUJRAA6rpEPlsFya	-	NICHOLLS - Crowdstrike - Intel Detection Allowed
+PARENT/NEW	2eM4RZIlkcS4WCzFZ6kiE	-	LOSFA - Crowdstrike - On-Demand Scan ML File Analysis
+PARENT/NEW	OBue5HHpBo4Txd_Xn5Ltg	-	BRCC - Defender - Incident Outbreak Email Removed
+PARENT/NEW	6NQJiGNCg3vOxv00Ir4uH	-	ULL - Azure - Impossible Travel Detected
+PARENT/NEW	TZwI14XIFEpZnf7QFqSd4	-	GRAM - Windows - Multiple Account Lockouts for User
+PARENT/NEW	omcnjME71AHIouyA3pkVz	-	NSULA - Defender - Leaked Credentials Detected
+PARENT/NEW	462GUQIFvssTT9NymKGDO	-	SULC - Windows - Basic Brute Force Detection - Admin
+PARENT/NEW	ArhPvcggSI4kqzhlA8ZtB	-	RPCC - Defender - Student Mass Phishing Detection
+PARENT/NEW	2IST8kyxDy50IXIuREnEW	-	LADELTA - Crowdstrike - Attacker Methodology Detected
+PARENT/NEW	7Oi4xxKhO_wNJ-8gENS1w	-	PBRC - Crowdstrike - EDR Based Malware Detection
+PARENT/NEW	GK8ttwQXbFX4j6JYIhys2	-	LSU - O365 - Suspicious Rights Delegation
+PARENT/NEW	hQU3-CMIKmccoqWHZv7FM	-	SUBR - Defender - Malicious File Removed After Delivery
+PARENT/NEW	dvQ9997TMTUcVeStlsna3	-	ULM - OneLogin - Failed OTP Challenge
+PARENT/NEW	tCGf94E3QkKXFkYb09Zyl	-	LaTech - Windows - Domain Admin Account Sign In
+PARENT/NEW	ZCDiV1PkwmyGiocyB5Hfa	-	MCNEESE - Azure - Failed Logins Outside of USA
+PARENT/NEW	MQ_KukUwf9xcKP9lZH8jq	-	NICHOLLS - Defender - Password Spray Detected
+PARENT/NEW	XW3gX05wZDvgp26XMVVyR	-	LOSFA - Zscaler - Suspicious Category Blocked High Count
+PARENT/NEW	VyWDdtDUv9l8APt2Ac_ti	-	BRCC - Windows - Logs Deleted or Logging Disabled
+PARENT/NEW	GfimpzwriQD9VuKWV8wI7	-	ULL - Defender - Anonymous IP Address Sign In
+PARENT/NEW	f06juWcereSVvwxk7YEiI	-	GRAM - O365 - Suspicious Rights Delegation
+PARENT/NEW	6tqAj5YGfHf-pGz9QptTT	-	NSULA - Windows - Administrative Action by Non-IAM User
+PARENT/NEW	N9ubukCZqgjZSgchtRTwP	-	SULC - Umbrella - Suspicious Category Allowed
+PARENT/NEW	qGxg7iR6WZYzIwe1DIPXm	-	RPCC - Azure - Unfamiliar Sign-in Properties
+PARENT/NEW	rJfjuo7pz_ZjGS62Rm3eW	-	LADELTA - Defender - Potential User Account Compromise
+PARENT/NEW	28SMFxqjqW9WgUwSD8zc2	-	PBRC - Palo Alto - Critical Threat Allowed Inbound
+DUPLICATE	6wUQ-S6m95eg21X8LR2BV	UVYBcaQDl-2VcVaR0Hr8Y	LSU - Windows - Basic Brute Force Detection
+DUPLICATE	CV2-pBDmuoTGEldv8R_0N	UVYBcaQDl-2VcVaR0Hr8Y	LSU - Windows - Basic Brute Force Detection
+DUPLICATE	sG65QQVVmnnJe9PNN46QF	UVYBcaQDl-2VcVaR0Hr8Y	LSU - Windows - Basic Brute Force Detection
+DUPLICATE	wdcW24n7dTFBaxUBYV6DS	UVYBcaQDl-2VcVaR0Hr8Y	LSU - Windows - Basic Brute Force Detection
+DUPLICATE	_WwxIC4wqZJs_O8W8XebK	UVYBcaQDl-2VcVaR0Hr8Y	LSU - Windows - Basic Brute Force Detection
+DUPLICATE	51OG78B_WVvckE3Oz6Tts	MUat94m02_Ka8QTyxs73M	SUBR - O365 - Multiple User Creations Within Short Time
+DUPLICATE	h7hV7YO3wjRGv9R4nW3MQ	MUat94m02_Ka8QTyxs73M	SUBR - O365 - Multiple User Creations Within Short Time
+DUPLICATE	_bolKfY7APEEJLF02KZ5h	MUat94m02_Ka8QTyxs73M	SUBR - O365 - Multiple User Creations Within Short Time
+DUPLICATE	LgVK_JHHapymNu4c9neD_	oMqLgPDSvkGTFnxxVliTW	ULM - Linux - Unauthorized User Attempted a Sudo Command
+DUPLICATE	yi77VLeyyOcouikzCrO6F	oMqLgPDSvkGTFnxxVliTW	ULM - Linux - Unauthorized User Attempted a Sudo Command
+DUPLICATE	XrSQdlpFNTYMvUTP_gvpK	Sdd_TamP286dxciPA-wrp	LaTech - Palo Alto - High and Critical Threat Allowed
+DUPLICATE	dS8nrWC-lkbGWXuepZH9c	Sdd_TamP286dxciPA-wrp	LaTech - Palo Alto - High and Critical Threat Allowed
+DUPLICATE	OxFWIFUbm9SsDWdWLFJN9	LouX9je9lc7TLSEeGRI8V	MCNEESE - Defender - New High Severity Alerts
+DUPLICATE	Y0RmeMRNeVUli1UtT5e_P	22xyaEUJRAA6rpEPlsFya	NICHOLLS - Crowdstrike - Intel Detection Allowed
+DUPLICATE	zARynTYK8-Bq5kNxQGczZ	2eM4RZIlkcS4WCzFZ6kiE	LOSFA - Crowdstrike - On-Demand Scan ML File Analysis
+DUPLICATE	TZ2V45LtL4Y_XRlx2eHs2	OBue5HHpBo4Txd_Xn5Ltg	BRCC - Defender - Incident Outbreak Email Removed
+DUPLICATE	kngnVADBqCv_5-AH7Pt24	6NQJiGNCg3vOxv00Ir4uH	ULL - Azure - Impossible Travel Detected
+DUPLICATE	iEwZxS444Z998pu-HnXQK	TZwI14XIFEpZnf7QFqSd4	GRAM - Windows - Multiple Account Lockouts for User
+DUPLICATE	nzlrMTjSfr_df1lsJ8l_n	omcnjME71AHIouyA3pkVz	NSULA - Defender - Leaked Credentials Detected
+DUPLICATE	yGuiRH4Mz19ULP1K-zcyL	462GUQIFvssTT9NymKGDO	SULC - Windows - Basic Brute Force Detection - Admin
+SIMILAR(~83%)	6sfBSGxfc3u5-RYNLY_-d	ArhPvcggSI4kqzhlA8ZtB	RPCC - Defender - Correlated Suspicious Behavior
+SIMILAR(~83%)	xEgr3tLHCFb46ogwACiUf	ArhPvcggSI4kqzhlA8ZtB	RPCC - Defender - Related Threat Indicator Match
+SIMILAR(~83%)	D--ybF3K9rNXZDi9OcV8F	ArhPvcggSI4kqzhlA8ZtB	RPCC - Defender - Anomalous Activity on Same Asset
+SIMILAR(~85%)	awmB826vYAjHKm4hQ3qPz	2IST8kyxDy50IXIuREnEW	LADELTA - Crowdstrike - Correlated Suspicious Behavior
+SIMILAR(~83%)	i8jTG6oUO7hbxc4ZgZknx	2IST8kyxDy50IXIuREnEW	LADELTA - Crowdstrike - Related Threat Indicator Match
+SIMILAR(~86%)	6EKyGJFgXYMDVT1dFildK	7Oi4xxKhO_wNJ-8gENS1w	PBRC - Crowdstrike - Correlated Suspicious Behavior
+SIMILAR(~83%)	Zhwa1ctYegBYuOPTyzFlO	GK8ttwQXbFX4j6JYIhys2	LSU - O365 - Correlated Suspicious Behavior
+SIMILAR(~83%)	G0avJnVoT8F_1tzVkRXb3	hQU3-CMIKmccoqWHZv7FM	SUBR - Defender - Correlated Suspicious Behavior
+SIMILAR(~83%)	cF6XX-DIniUAW3CC6YDlu	dvQ9997TMTUcVeStlsna3	ULM - OneLogin - Correlated Suspicious Behavior
+SIMILAR(~88%)	LoxXqh2OX729BJXSIChI8	tCGf94E3QkKXFkYb09Zyl	LaTech - Windows - Correlated Suspicious Behavior

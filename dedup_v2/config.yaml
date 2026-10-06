@@ -1,0 +1,95 @@
+redis:
+  url: "redis://localhost:6379/0"
+  key_prefix: "dedup"
+  ttl_minutes: 30
+
+logging:
+  max_bytes: 10485760       # 10MB
+  backup_count: 5
+
+stix:
+  extension_key: "extension-definition--a85759ca-e4a9-43be-98b9-77f3f1fc7686"
+  hash_algorithms:
+    - "SHA-256"
+    - "SHA-1"
+    - "MD5"
+
+  notable_field_mappings:
+    ip:
+      - "IOC"
+      - "ipAddress"
+      - "sourceAddress"
+      - "src_ip"
+      - "src"
+      - "source_ip"
+      - "destinationAddress"
+      - "dest_ip"
+      - "dst"
+      - "destination_ip"
+      - "ClientIP"
+    user:
+      - "user"
+      - "duser"
+      - "accountName"
+      - "src_user"
+      - "src_username"
+      - "dest_user"
+      - "User"
+      - "sourceUserName"
+      - "actor"
+    email:
+      - "destinationUserName"
+      - "userPrincipalName"
+      - "sender"
+      - "recipient"
+      - "email"
+    domain:
+      - "domain"
+      - "dest_host"
+      - "hostname"
+      - "deviceHostname"
+      - "deviceDnsName"
+      - "Computer_Name"
+    url:
+      - "url"
+      - "requestURL"
+    file_hash:
+      - "sha256"
+      - "fileHashSha256"
+
+  ioc_field_map:
+    ips: "ip"
+    domains: "domain"
+    urls: "url"
+    file_hashes: "file_hash"
+    emails: "email"
+    usernames: "user"
+
+dedup:
+  window_minutes: 30
+
+  layer1:
+    slots:
+      - "ip"
+      - "user"
+      - "email"
+      - "domain"
+      - "url"
+      - "file_hash"
+      - "alert_name"
+      - "time_bucket"
+    confidence_threshold: 0.80
+    confidence_buckets:           # based on 6 IOC slots: matched/6
+      - "0.0"                     # 0/6 — no IOC match
+      - "16.7"                    # 1/6
+      - "33.3"                    # 2/6
+      - "50.0"                    # 3/6
+      - "66.7"                    # 4/6
+      - "83.3"                    # 5/6
+      - "100.0"                   # 6/6 — all IOCs match
+    stix_equivalence:
+      enabled: true
+      threshold: 80               # minimum STIX similarity score (0-100)
+
+  layer2:
+    similarity_threshold: 80      # minimum fuzzy score for SIMILAR (0-100)

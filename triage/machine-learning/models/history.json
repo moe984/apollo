@@ -1,0 +1,1195 @@
+{
+  "note": "Metrics of superseded releases, kept after the model artifacts were deleted. v20 (shipped), v18 (rollback) and v13 (auditable) are live.",
+  "archived_at": "2026-09-24T06:45:33+00:00",
+  "releases": {
+    "v4": {
+      "stack": "TF-IDF (word + char n-grams) and scaled tabular features into a calibrated SGDClassifier",
+      "data": "90d",
+      "release_kind": "deployment (all rows)",
+      "frozen_at": "2026-09-22T18:55:08+00:00",
+      "hyperparameters": {
+        "tfidf_fields": [
+          "text_name (word 1-2gram)",
+          "text_name (char_wb 3-5gram)",
+          "text_title (word 1-2gram)"
+        ],
+        "sgd_loss": "log_loss",
+        "sgd_penalty": "l2",
+        "sgd_alpha": 0.1,
+        "calibration": "sigmoid, TimeSeriesSplit(4)",
+        "tabular_scaling": "median impute + StandardScaler",
+        "categorical_encoding": "one-hot"
+      },
+      "metrics": {
+        "roc_auc": 0.8315,
+        "pr_auc": 0.6394,
+        "base_rate_pct": 27.03,
+        "test_rows": 8865,
+        "test_positives": 2396
+      },
+      "operating_points": {
+        "0": {
+          "threshold": 0.012877,
+          "ai_share_pct": 0.18,
+          "ai_lane_rows": 15,
+          "missed": 0,
+          "residual_rate_pct": 0.0
+        },
+        "1": {
+          "threshold": 0.014633,
+          "ai_share_pct": 0.56,
+          "ai_lane_rows": 49,
+          "missed": 1,
+          "residual_rate_pct": 2.041
+        },
+        "2": {
+          "threshold": 0.015295,
+          "ai_share_pct": 0.68,
+          "ai_lane_rows": 59,
+          "missed": 2,
+          "residual_rate_pct": 3.39
+        },
+        "5": {
+          "threshold": 0.018219,
+          "ai_share_pct": 1.65,
+          "ai_lane_rows": 145,
+          "missed": 5,
+          "residual_rate_pct": 3.448
+        },
+        "10": {
+          "threshold": 0.025141,
+          "ai_share_pct": 5.1,
+          "ai_lane_rows": 451,
+          "missed": 10,
+          "residual_rate_pct": 2.217
+        },
+        "20": {
+          "threshold": 0.031743,
+          "ai_share_pct": 9.41,
+          "ai_lane_rows": 833,
+          "missed": 20,
+          "residual_rate_pct": 2.401
+        },
+        "50": {
+          "threshold": 0.05239,
+          "ai_share_pct": 19.63,
+          "ai_lane_rows": 1739,
+          "missed": 50,
+          "residual_rate_pct": 2.875
+        }
+      }
+    },
+    "v5": {
+      "stack": "TF-IDF over rule_name and search_name into a calibrated, averaged SGDClassifier - the detection's own identifiers and nothing else",
+      "data": "90d",
+      "release_kind": "deployment (all rows)",
+      "frozen_at": "2026-09-22T20:09:44+00:00",
+      "hyperparameters": {
+        "tfidf_fields": [
+          "rule_name (word 1-2gram)",
+          "search_name (word 1-2gram)"
+        ],
+        "sgd_loss": "log_loss",
+        "sgd_penalty": "l2",
+        "sgd_alpha": 1e-05,
+        "sgd_average": true,
+        "calibration": "sigmoid, TimeSeriesSplit(4)",
+        "reads_tabular_features": false,
+        "reads_container_name": false
+      },
+      "metrics": {
+        "roc_auc": 0.7576,
+        "pr_auc": 0.4867,
+        "base_rate_pct": 27.03,
+        "test_rows": 8865,
+        "test_positives": 2396
+      },
+      "operating_points": {
+        "0": {
+          "threshold": 0.010732,
+          "ai_share_pct": 0.07,
+          "ai_lane_rows": 2,
+          "missed": 0,
+          "residual_rate_pct": 0.0
+        },
+        "1": {
+          "threshold": 0.012342,
+          "ai_share_pct": 0.08,
+          "ai_lane_rows": 6,
+          "missed": 0,
+          "residual_rate_pct": 0.0
+        },
+        "2": {
+          "threshold": 0.016728,
+          "ai_share_pct": 0.83,
+          "ai_lane_rows": 73,
+          "missed": 2,
+          "residual_rate_pct": 2.74
+        },
+        "5": {
+          "threshold": 0.027458,
+          "ai_share_pct": 2.57,
+          "ai_lane_rows": 227,
+          "missed": 5,
+          "residual_rate_pct": 2.203
+        },
+        "10": {
+          "threshold": 0.032044,
+          "ai_share_pct": 4.07,
+          "ai_lane_rows": 355,
+          "missed": 8,
+          "residual_rate_pct": 2.254
+        },
+        "20": {
+          "threshold": 0.053591,
+          "ai_share_pct": 10.02,
+          "ai_lane_rows": 886,
+          "missed": 20,
+          "residual_rate_pct": 2.257
+        },
+        "50": {
+          "threshold": 0.072437,
+          "ai_share_pct": 14.22,
+          "ai_lane_rows": 1255,
+          "missed": 46,
+          "residual_rate_pct": 3.665
+        }
+      }
+    },
+    "v6": {
+      "stack": "TF-IDF over rule_name, search_name and container_name into an averaged SGDClassifier - text only, no history, no state to keep",
+      "data": "90d",
+      "release_kind": "deployment (all rows)",
+      "frozen_at": "2026-09-22T20:14:11+00:00",
+      "hyperparameters": {
+        "tfidf_fields": [
+          "rule_name (word 1-2gram)",
+          "search_name (word 1-2gram)",
+          "container_name (word 1-2gram)"
+        ],
+        "sgd_loss": "log_loss",
+        "sgd_penalty": "l2",
+        "sgd_alpha": 0.0001,
+        "sgd_average": true,
+        "calibration": "none - log_loss is already near the diagonal",
+        "reads_tabular_features": false
+      },
+      "metrics": {
+        "roc_auc": 0.8216,
+        "pr_auc": 0.6193,
+        "base_rate_pct": 27.03,
+        "test_rows": 8865,
+        "test_positives": 2396
+      },
+      "operating_points": {
+        "0": {
+          "threshold": 0.005364,
+          "ai_share_pct": 0.17,
+          "ai_lane_rows": 13,
+          "missed": 0,
+          "residual_rate_pct": 0.0
+        },
+        "1": {
+          "threshold": 0.007272,
+          "ai_share_pct": 0.79,
+          "ai_lane_rows": 69,
+          "missed": 1,
+          "residual_rate_pct": 1.449
+        },
+        "2": {
+          "threshold": 0.008467,
+          "ai_share_pct": 1.2,
+          "ai_lane_rows": 104,
+          "missed": 2,
+          "residual_rate_pct": 1.923
+        },
+        "5": {
+          "threshold": 0.012254,
+          "ai_share_pct": 3.52,
+          "ai_lane_rows": 310,
+          "missed": 5,
+          "residual_rate_pct": 1.613
+        },
+        "10": {
+          "threshold": 0.018517,
+          "ai_share_pct": 7.57,
+          "ai_lane_rows": 669,
+          "missed": 10,
+          "residual_rate_pct": 1.495
+        },
+        "20": {
+          "threshold": 0.025523,
+          "ai_share_pct": 11.18,
+          "ai_lane_rows": 989,
+          "missed": 20,
+          "residual_rate_pct": 2.022
+        },
+        "50": {
+          "threshold": 0.042408,
+          "ai_share_pct": 19.97,
+          "ai_lane_rows": 1757,
+          "missed": 47,
+          "residual_rate_pct": 2.675
+        }
+      }
+    },
+    "v7": {
+      "stack": "TF-IDF over rule_name, search_name and container_name into an averaged SGDClassifier - text only, no history, no state to keep",
+      "data": "12mo",
+      "release_kind": "holdout (evaluated)",
+      "frozen_at": "2026-09-23T02:36:07+00:00",
+      "hyperparameters": {
+        "tfidf_fields": [
+          "rule_name (word 1-2gram)",
+          "search_name (word 1-2gram)",
+          "container_name (word 1-2gram)"
+        ],
+        "sgd_loss": "log_loss",
+        "sgd_penalty": "l2",
+        "sgd_alpha": 1e-05,
+        "sgd_average": true,
+        "calibration": "none - log_loss is already near the diagonal",
+        "reads_tabular_features": false
+      },
+      "metrics": {
+        "roc_auc": 0.805,
+        "pr_auc": 0.548,
+        "base_rate_pct": 22.59,
+        "test_rows": 9728,
+        "test_positives": 2198
+      },
+      "operating_points": {
+        "0": {
+          "threshold": 0.00126,
+          "ai_share_pct": 0.43,
+          "ai_lane_rows": 41,
+          "missed": 0,
+          "residual_rate_pct": 0.0
+        },
+        "1": {
+          "threshold": 0.00161,
+          "ai_share_pct": 1.32,
+          "ai_lane_rows": 125,
+          "missed": 1,
+          "residual_rate_pct": 0.8
+        },
+        "2": {
+          "threshold": 0.001774,
+          "ai_share_pct": 1.77,
+          "ai_lane_rows": 171,
+          "missed": 2,
+          "residual_rate_pct": 1.17
+        },
+        "5": {
+          "threshold": 0.003672,
+          "ai_share_pct": 5.24,
+          "ai_lane_rows": 452,
+          "missed": 5,
+          "residual_rate_pct": 1.106
+        },
+        "10": {
+          "threshold": 0.005774,
+          "ai_share_pct": 8.43,
+          "ai_lane_rows": 818,
+          "missed": 10,
+          "residual_rate_pct": 1.222
+        },
+        "20": {
+          "threshold": 0.009212,
+          "ai_share_pct": 11.96,
+          "ai_lane_rows": 1161,
+          "missed": 19,
+          "residual_rate_pct": 1.637
+        },
+        "50": {
+          "threshold": 0.019428,
+          "ai_share_pct": 17.99,
+          "ai_lane_rows": 1740,
+          "missed": 44,
+          "residual_rate_pct": 2.529
+        }
+      }
+    },
+    "v8": {
+      "stack": "TF-IDF over rule_name, search_name and container_name into an averaged SGDClassifier - text only, no history, no state to keep",
+      "data": "12mo",
+      "release_kind": "deployment (all rows)",
+      "frozen_at": "2026-09-23T02:36:16+00:00",
+      "hyperparameters": {
+        "tfidf_fields": [
+          "rule_name (word 1-2gram)",
+          "search_name (word 1-2gram)",
+          "container_name (word 1-2gram)"
+        ],
+        "sgd_loss": "log_loss",
+        "sgd_penalty": "l2",
+        "sgd_alpha": 1e-05,
+        "sgd_average": true,
+        "calibration": "none - log_loss is already near the diagonal",
+        "reads_tabular_features": false
+      },
+      "metrics": {
+        "roc_auc": 0.8376,
+        "pr_auc": 0.6688,
+        "base_rate_pct": 21.73,
+        "test_rows": 27023,
+        "test_positives": 5872
+      },
+      "operating_points": {
+        "0": {
+          "threshold": 0.000168,
+          "ai_share_pct": 0.16,
+          "ai_lane_rows": 39,
+          "missed": 0,
+          "residual_rate_pct": 0.0
+        },
+        "1": {
+          "threshold": 0.000488,
+          "ai_share_pct": 1.4,
+          "ai_lane_rows": 376,
+          "missed": 1,
+          "residual_rate_pct": 0.266
+        },
+        "2": {
+          "threshold": 0.000518,
+          "ai_share_pct": 1.68,
+          "ai_lane_rows": 453,
+          "missed": 2,
+          "residual_rate_pct": 0.442
+        },
+        "5": {
+          "threshold": 0.000649,
+          "ai_share_pct": 2.59,
+          "ai_lane_rows": 699,
+          "missed": 5,
+          "residual_rate_pct": 0.715
+        },
+        "10": {
+          "threshold": 0.000851,
+          "ai_share_pct": 3.73,
+          "ai_lane_rows": 1005,
+          "missed": 10,
+          "residual_rate_pct": 0.995
+        },
+        "20": {
+          "threshold": 0.001091,
+          "ai_share_pct": 5.05,
+          "ai_lane_rows": 1364,
+          "missed": 20,
+          "residual_rate_pct": 1.466
+        },
+        "50": {
+          "threshold": 0.002651,
+          "ai_share_pct": 10.46,
+          "ai_lane_rows": 2825,
+          "missed": 50,
+          "residual_rate_pct": 1.77
+        }
+      }
+    },
+    "v10-usernames": {
+      "stack": "TF-IDF over the rule's own words - name, description, instantiated description, title - plus the entities SecureBERT-NER extracted from the notable at >=0.999, into an averaged SGDClassifier. A named, auditable slice of the alert rather than all of it - first cut, every USERNAME span kept",
+      "data": "12mo",
+      "release_kind": "deployment (all rows)",
+      "frozen_at": "2026-09-23T16:55:27+00:00",
+      "hyperparameters": {
+        "input_column": "text_v10",
+        "tfidf": "rule_name, rule_description, orig_rule_description, rule_title and title as 'key value' text, then each >=0.999 entity as 'label label_value' (word 1-2gram, min_df=2, sublinear_tf); timestamps, epochs and bare years scrubbed",
+        "sgd_loss": "log_loss",
+        "sgd_penalty": "l2",
+        "sgd_alpha": 1e-05,
+        "sgd_average": true,
+        "calibration": "none - log_loss is already near the diagonal",
+        "reads_tabular_features": false
+      },
+      "metrics": {
+        "roc_auc": 0.8295,
+        "pr_auc": 0.652,
+        "base_rate_pct": 21.73,
+        "test_rows": 27023,
+        "test_positives": 5872
+      },
+      "operating_points": {
+        "0": {
+          "threshold": 0.001458,
+          "ai_share_pct": 0.44,
+          "ai_lane_rows": 119,
+          "missed": 0,
+          "residual_rate_pct": 0.0
+        },
+        "1": {
+          "threshold": 0.00207,
+          "ai_share_pct": 1.17,
+          "ai_lane_rows": 315,
+          "missed": 1,
+          "residual_rate_pct": 0.317
+        },
+        "2": {
+          "threshold": 0.002141,
+          "ai_share_pct": 1.31,
+          "ai_lane_rows": 352,
+          "missed": 2,
+          "residual_rate_pct": 0.568
+        },
+        "5": {
+          "threshold": 0.002229,
+          "ai_share_pct": 1.51,
+          "ai_lane_rows": 405,
+          "missed": 5,
+          "residual_rate_pct": 1.235
+        },
+        "10": {
+          "threshold": 0.00227,
+          "ai_share_pct": 1.71,
+          "ai_lane_rows": 449,
+          "missed": 10,
+          "residual_rate_pct": 2.227
+        },
+        "20": {
+          "threshold": 0.004149,
+          "ai_share_pct": 4.47,
+          "ai_lane_rows": 1207,
+          "missed": 20,
+          "residual_rate_pct": 1.657
+        },
+        "50": {
+          "threshold": 0.008313,
+          "ai_share_pct": 11.24,
+          "ai_lane_rows": 3037,
+          "missed": 50,
+          "residual_rate_pct": 1.646
+        }
+      },
+      "superseded_by": "v10, which drops USERNAME: 82.7% of its >=0.999 spans were metadata values (severity: high, user_risk_object_type: user) and the whole label is worth 0.0010 ROC"
+    },
+    "v9": {
+      "stack": "TF-IDF over the whole Splunk ES notable artifact - every field of the alert as it arrived, timestamps scrubbed - into an averaged SGDClassifier. Text only, no history, no state to keep",
+      "data": "12mo",
+      "release_kind": "deployment (all rows)",
+      "frozen_at": "2026-09-23T14:22:06+00:00",
+      "input_column": "text_cef",
+      "feature_definition": "the whole ES notable artifact, every field as 'key value' text (word 1-2gram, min_df=2, sublinear_tf); timestamps, epochs and bare years scrubbed",
+      "hyperparameters": {
+        "input_column": "text_cef",
+        "sgd_loss": "log_loss",
+        "sgd_penalty": "l2",
+        "sgd_alpha": 1e-05,
+        "sgd_average": true,
+        "calibration": "none - log_loss is already near the diagonal",
+        "reads_tabular_features": false
+      },
+      "metrics": {
+        "roc_auc": 0.8523,
+        "pr_auc": 0.6888,
+        "base_rate_pct": 21.73,
+        "test_rows": 27023,
+        "test_positives": 5872
+      },
+      "operating_points": {
+        "0": {
+          "threshold": 0.001447,
+          "ai_share_pct": 0.87,
+          "ai_lane_rows": 234,
+          "missed": 0,
+          "residual_rate_pct": 0.0
+        },
+        "1": {
+          "threshold": 0.001457,
+          "ai_share_pct": 0.88,
+          "ai_lane_rows": 236,
+          "missed": 1,
+          "residual_rate_pct": 0.424
+        },
+        "2": {
+          "threshold": 0.001491,
+          "ai_share_pct": 0.94,
+          "ai_lane_rows": 254,
+          "missed": 2,
+          "residual_rate_pct": 0.787
+        },
+        "5": {
+          "threshold": 0.001905,
+          "ai_share_pct": 1.75,
+          "ai_lane_rows": 472,
+          "missed": 5,
+          "residual_rate_pct": 1.059
+        },
+        "10": {
+          "threshold": 0.003064,
+          "ai_share_pct": 4.26,
+          "ai_lane_rows": 1150,
+          "missed": 10,
+          "residual_rate_pct": 0.87
+        },
+        "20": {
+          "threshold": 0.00396,
+          "ai_share_pct": 5.84,
+          "ai_lane_rows": 1576,
+          "missed": 20,
+          "residual_rate_pct": 1.269
+        },
+        "50": {
+          "threshold": 0.00769,
+          "ai_share_pct": 11.85,
+          "ai_lane_rows": 3200,
+          "missed": 50,
+          "residual_rate_pct": 1.562
+        }
+      },
+      "predictions_sha256": "c79ce201da0e4e3bc6432671d085dd13b4c6b08cb59e1d039b37b9b2d5f56cfe",
+      "superseded_by": "superseded by v11: same stack, but extract_artifacts/splunk_query left in, so scores drift ~0.042 on Apollo input"
+    },
+    "v10": {
+      "stack": "TF-IDF over the rule's own words - name, description, instantiated description, title - plus the entities SecureBERT-NER extracted from the notable at >=0.999, into an averaged SGDClassifier. A named, auditable slice of the alert rather than all of it",
+      "data": "12mo",
+      "release_kind": "deployment (all rows)",
+      "frozen_at": "2026-09-23T17:03:51+00:00",
+      "input_column": "text_v10",
+      "feature_definition": "rule_name, rule_description, orig_rule_description, rule_title and title as 'key value' text, then each >=0.999 entity of the eight trusted labels - EMAIL, IPV4, IPV6, MACHINE, FILEPATH, FILENAME, HASH, URL - as 'label label_value' (word 1-2gram, min_df=2, sublinear_tf); timestamps, epochs and bare years scrubbed",
+      "hyperparameters": {
+        "input_column": "text_v10",
+        "sgd_loss": "log_loss",
+        "sgd_penalty": "l2",
+        "sgd_alpha": 1e-05,
+        "sgd_average": true,
+        "calibration": "none - log_loss is already near the diagonal",
+        "reads_tabular_features": false
+      },
+      "metrics": {
+        "roc_auc": 0.8285,
+        "pr_auc": 0.6516,
+        "base_rate_pct": 21.73,
+        "test_rows": 27023,
+        "test_positives": 5872
+      },
+      "operating_points": {
+        "0": {
+          "threshold": 0.001384,
+          "ai_share_pct": 0.44,
+          "ai_lane_rows": 117,
+          "missed": 0,
+          "residual_rate_pct": 0.0
+        },
+        "1": {
+          "threshold": 0.002053,
+          "ai_share_pct": 1.23,
+          "ai_lane_rows": 330,
+          "missed": 1,
+          "residual_rate_pct": 0.303
+        },
+        "2": {
+          "threshold": 0.002217,
+          "ai_share_pct": 1.61,
+          "ai_lane_rows": 435,
+          "missed": 2,
+          "residual_rate_pct": 0.46
+        },
+        "5": {
+          "threshold": 0.002235,
+          "ai_share_pct": 1.67,
+          "ai_lane_rows": 444,
+          "missed": 3,
+          "residual_rate_pct": 0.676
+        },
+        "10": {
+          "threshold": 0.002686,
+          "ai_share_pct": 2.48,
+          "ai_lane_rows": 668,
+          "missed": 10,
+          "residual_rate_pct": 1.497
+        },
+        "20": {
+          "threshold": 0.004279,
+          "ai_share_pct": 4.44,
+          "ai_lane_rows": 1181,
+          "missed": 17,
+          "residual_rate_pct": 1.439
+        },
+        "50": {
+          "threshold": 0.008506,
+          "ai_share_pct": 11.67,
+          "ai_lane_rows": 3148,
+          "missed": 50,
+          "residual_rate_pct": 1.588
+        }
+      },
+      "predictions_sha256": "1a0caaa1a8be4ef5f957db26e96f45460ffc5a33761fa258e506fa87b151a209",
+      "superseded_by": "5 rule fields + 9 entity types; superseded by the v12-v17 series"
+    },
+    "v12": {
+      "stack": "TF-IDF over the ES notable's high-coverage fields - every key on at least 1% of alerts, 326 of them - plus the nine entity types SecureBERT-NER extracted from the notable at >=0.999, into an averaged SGDClassifier. A reviewable feature list instead of 1,312 keys",
+      "data": "12mo",
+      "release_kind": "deployment (all rows)",
+      "frozen_at": "2026-09-24T00:23:22+00:00",
+      "input_column": "text_v12",
+      "feature_definition": "the 326 ES notable keys present on >=1% of alerts, each as 'key value' text, then each >=0.999 entity as 'label value' across IPV4, IPV6, MACHINE, USERNAME, EMAIL, URL, FILEPATH, FILENAME and HASH (word 1-2gram, min_df=2, sublinear_tf); timestamps, epochs and bare years scrubbed; extract_artifacts and splunk_query dropped for Apollo alignment; USERNAME is the key-context filtered set",
+      "hyperparameters": {
+        "input_column": "text_v12",
+        "sgd_loss": "log_loss",
+        "sgd_penalty": "l2",
+        "sgd_alpha": 1e-05,
+        "sgd_average": true,
+        "calibration": "none - log_loss is already near the diagonal",
+        "reads_tabular_features": false
+      },
+      "metrics": {
+        "roc_auc": 0.8511,
+        "pr_auc": 0.6859,
+        "base_rate_pct": 21.73,
+        "test_rows": 27023,
+        "test_positives": 5872
+      },
+      "operating_points": {
+        "0": {
+          "threshold": 0.001369,
+          "ai_share_pct": 0.68,
+          "ai_lane_rows": 184,
+          "missed": 0,
+          "residual_rate_pct": 0.0
+        },
+        "1": {
+          "threshold": 0.001391,
+          "ai_share_pct": 0.73,
+          "ai_lane_rows": 195,
+          "missed": 1,
+          "residual_rate_pct": 0.513
+        },
+        "2": {
+          "threshold": 0.001392,
+          "ai_share_pct": 0.73,
+          "ai_lane_rows": 196,
+          "missed": 1,
+          "residual_rate_pct": 0.51
+        },
+        "5": {
+          "threshold": 0.001888,
+          "ai_share_pct": 1.79,
+          "ai_lane_rows": 482,
+          "missed": 5,
+          "residual_rate_pct": 1.037
+        },
+        "10": {
+          "threshold": 0.00306,
+          "ai_share_pct": 4.44,
+          "ai_lane_rows": 1199,
+          "missed": 10,
+          "residual_rate_pct": 0.834
+        },
+        "20": {
+          "threshold": 0.003688,
+          "ai_share_pct": 5.54,
+          "ai_lane_rows": 1496,
+          "missed": 20,
+          "residual_rate_pct": 1.337
+        },
+        "50": {
+          "threshold": 0.007336,
+          "ai_share_pct": 11.25,
+          "ai_lane_rows": 3038,
+          "missed": 49,
+          "residual_rate_pct": 1.613
+        }
+      },
+      "predictions_sha256": "d39baaf37ab8f577ab3f707016d65b26aeae83e96e1390cbe14ae9d9cb895f46",
+      "superseded_by": "326 fields + 9 entity types; v13 is the same with the 3 identity types dropped, at identical ROC"
+    },
+    "v14": {
+      "stack": "TF-IDF over seven named ES notable fields - rule_name, rule_title, search_name, security_domain, rule_description, severity, ClientName - plus the six non-identity entity types SecureBERT-NER extracted at >=0.999, into an averaged SGDClassifier. The smallest input that is still a reviewable feature list",
+      "data": "12mo",
+      "release_kind": "deployment (all rows)",
+      "frozen_at": "2026-09-24T00:44:12+00:00",
+      "input_column": "text_v14",
+      "feature_definition": "seven ES notable fields as 'key value' text, then each >=0.999 entity as 'label value' across IPV4, IPV6, URL, FILEPATH, FILENAME and HASH (word 1-2gram, min_df=2, sublinear_tf); timestamps, epochs and bare years scrubbed",
+      "hyperparameters": {
+        "input_column": "text_v14",
+        "sgd_loss": "log_loss",
+        "sgd_penalty": "l2",
+        "sgd_alpha": 1e-05,
+        "sgd_average": true,
+        "calibration": "none - log_loss is already near the diagonal",
+        "reads_tabular_features": false
+      },
+      "metrics": {
+        "roc_auc": 0.8306,
+        "pr_auc": 0.654,
+        "base_rate_pct": 21.73,
+        "test_rows": 27023,
+        "test_positives": 5872
+      },
+      "operating_points": {
+        "0": {
+          "threshold": 0.001086,
+          "ai_share_pct": 0.85,
+          "ai_lane_rows": 208,
+          "missed": 0,
+          "residual_rate_pct": 0.0
+        },
+        "1": {
+          "threshold": 0.001246,
+          "ai_share_pct": 1.03,
+          "ai_lane_rows": 278,
+          "missed": 1,
+          "residual_rate_pct": 0.36
+        },
+        "2": {
+          "threshold": 0.001643,
+          "ai_share_pct": 1.66,
+          "ai_lane_rows": 437,
+          "missed": 2,
+          "residual_rate_pct": 0.458
+        },
+        "5": {
+          "threshold": 0.002012,
+          "ai_share_pct": 2.82,
+          "ai_lane_rows": 761,
+          "missed": 5,
+          "residual_rate_pct": 0.657
+        },
+        "10": {
+          "threshold": 0.002426,
+          "ai_share_pct": 3.58,
+          "ai_lane_rows": 928,
+          "missed": 10,
+          "residual_rate_pct": 1.078
+        },
+        "20": {
+          "threshold": 0.003721,
+          "ai_share_pct": 5.85,
+          "ai_lane_rows": 1579,
+          "missed": 19,
+          "residual_rate_pct": 1.203
+        },
+        "50": {
+          "threshold": 0.007912,
+          "ai_share_pct": 12.45,
+          "ai_lane_rows": 3363,
+          "missed": 50,
+          "residual_rate_pct": 1.487
+        }
+      },
+      "predictions_sha256": "85b2ad87fdda655d2eb469f0233292845013e68498f6b093a9dc18a320d4fdda",
+      "superseded_by": "7 named fields + 6 entity types; smallest reviewable list, -0.0217 vs v11"
+    },
+    "v15": {
+      "stack": "TF-IDF over the sixteen ES notable fields present on at least 90% of alerts, plus the six non-identity entity types SecureBERT-NER extracted at >=0.999, into an averaged SGDClassifier. Every field is one you can rely on being populated",
+      "data": "12mo",
+      "release_kind": "deployment (all rows)",
+      "frozen_at": "2026-09-24T03:11:12+00:00",
+      "input_column": "text_v15",
+      "feature_definition": "the 16 ES notable keys on >=90% of alerts, each as 'key value' text, then each >=0.999 entity as 'label value' across IPV4, IPV6, URL, FILEPATH, FILENAME and HASH (word 1-2gram, min_df=2, sublinear_tf); timestamps, epochs and bare years scrubbed",
+      "hyperparameters": {
+        "input_column": "text_v15",
+        "sgd_loss": "log_loss",
+        "sgd_penalty": "l2",
+        "sgd_alpha": 1e-05,
+        "sgd_average": true,
+        "calibration": "none - log_loss is already near the diagonal",
+        "reads_tabular_features": false
+      },
+      "metrics": {
+        "roc_auc": 0.83,
+        "pr_auc": 0.6535,
+        "base_rate_pct": 21.73,
+        "test_rows": 27023,
+        "test_positives": 5872
+      },
+      "operating_points": {
+        "0": {
+          "threshold": 0.001217,
+          "ai_share_pct": 0.49,
+          "ai_lane_rows": 127,
+          "missed": 0,
+          "residual_rate_pct": 0.0
+        },
+        "1": {
+          "threshold": 0.001362,
+          "ai_share_pct": 0.91,
+          "ai_lane_rows": 244,
+          "missed": 1,
+          "residual_rate_pct": 0.41
+        },
+        "2": {
+          "threshold": 0.001486,
+          "ai_share_pct": 1.17,
+          "ai_lane_rows": 283,
+          "missed": 2,
+          "residual_rate_pct": 0.707
+        },
+        "5": {
+          "threshold": 0.002097,
+          "ai_share_pct": 2.29,
+          "ai_lane_rows": 613,
+          "missed": 5,
+          "residual_rate_pct": 0.816
+        },
+        "10": {
+          "threshold": 0.002579,
+          "ai_share_pct": 3.51,
+          "ai_lane_rows": 947,
+          "missed": 10,
+          "residual_rate_pct": 1.056
+        },
+        "20": {
+          "threshold": 0.003533,
+          "ai_share_pct": 5.01,
+          "ai_lane_rows": 1324,
+          "missed": 20,
+          "residual_rate_pct": 1.511
+        },
+        "50": {
+          "threshold": 0.008287,
+          "ai_share_pct": 12.36,
+          "ai_lane_rows": 3333,
+          "missed": 49,
+          "residual_rate_pct": 1.47
+        }
+      },
+      "predictions_sha256": "41a5f0841c8ed7f34e52e40e929defba2857c6ff11b95c38c8cdb91a3e7f292f",
+      "superseded_by": "16 fields (>=80% coverage) + 6 entity types; dominated by v14 - twice the fields, same score"
+    },
+    "v16": {
+      "stack": "TF-IDF over the 24 ES notable fields present on at least 70% of alerts, plus the six non-identity entity types SecureBERT-NER extracted at >=0.999, into an averaged SGDClassifier. A coverage floor you can rely on: every field is populated on 7 alerts in 10 or better",
+      "data": "12mo",
+      "release_kind": "deployment (all rows)",
+      "frozen_at": "2026-09-24T03:23:26+00:00",
+      "input_column": "text_v16",
+      "feature_definition": "the 24 ES notable keys on >=70% of alerts, each as 'key value' text, then each >=0.999 entity as 'label value' across IPV4, IPV6, URL, FILEPATH, FILENAME and HASH (word 1-2gram, min_df=2, sublinear_tf); timestamps, epochs and bare years scrubbed",
+      "hyperparameters": {
+        "input_column": "text_v16",
+        "sgd_loss": "log_loss",
+        "sgd_penalty": "l2",
+        "sgd_alpha": 1e-05,
+        "sgd_average": true,
+        "calibration": "none - log_loss is already near the diagonal",
+        "reads_tabular_features": false
+      },
+      "metrics": {
+        "roc_auc": 0.8363,
+        "pr_auc": 0.665,
+        "base_rate_pct": 21.73,
+        "test_rows": 27023,
+        "test_positives": 5872
+      },
+      "operating_points": {
+        "0": {
+          "threshold": 0.001341,
+          "ai_share_pct": 0.51,
+          "ai_lane_rows": 137,
+          "missed": 0,
+          "residual_rate_pct": 0.0
+        },
+        "1": {
+          "threshold": 0.001919,
+          "ai_share_pct": 1.18,
+          "ai_lane_rows": 318,
+          "missed": 1,
+          "residual_rate_pct": 0.314
+        },
+        "2": {
+          "threshold": 0.001992,
+          "ai_share_pct": 1.29,
+          "ai_lane_rows": 348,
+          "missed": 2,
+          "residual_rate_pct": 0.575
+        },
+        "5": {
+          "threshold": 0.002481,
+          "ai_share_pct": 2.33,
+          "ai_lane_rows": 626,
+          "missed": 5,
+          "residual_rate_pct": 0.799
+        },
+        "10": {
+          "threshold": 0.002741,
+          "ai_share_pct": 2.99,
+          "ai_lane_rows": 803,
+          "missed": 9,
+          "residual_rate_pct": 1.121
+        },
+        "20": {
+          "threshold": 0.003311,
+          "ai_share_pct": 4.44,
+          "ai_lane_rows": 1200,
+          "missed": 20,
+          "residual_rate_pct": 1.667
+        },
+        "50": {
+          "threshold": 0.007885,
+          "ai_share_pct": 11.73,
+          "ai_lane_rows": 3170,
+          "missed": 50,
+          "residual_rate_pct": 1.577
+        }
+      },
+      "predictions_sha256": "9e1da92069a324e3649808cc0da34040b1bd0839103070d4630245f9b8c91ea9",
+      "superseded_by": "24 fields (>=70% coverage) + 6 entity types; best of the small models, -0.0161 vs v11"
+    },
+    "v17": {
+      "stack": "TF-IDF over the whole Splunk ES notable exactly as Apollo forwards it, plus the six non-identity entity types SecureBERT-NER extracted at >=0.999, into an averaged SGDClassifier. The best-scoring release, by 0.0003 over v11 - which is three times the seed noise floor and still small enough that the NER dependency has to justify itself elsewhere",
+      "data": "12mo",
+      "release_kind": "deployment (all rows)",
+      "frozen_at": "2026-09-24T03:32:34+00:00",
+      "input_column": "text_v17",
+      "feature_definition": "every field of the ES notable as 'key value' text, then each >=0.999 entity as 'label value' across IPV4, IPV6, URL, FILEPATH, FILENAME and HASH (word 1-2gram, min_df=2, sublinear_tf); timestamps, epochs and bare years scrubbed; extract_artifacts and splunk_query dropped for Apollo alignment",
+      "hyperparameters": {
+        "input_column": "text_v17",
+        "sgd_loss": "log_loss",
+        "sgd_penalty": "l2",
+        "sgd_alpha": 1e-05,
+        "sgd_average": true,
+        "calibration": "none - log_loss is already near the diagonal",
+        "reads_tabular_features": false
+      },
+      "metrics": {
+        "roc_auc": 0.8526,
+        "pr_auc": 0.6891,
+        "base_rate_pct": 21.73,
+        "test_rows": 27023,
+        "test_positives": 5872
+      },
+      "operating_points": {
+        "0": {
+          "threshold": 0.001433,
+          "ai_share_pct": 0.88,
+          "ai_lane_rows": 237,
+          "missed": 0,
+          "residual_rate_pct": 0.0
+        },
+        "1": {
+          "threshold": 0.001438,
+          "ai_share_pct": 0.9,
+          "ai_lane_rows": 241,
+          "missed": 1,
+          "residual_rate_pct": 0.415
+        },
+        "2": {
+          "threshold": 0.001468,
+          "ai_share_pct": 0.96,
+          "ai_lane_rows": 258,
+          "missed": 2,
+          "residual_rate_pct": 0.775
+        },
+        "5": {
+          "threshold": 0.001872,
+          "ai_share_pct": 1.79,
+          "ai_lane_rows": 484,
+          "missed": 5,
+          "residual_rate_pct": 1.033
+        },
+        "10": {
+          "threshold": 0.003048,
+          "ai_share_pct": 4.39,
+          "ai_lane_rows": 1186,
+          "missed": 10,
+          "residual_rate_pct": 0.843
+        },
+        "20": {
+          "threshold": 0.003689,
+          "ai_share_pct": 5.45,
+          "ai_lane_rows": 1472,
+          "missed": 20,
+          "residual_rate_pct": 1.359
+        },
+        "50": {
+          "threshold": 0.007892,
+          "ai_share_pct": 12.44,
+          "ai_lane_rows": 3362,
+          "missed": 50,
+          "residual_rate_pct": 1.487
+        }
+      },
+      "predictions_sha256": "280d22b0c637cc7c759402e8be2bd716ddb535a6fd5b839f298e2304b542e447",
+      "superseded_by": "all fields + 6 entity types; best measured ROC 0.8526, but +0.0003 over v11 for a SecureBERT NER pass on every alert"
+    },
+    "v11": {
+      "stack": "TF-IDF over the whole Splunk ES notable exactly as Apollo forwards it - every field of the alert as it arrived, timestamps scrubbed, and the two keys that exist on only one side removed - into an averaged SGDClassifier. The string fitted here is byte-identical to the string built from a live Apollo record",
+      "data": "12mo",
+      "release_kind": "deployment (all rows)",
+      "frozen_at": "2026-09-24T06:44:02+00:00",
+      "input_column": "text_v11",
+      "feature_definition": "the whole ES notable artifact, every field as 'key value' text (word 1-2gram, min_df=2, sublinear_tf); timestamps, epochs and bare years scrubbed; extract_artifacts and splunk_query dropped because Apollo and the SOAR export disagree on them",
+      "preprocessing": {
+        "config_file": "config/preprocessing.json",
+        "config_sha256": "f0f2fe326d6518bc7e5f537d109ab765de2bbaf84261ee88b133461555fe59ee",
+        "keys_dropped": 44,
+        "drop_groups": {
+          "splunk_plumbing": 6,
+          "per_event_identifiers": 6,
+          "timestamps": 10,
+          "date_parts": 8,
+          "console_urls": 4,
+          "triage_state": 8,
+          "serving_alignment": 2
+        },
+        "artifact_selection": [
+          "rule_id"
+        ]
+      },
+      "hyperparameters": {
+        "input_column": "text_v11",
+        "sgd_loss": "log_loss",
+        "sgd_penalty": "l2",
+        "tfidf_min_df": 2,
+        "sgd_alpha": 1e-05,
+        "sgd_average": true,
+        "calibration": "none - log_loss is already near the diagonal",
+        "reads_tabular_features": false
+      },
+      "metrics": {
+        "roc_auc": 0.8523,
+        "pr_auc": 0.6886,
+        "base_rate_pct": 21.73,
+        "test_rows": 27023,
+        "test_positives": 5872
+      },
+      "operating_points": {
+        "0": {
+          "threshold": 0.001427,
+          "ai_share_pct": 0.84,
+          "ai_lane_rows": 226,
+          "missed": 0,
+          "residual_rate_pct": 0.0
+        },
+        "1": {
+          "threshold": 0.00143,
+          "ai_share_pct": 0.85,
+          "ai_lane_rows": 230,
+          "missed": 1,
+          "residual_rate_pct": 0.435
+        },
+        "2": {
+          "threshold": 0.001461,
+          "ai_share_pct": 0.89,
+          "ai_lane_rows": 239,
+          "missed": 2,
+          "residual_rate_pct": 0.837
+        },
+        "5": {
+          "threshold": 0.001873,
+          "ai_share_pct": 1.71,
+          "ai_lane_rows": 461,
+          "missed": 5,
+          "residual_rate_pct": 1.085
+        },
+        "10": {
+          "threshold": 0.003047,
+          "ai_share_pct": 4.26,
+          "ai_lane_rows": 1150,
+          "missed": 10,
+          "residual_rate_pct": 0.87
+        },
+        "20": {
+          "threshold": 0.003938,
+          "ai_share_pct": 5.82,
+          "ai_lane_rows": 1572,
+          "missed": 20,
+          "residual_rate_pct": 1.272
+        },
+        "50": {
+          "threshold": 0.007619,
+          "ai_share_pct": 11.72,
+          "ai_lane_rows": 3166,
+          "missed": 50,
+          "residual_rate_pct": 1.579
+        }
+      },
+      "predictions_sha256": "d72ecee3eb6a2dd1feca4840cf92c8d268cf448f1919468084374bdcd0c9a6e1",
+      "superseded_by": "superseded by v18: identical input, but min_df=2 - v18's min_df=1 wins on ROC (0.8523->0.8541), PR and coverage at zero misses (0.84%->1.37%). Strictly dominated."
+    },
+    "v19": {
+      "stack": "TF-IDF over five ES notable keys - every key present on 100% of alerts, less the constants and the duplicates - plus the six non-identity entity types SecureBERT-NER extracted at >=0.999, into an averaged SGDClassifier. The smallest defensible feature list: nothing can go missing, and nothing is carried twice",
+      "data": "12mo",
+      "release_kind": "deployment (all rows)",
+      "frozen_at": "2026-09-24T06:44:41+00:00",
+      "input_column": "text_v19",
+      "feature_definition": "rule_title, label, eventtype, security_domain and notable_type as 'key value' text, then each >=0.999 entity as 'label value' across IPV4, IPV6, URL, FILEPATH, FILENAME and HASH (word 1-2gram, min_df=1, sublinear_tf); timestamps, epochs and bare years scrubbed",
+      "preprocessing": {
+        "config_file": "config/preprocessing.json",
+        "config_sha256": "f0f2fe326d6518bc7e5f537d109ab765de2bbaf84261ee88b133461555fe59ee",
+        "keys_dropped": 44,
+        "drop_groups": {
+          "splunk_plumbing": 6,
+          "per_event_identifiers": 6,
+          "timestamps": 10,
+          "date_parts": 8,
+          "console_urls": 4,
+          "triage_state": 8,
+          "serving_alignment": 2
+        },
+        "artifact_selection": [
+          "rule_id"
+        ]
+      },
+      "hyperparameters": {
+        "input_column": "text_v19",
+        "sgd_loss": "log_loss",
+        "sgd_penalty": "l2",
+        "tfidf_min_df": 1,
+        "sgd_alpha": 1e-05,
+        "sgd_average": true,
+        "calibration": "none - log_loss is already near the diagonal",
+        "reads_tabular_features": false
+      },
+      "metrics": {
+        "roc_auc": 0.8316,
+        "pr_auc": 0.6515,
+        "base_rate_pct": 21.73,
+        "test_rows": 27023,
+        "test_positives": 5872
+      },
+      "operating_points": {
+        "0": {
+          "threshold": 0.000306,
+          "ai_share_pct": 0.25,
+          "ai_lane_rows": 17,
+          "missed": 0,
+          "residual_rate_pct": 0.0
+        },
+        "1": {
+          "threshold": 0.000562,
+          "ai_share_pct": 0.52,
+          "ai_lane_rows": 138,
+          "missed": 1,
+          "residual_rate_pct": 0.725
+        },
+        "2": {
+          "threshold": 0.000615,
+          "ai_share_pct": 0.7,
+          "ai_lane_rows": 147,
+          "missed": 2,
+          "residual_rate_pct": 1.361
+        },
+        "5": {
+          "threshold": 0.001664,
+          "ai_share_pct": 2.44,
+          "ai_lane_rows": 659,
+          "missed": 5,
+          "residual_rate_pct": 0.759
+        },
+        "10": {
+          "threshold": 0.001765,
+          "ai_share_pct": 2.67,
+          "ai_lane_rows": 715,
+          "missed": 10,
+          "residual_rate_pct": 1.399
+        },
+        "20": {
+          "threshold": 0.002468,
+          "ai_share_pct": 4.3,
+          "ai_lane_rows": 1159,
+          "missed": 20,
+          "residual_rate_pct": 1.726
+        },
+        "50": {
+          "threshold": 0.005655,
+          "ai_share_pct": 10.79,
+          "ai_lane_rows": 2916,
+          "missed": 50,
+          "residual_rate_pct": 1.715
+        }
+      },
+      "predictions_sha256": "e9e1c5471bf298d425769449f6d2158db67166864fc3414e2b64e6bd2a693b5b",
+      "superseded_by": "5 CEF keys (the 100%-coverage set, less constants and duplicates) + 6 entity types; the smallest defensible feature list, -0.0224 ROC and the weakest operating point of any release"
+    }
+  }
+}

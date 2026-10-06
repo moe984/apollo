@@ -1,0 +1,283 @@
+[
+  {
+    "expected": "NEW",
+    "http_status": 200,
+    "response": {
+      "contract_version": "1.2",
+      "transition_state": "new",
+      "is_duplicate": false,
+      "verdict": "NEW",
+      "confidence": null,
+      "reasoning": "New alert; ownership validated (SLA tier standard) and queued for triage.",
+      "apollo_alert_id": "ftcc-4440001",
+      "canonical_alert_id": null,
+      "match_type": null,
+      "container_id": 4440001,
+      "alert_url": "https://apollo-dev.cosmos.tekstream.com/dashboard/alerts/ftcc-4440001",
+      "dedup_engine": {
+        "alert_id": "ftcc-4440001",
+        "verdict": "NEW",
+        "hash_confidence": 0,
+        "stix_context_similarity": 0,
+        "stix_observable_by_type": 0,
+        "stix_observable_by_value": 0,
+        "layer": 0,
+        "matched_alert_id": "",
+        "score_breakdown": {},
+        "stix_context_details": [],
+        "stix_observable_details": [],
+        "iocs": {
+          "ip": [
+            "192.0.2.240",
+            "198.18.0.240"
+          ],
+          "user": [
+            "v12live@corp.local"
+          ]
+        },
+        "filled_slots": [
+          "ip",
+          "user"
+        ],
+        "matched_slots": [],
+        "missed_slots": []
+      },
+      "correlation_id": "h1YKkkQBdvBICtrvjhD9D"
+    }
+  },
+  {
+    "expected": "DUPLICATE",
+    "http_status": 200,
+    "response": {
+      "contract_version": "1.2",
+      "transition_state": "duplicate",
+      "is_duplicate": true,
+      "verdict": "DUPLICATE",
+      "confidence": 1,
+      "reasoning": "Exact match (exact_hash) against canonical alert ftcc-4440001; suppressed as duplicate.",
+      "apollo_alert_id": "ftcc-4440002",
+      "canonical_alert_id": "ftcc-4440001",
+      "match_type": "exact_hash",
+      "container_id": 4440002,
+      "alert_url": "https://apollo-dev.cosmos.tekstream.com/dashboard/alerts/ftcc-4440002",
+      "dedup_engine": {
+        "alert_id": "ftcc-4440002",
+        "verdict": "DUPLICATE",
+        "hash_confidence": 1,
+        "stix_context_similarity": 100,
+        "stix_observable_by_type": 100,
+        "stix_observable_by_value": 100,
+        "layer": 1,
+        "matched_alert_id": "ftcc-4440001",
+        "score_breakdown": {
+          "matched": [
+            "ip",
+            "user"
+          ],
+          "missed": []
+        },
+        "stix_context_details": [
+          {
+            "type": "identity",
+            "score": 100,
+            "details": {
+              "name": {
+                "weight": 60,
+                "contributing_score": 60
+              },
+              "identity_class": {
+                "weight": 20,
+                "contributing_score": 20
+              }
+            }
+          },
+          {
+            "type": "indicator",
+            "score": 100,
+            "details": {
+              "indicator_types": {
+                "weight": 15,
+                "contributing_score": 15
+              },
+              "pattern": {
+                "weight": 80,
+                "contributing_score": 80
+              },
+              "valid_from": {
+                "weight": 5,
+                "contributing_score": 5
+              }
+            }
+          }
+        ],
+        "stix_observable_details": [
+          {
+            "type": "ip",
+            "score": 100,
+            "incoming_values": [
+              "192.0.2.240",
+              "198.18.0.240"
+            ],
+            "stored_values": [
+              "192.0.2.240",
+              "198.18.0.240"
+            ],
+            "matched_values": [
+              "192.0.2.240",
+              "198.18.0.240"
+            ]
+          },
+          {
+            "type": "user",
+            "score": 100,
+            "incoming_values": [
+              "v12live@corp.local"
+            ],
+            "stored_values": [
+              "v12live@corp.local"
+            ],
+            "matched_values": [
+              "v12live@corp.local"
+            ]
+          }
+        ],
+        "iocs": {
+          "ip": [
+            "192.0.2.240",
+            "198.18.0.240"
+          ],
+          "user": [
+            "v12live@corp.local"
+          ]
+        },
+        "filled_slots": [
+          "ip",
+          "user"
+        ],
+        "matched_slots": [
+          "ip",
+          "user"
+        ],
+        "missed_slots": []
+      },
+      "correlation_id": "8aDepybAX5o5crbS2wkzV"
+    }
+  },
+  {
+    "expected": "SIMILAR",
+    "http_status": 200,
+    "response": {
+      "contract_version": "1.2",
+      "transition_state": "review",
+      "is_duplicate": false,
+      "verdict": "SIMILAR",
+      "confidence": null,
+      "reasoning": "Similar to canonical alert ftcc-4440001 via fuzzy_ioc; held for analyst confirmation in the dedup review queue (cluster review-2KjxmG71bZKJhf2dwaHZV). Not auto-suppressed; treat as new until an analyst confirms.",
+      "apollo_alert_id": "ftcc-4440003",
+      "canonical_alert_id": "ftcc-4440001",
+      "match_type": "fuzzy_ioc",
+      "container_id": 4440003,
+      "alert_url": "https://apollo-dev.cosmos.tekstream.com/dashboard/alerts/ftcc-4440003",
+      "dedup_engine": {
+        "alert_id": "ftcc-4440003",
+        "verdict": "SIMILAR",
+        "hash_confidence": 0,
+        "stix_context_similarity": 100,
+        "stix_observable_by_type": 100,
+        "stix_observable_by_value": 100,
+        "layer": 2,
+        "matched_alert_id": "ftcc-4440002",
+        "score_breakdown": {
+          "fuzzy_score": 100,
+          "per_type_scores": {
+            "ip": 100,
+            "user": 100
+          },
+          "incoming_rule": "PBRC - Fortinet - Suspicious Outbound Connection",
+          "matched_rule": "PBRC - Palo Alto - Critical Threat Allowed Inbound"
+        },
+        "stix_context_details": [
+          {
+            "type": "identity",
+            "score": 100,
+            "details": {
+              "name": {
+                "weight": 60,
+                "contributing_score": 60
+              },
+              "identity_class": {
+                "weight": 20,
+                "contributing_score": 20
+              }
+            }
+          },
+          {
+            "type": "indicator",
+            "score": 100,
+            "details": {
+              "indicator_types": {
+                "weight": 15,
+                "contributing_score": 15
+              },
+              "pattern": {
+                "weight": 80,
+                "contributing_score": 80
+              },
+              "valid_from": {
+                "weight": 5,
+                "contributing_score": 5
+              }
+            }
+          }
+        ],
+        "stix_observable_details": [
+          {
+            "type": "ip",
+            "score": 100,
+            "incoming_values": [
+              "192.0.2.240",
+              "198.18.0.240"
+            ],
+            "stored_values": [
+              "192.0.2.240",
+              "198.18.0.240"
+            ],
+            "matched_values": [
+              "192.0.2.240",
+              "198.18.0.240"
+            ]
+          },
+          {
+            "type": "user",
+            "score": 100,
+            "incoming_values": [
+              "v12live@corp.local"
+            ],
+            "stored_values": [
+              "v12live@corp.local"
+            ],
+            "matched_values": [
+              "v12live@corp.local"
+            ]
+          }
+        ],
+        "iocs": {
+          "ip": [
+            "192.0.2.240",
+            "198.18.0.240"
+          ],
+          "user": [
+            "v12live@corp.local"
+          ]
+        },
+        "filled_slots": [
+          "ip",
+          "user"
+        ],
+        "matched_slots": [],
+        "missed_slots": []
+      },
+      "correlation_id": "puv5UhydNixhDY1fO2q9D"
+    }
+  }
+]

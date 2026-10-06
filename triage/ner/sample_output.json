@@ -1,0 +1,331 @@
+[
+  {
+    "container_id": "prod-soar2:159567",
+    "disposition": "Benign Positive - Suspicious But Expected",
+    "shape": "api_json",
+    "chars": 3324,
+    "latency_ms": 3226.4,
+    "entity_count_raw": 36,
+    "entity_count_kept": 16,
+    "min_score": 0.999,
+    "by_type": {
+      "MACHINE": [
+        {
+          "value": "ADDS-DPS-01.master.lsuhsc.edu",
+          "score": 0.9999
+        },
+        {
+          "value": "ADDS-DPS-03.master.lsuhsc.edu",
+          "score": 0.9999
+        },
+        {
+          "value": "ADDS-RCB-01.master.lsuhsc.edu",
+          "score": 0.9999
+        },
+        {
+          "value": "ADDS-RCB-02.master.lsuhsc.edu",
+          "score": 0.9999
+        },
+        {
+          "value": "ADFS-DPS.master.lsuhsc.edu",
+          "score": 0.9999
+        },
+        {
+          "value": "EIS-RCBNPS1.master.lsuhsc.edu",
+          "score": 0.9998
+        },
+        {
+          "value": "AH-CD-9A5",
+          "score": 0.9995
+        }
+      ],
+      "USERNAME": [
+        {
+          "value": "cheb14",
+          "score": 0.9994
+        },
+        {
+          "value": "medium",
+          "score": 0.9992
+        },
+        {
+          "value": "user",
+          "score": 1.0
+        }
+      ]
+    }
+  },
+  {
+    "container_id": "prod-soar2:159567",
+    "disposition": "Benign Positive - Suspicious But Expected",
+    "shape": "kv_text",
+    "chars": 3053,
+    "latency_ms": 3148.4,
+    "entity_count_raw": 28,
+    "entity_count_kept": 3,
+    "min_score": 0.999,
+    "by_type": {
+      "USERNAME": [
+        {
+          "value": "cheb14",
+          "score": 0.9992
+        },
+        {
+          "value": "user",
+          "score": 0.9999
+        }
+      ],
+      "MACHINE": [
+        {
+          "value": "AH-CD-9A5",
+          "score": 0.9991
+        }
+      ]
+    }
+  },
+  {
+    "container_id": "prod-soar2:159567",
+    "disposition": "Benign Positive - Suspicious But Expected",
+    "shape": "values",
+    "chars": 2452,
+    "latency_ms": 2273.5,
+    "entity_count_raw": 18,
+    "entity_count_kept": 4,
+    "min_score": 0.999,
+    "by_type": {
+      "MACHINE": [
+        {
+          "value": "ADDS-DPS-01.master.lsuhsc.edu",
+          "score": 0.9995
+        },
+        {
+          "value": "ADDS-DPS-03.master.lsuhsc.edu",
+          "score": 0.9994
+        },
+        {
+          "value": "ADDS-RCB-01.master.lsuhsc.edu",
+          "score": 0.9993
+        },
+        {
+          "value": "EIS-RCBNPS1.master.lsuhsc.edu",
+          "score": 0.9997
+        }
+      ]
+    }
+  },
+  {
+    "container_id": "prod-soar2:159562",
+    "disposition": "True Positive - Suspicious Activity",
+    "shape": "api_json",
+    "chars": 2284,
+    "latency_ms": 1622.8,
+    "entity_count_raw": 23,
+    "entity_count_kept": 17,
+    "min_score": 0.999,
+    "by_type": {
+      "IPV4": [
+        {
+          "value": "158.47.224.163",
+          "score": 1.0
+        }
+      ],
+      "USERNAME": [
+        {
+          "value": "ielnam1",
+          "score": 0.9998
+        },
+        {
+          "value": "medium",
+          "score": 0.9998
+        },
+        {
+          "value": "high",
+          "score": 0.9993
+        },
+        {
+          "value": "ibrahim",
+          "score": 0.9998
+        },
+        {
+          "value": "63d0d6d0eed3d2000187255a",
+          "score": 0.9999
+        },
+        {
+          "value": "elnaml",
+          "score": 0.9999
+        },
+        {
+          "value": "user",
+          "score": 1.0
+        }
+      ],
+      "EMAIL": [
+        {
+          "value": "ielnam1@lsu.edu",
+          "score": 1.0
+        }
+      ]
+    }
+  },
+  {
+    "container_id": "prod-soar2:159562",
+    "disposition": "True Positive - Suspicious Activity",
+    "shape": "kv_text",
+    "chars": 1977,
+    "latency_ms": 1679.5,
+    "entity_count_raw": 21,
+    "entity_count_kept": 14,
+    "min_score": 0.999,
+    "by_type": {
+      "IPV4": [
+        {
+          "value": "158.47.224.163",
+          "score": 1.0
+        }
+      ],
+      "USERNAME": [
+        {
+          "value": "ielnam1",
+          "score": 0.9999
+        },
+        {
+          "value": "medium",
+          "score": 0.9998
+        },
+        {
+          "value": "ibrahim",
+          "score": 0.9998
+        },
+        {
+          "value": "63d0d6d0eed3d2000187255a",
+          "score": 0.9999
+        },
+        {
+          "value": "elnaml",
+          "score": 0.9999
+        },
+        {
+          "value": "user",
+          "score": 1.0
+        }
+      ],
+      "EMAIL": [
+        {
+          "value": "ielnam1@lsu.edu",
+          "score": 1.0
+        }
+      ]
+    }
+  },
+  {
+    "container_id": "prod-soar2:159562",
+    "disposition": "True Positive - Suspicious Activity",
+    "shape": "values",
+    "chars": 1197,
+    "latency_ms": 980.1,
+    "entity_count_raw": 8,
+    "entity_count_kept": 4,
+    "min_score": 0.999,
+    "by_type": {
+      "IPV4": [
+        {
+          "value": "158.47.224.163",
+          "score": 0.9999
+        }
+      ],
+      "EMAIL": [
+        {
+          "value": "ielnam1@lsu.edu",
+          "score": 0.9995
+        }
+      ]
+    }
+  },
+  {
+    "container_id": "prod-soar2:159574",
+    "disposition": "Benign Positive - Suspicious But Expected",
+    "shape": "api_json",
+    "chars": 1222,
+    "latency_ms": 876.8,
+    "entity_count_raw": 6,
+    "entity_count_kept": 2,
+    "min_score": 0.999,
+    "by_type": {
+      "EMAIL": [
+        {
+          "value": "mechellew@lsua.edu",
+          "score": 1.0
+        }
+      ]
+    }
+  },
+  {
+    "container_id": "prod-soar2:159574",
+    "disposition": "Benign Positive - Suspicious But Expected",
+    "shape": "kv_text",
+    "chars": 1066,
+    "latency_ms": 915.6,
+    "entity_count_raw": 6,
+    "entity_count_kept": 0,
+    "min_score": 0.999,
+    "by_type": {}
+  },
+  {
+    "container_id": "prod-soar2:159574",
+    "disposition": "Benign Positive - Suspicious But Expected",
+    "shape": "values",
+    "chars": 641,
+    "latency_ms": 605.1,
+    "entity_count_raw": 2,
+    "entity_count_kept": 1,
+    "min_score": 0.999,
+    "by_type": {
+      "EMAIL": [
+        {
+          "value": "mechellew@lsua.edu",
+          "score": 0.9996
+        }
+      ]
+    }
+  },
+  {
+    "container_id": "prod-soar2:159572",
+    "disposition": "Benign Positive - Suspicious But Expected",
+    "shape": "api_json",
+    "chars": 1216,
+    "latency_ms": 858.6,
+    "entity_count_raw": 6,
+    "entity_count_kept": 2,
+    "min_score": 0.999,
+    "by_type": {
+      "EMAIL": [
+        {
+          "value": "abrown@lsua.edu",
+          "score": 1.0
+        }
+      ]
+    }
+  },
+  {
+    "container_id": "prod-soar2:159572",
+    "disposition": "Benign Positive - Suspicious But Expected",
+    "shape": "kv_text",
+    "chars": 1060,
+    "latency_ms": 1893.9,
+    "entity_count_raw": 6,
+    "entity_count_kept": 0,
+    "min_score": 0.999,
+    "by_type": {}
+  },
+  {
+    "container_id": "prod-soar2:159572",
+    "disposition": "Benign Positive - Suspicious But Expected",
+    "shape": "values",
+    "chars": 635,
+    "latency_ms": 658.8,
+    "entity_count_raw": 2,
+    "entity_count_kept": 0,
+    "min_score": 0.999,
+    "by_type": {}
+  }
+]

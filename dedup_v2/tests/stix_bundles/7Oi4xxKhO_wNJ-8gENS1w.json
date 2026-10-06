@@ -1,0 +1,55 @@
+{
+  "alert_id": "7Oi4xxKhO_wNJ-8gENS1w",
+  "source": "splunk",
+  "severity": "MEDIUM",
+  "status": "queued",
+  "created_at": "2026-07-10T12:00:14.000Z",
+  "stix_bundle": {
+    "id": "bundle--83be7f7c-4bb5-412a-b1b5-9c5401d0b524",
+    "type": "bundle",
+    "objects": [
+      {
+        "id": "identity--63b95b5a-9c19-4593-9e22-4e29e8b4f522",
+        "name": "Splunk",
+        "type": "identity",
+        "created": "2026-07-10T12:00:14.000Z",
+        "modified": "2026-07-10T12:00:14.000Z",
+        "description": "Splunk app: SplunkSOAR",
+        "spec_version": "2.1",
+        "identity_class": "system"
+      },
+      {
+        "id": "indicator--263d9c3b-9697-4b71-b1f9-cb416b355972",
+        "name": "PBRC - Crowdstrike - EDR Based Malware Detection",
+        "type": "indicator",
+        "created": "2026-07-10T12:00:14.000Z",
+        "modified": "2026-07-10T12:00:14.000Z",
+        "pattern": "[ipv4-addr:value = '77.181.91.68']",
+        "pattern_type": "stix",
+        "spec_version": "2.1",
+        "valid_from": "2026-07-10T12:00:14.000Z",
+        "indicator_types": [
+          "anomalous-activity"
+        ],
+        "extensions": {
+          "extension-definition--a85759ca-e4a9-43be-98b9-77f3f1fc7686": {
+            "extension_type": "property-extension",
+            "apollo_severity": "MEDIUM"
+          }
+        }
+      },
+      {
+        "id": "ipv4-addr--a0ba523c-8f64-4322-be66-ab51fbe37d19",
+        "type": "ipv4-addr",
+        "value": "77.181.91.68"
+      },
+      {
+        "id": "file--c634209e-09c9-409c-aab9-73acf9b79a34",
+        "type": "file",
+        "hashes": {
+          "SHA-256": "f1b725894789622916d3c1c4e1517b560e945d8a3f5f54bab0829d2362da2a6e"
+        }
+      }
+    ]
+  }
+}

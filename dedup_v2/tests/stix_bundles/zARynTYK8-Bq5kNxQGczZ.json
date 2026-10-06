@@ -1,0 +1,55 @@
+{
+  "alert_id": "zARynTYK8-Bq5kNxQGczZ",
+  "source": "splunk",
+  "severity": "MEDIUM",
+  "status": "manual_review",
+  "created_at": "2026-07-10T13:00:14.000Z",
+  "stix_bundle": {
+    "id": "bundle--7e909afb-b2ba-4752-97fb-33c18a735e8e",
+    "type": "bundle",
+    "objects": [
+      {
+        "id": "identity--5d9aeb98-c0ff-4dea-9721-066fb2dd6e39",
+        "name": "Splunk",
+        "type": "identity",
+        "created": "2026-07-10T13:00:14.000Z",
+        "modified": "2026-07-10T13:00:14.000Z",
+        "description": "Splunk app: SplunkSOAR",
+        "spec_version": "2.1",
+        "identity_class": "system"
+      },
+      {
+        "id": "indicator--c8b9f903-75d8-4659-adee-6136134a93e7",
+        "name": "LOSFA - Crowdstrike - On-Demand Scan ML File Analysis",
+        "type": "indicator",
+        "created": "2026-07-10T13:00:14.000Z",
+        "modified": "2026-07-10T13:00:14.000Z",
+        "pattern": "[ipv4-addr:value = '199.40.158.211']",
+        "pattern_type": "stix",
+        "spec_version": "2.1",
+        "valid_from": "2026-07-10T13:00:14.000Z",
+        "indicator_types": [
+          "anomalous-activity"
+        ],
+        "extensions": {
+          "extension-definition--a85759ca-e4a9-43be-98b9-77f3f1fc7686": {
+            "extension_type": "property-extension",
+            "apollo_severity": "MEDIUM"
+          }
+        }
+      },
+      {
+        "id": "ipv4-addr--d13fe1ad-dec4-443e-84e7-2c16cfd59939",
+        "type": "ipv4-addr",
+        "value": "199.40.158.211"
+      },
+      {
+        "id": "file--63baa9a2-7184-4241-8c31-16af9e25ceae",
+        "type": "file",
+        "hashes": {
+          "SHA-256": "a799a9ca51c3ddc7e2705c8a8e5208ae097fc3b1078e9e50aec17f5f895f9ced"
+        }
+      }
+    ]
+  }
+}

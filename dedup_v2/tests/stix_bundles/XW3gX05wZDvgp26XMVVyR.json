@@ -1,0 +1,55 @@
+{
+  "alert_id": "XW3gX05wZDvgp26XMVVyR",
+  "source": "splunk",
+  "severity": "HIGH",
+  "status": "queued",
+  "created_at": "2026-07-10T12:00:21.000Z",
+  "stix_bundle": {
+    "id": "bundle--847f821d-3596-4cda-9a69-e57dd4b33606",
+    "type": "bundle",
+    "objects": [
+      {
+        "id": "identity--f8001423-9578-44d2-906c-65ef9919ae71",
+        "name": "Splunk",
+        "type": "identity",
+        "created": "2026-07-10T12:00:21.000Z",
+        "modified": "2026-07-10T12:00:21.000Z",
+        "description": "Splunk app: SplunkSOAR",
+        "spec_version": "2.1",
+        "identity_class": "system"
+      },
+      {
+        "id": "indicator--17431aaf-cac8-41bd-9110-93b722581d46",
+        "name": "LOSFA - Zscaler - Suspicious Category Blocked High Count",
+        "type": "indicator",
+        "created": "2026-07-10T12:00:21.000Z",
+        "modified": "2026-07-10T12:00:21.000Z",
+        "pattern": "[ipv4-addr:value = '253.87.155.173']",
+        "pattern_type": "stix",
+        "spec_version": "2.1",
+        "valid_from": "2026-07-10T12:00:21.000Z",
+        "indicator_types": [
+          "anomalous-activity"
+        ],
+        "extensions": {
+          "extension-definition--a85759ca-e4a9-43be-98b9-77f3f1fc7686": {
+            "extension_type": "property-extension",
+            "apollo_severity": "MEDIUM"
+          }
+        }
+      },
+      {
+        "id": "ipv4-addr--f425b24d-8557-4c2a-8f63-3980ceebc3a0",
+        "type": "ipv4-addr",
+        "value": "253.87.155.173"
+      },
+      {
+        "id": "file--03fe8a4b-71d6-444c-9943-aa49fbc74b74",
+        "type": "file",
+        "hashes": {
+          "SHA-256": "c9b1a016804a4a872530498e94ddfe084930f01e2fedbe2f3bdeca475c013dcf"
+        }
+      }
+    ]
+  }
+}

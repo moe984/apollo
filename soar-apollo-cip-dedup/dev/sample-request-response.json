@@ -1,0 +1,287 @@
+{
+  "captured_against": "https://apollo-dev.cosmos.tekstream.com",
+  "endpoint": "POST /api/v1/ingest/soar",
+  "tenant": "FTCC",
+  "auth": "x-api-key (tenant-scoped, value masked)",
+  "note": "apollo#537 gap-2 PR #554 does not touch the ingest path; captured post-PR to confirm unaffected.",
+  "scenarios": [
+    {
+      "scenario": "NEW \u2014 first push",
+      "request": {
+        "method": "POST",
+        "url": "https://apollo-dev.cosmos.tekstream.com/api/v1/ingest/soar",
+        "headers": {
+          "Content-Type": "application/json",
+          "x-api-key": "apollo_ak_wI0C\u2026(masked)",
+          "x-customer-id": "cust_gD-fV1TeZDsP1jj2kacrp"
+        },
+        "body": {
+          "container": {
+            "id": 990101,
+            "name": "POC Fresh A - Palo Alto - High Threat",
+            "severity": "high",
+            "source_data_identifier": "poc-fresh-A"
+          },
+          "artifacts": [
+            {
+              "label": "artifact",
+              "name": "network-observable",
+              "cef": {
+                "sourceAddress": "203.0.113.44",
+                "destinationAddress": "10.20.0.7",
+                "fileHashSha256": "7c31ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+                "destinationUserName": "rlee"
+              }
+            }
+          ]
+        }
+      },
+      "response": {
+        "http_status": 200,
+        "latency_ms": 382,
+        "body": {
+          "contract_version": "1.2",
+          "transition_state": "new",
+          "is_duplicate": false,
+          "verdict": "NEW",
+          "confidence": null,
+          "reasoning": "New alert; ownership validated (SLA tier standard) and queued for triage.",
+          "apollo_alert_id": "ftcc-990101",
+          "canonical_alert_id": null,
+          "match_type": null,
+          "container_id": 990101,
+          "alert_url": "https://apollo-dev.cosmos.tekstream.com/dashboard/alerts/ftcc-990101",
+          "dedup_engine": {
+            "alert_id": "ftcc-990101",
+            "verdict": "NEW",
+            "hash_confidence": 0,
+            "stix_context_similarity": 0,
+            "stix_observable_by_type": 0,
+            "stix_observable_by_value": 0,
+            "layer": 0,
+            "matched_alert_id": "",
+            "score_breakdown": {},
+            "stix_context_details": [],
+            "stix_observable_details": [],
+            "iocs": {
+              "ip": [
+                "10.20.0.7",
+                "203.0.113.44"
+              ],
+              "user": [
+                "rlee"
+              ]
+            },
+            "filled_slots": [
+              "ip",
+              "user"
+            ],
+            "matched_slots": [],
+            "missed_slots": []
+          },
+          "correlation_id": "SczxdtWLyASxe3TW2C0rH"
+        }
+      }
+    },
+    {
+      "scenario": "DUPLICATE \u2014 same SDI replay (Tier-1 idempotency)",
+      "request": {
+        "method": "POST",
+        "url": "https://apollo-dev.cosmos.tekstream.com/api/v1/ingest/soar",
+        "headers": {
+          "Content-Type": "application/json",
+          "x-api-key": "apollo_ak_wI0C\u2026(masked)",
+          "x-customer-id": "cust_gD-fV1TeZDsP1jj2kacrp"
+        },
+        "body": {
+          "container": {
+            "id": 990101,
+            "name": "POC Fresh A - Palo Alto - High Threat",
+            "severity": "high",
+            "source_data_identifier": "poc-fresh-A"
+          },
+          "artifacts": [
+            {
+              "label": "artifact",
+              "name": "network-observable",
+              "cef": {
+                "sourceAddress": "203.0.113.44",
+                "destinationAddress": "10.20.0.7",
+                "fileHashSha256": "7c31ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+                "destinationUserName": "rlee"
+              }
+            }
+          ]
+        }
+      },
+      "response": {
+        "http_status": 200,
+        "latency_ms": 196,
+        "body": {
+          "contract_version": "1.2",
+          "transition_state": "duplicate",
+          "is_duplicate": true,
+          "verdict": "DUPLICATE",
+          "confidence": 1,
+          "reasoning": "Exact match (source_alert_id) against canonical alert ftcc-990101; suppressed as duplicate.",
+          "apollo_alert_id": null,
+          "canonical_alert_id": "ftcc-990101",
+          "match_type": "source_alert_id",
+          "container_id": 990101,
+          "alert_url": "https://apollo-dev.cosmos.tekstream.com/dashboard/alerts/ftcc-990101",
+          "dedup_engine": null,
+          "correlation_id": "WVWz6l_SKq8geI53oTTRs"
+        }
+      }
+    },
+    {
+      "scenario": "SIMILAR \u2014 new SDI + different rule, same IOCs (Layer-2 fuzzy_ioc)",
+      "request": {
+        "method": "POST",
+        "url": "https://apollo-dev.cosmos.tekstream.com/api/v1/ingest/soar",
+        "headers": {
+          "Content-Type": "application/json",
+          "x-api-key": "apollo_ak_wI0C\u2026(masked)",
+          "x-customer-id": "cust_gD-fV1TeZDsP1jj2kacrp"
+        },
+        "body": {
+          "container": {
+            "id": 990102,
+            "name": "POC Fresh B - Fortinet - High Threat",
+            "severity": "high",
+            "source_data_identifier": "poc-fresh-B"
+          },
+          "artifacts": [
+            {
+              "label": "artifact",
+              "name": "network-observable",
+              "cef": {
+                "sourceAddress": "203.0.113.44",
+                "destinationAddress": "10.20.0.7",
+                "fileHashSha256": "7c31ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+                "destinationUserName": "rlee"
+              }
+            }
+          ]
+        }
+      },
+      "response": {
+        "http_status": 200,
+        "latency_ms": 274,
+        "body": {
+          "contract_version": "1.2",
+          "transition_state": "review",
+          "is_duplicate": false,
+          "verdict": "SIMILAR",
+          "confidence": null,
+          "reasoning": "Similar to canonical alert ftcc-990101 via fuzzy_ioc; held for analyst confirmation in the dedup review queue (cluster review-F-cUyaaVVwZYORxySftrR). Not auto-suppressed; treat as new until an analyst confirms.",
+          "apollo_alert_id": "ftcc-990102",
+          "canonical_alert_id": "ftcc-990101",
+          "match_type": "fuzzy_ioc",
+          "container_id": 990102,
+          "alert_url": "https://apollo-dev.cosmos.tekstream.com/dashboard/alerts/ftcc-990102",
+          "dedup_engine": {
+            "alert_id": "ftcc-990102",
+            "verdict": "SIMILAR",
+            "hash_confidence": 0,
+            "stix_context_similarity": 100,
+            "stix_observable_by_type": 100,
+            "stix_observable_by_value": 100,
+            "layer": 2,
+            "matched_alert_id": "ftcc-990101",
+            "score_breakdown": {
+              "fuzzy_score": 100,
+              "per_type_scores": {
+                "ip": 100,
+                "user": 100
+              },
+              "incoming_rule": "POC Fresh B - Fortinet - High Threat",
+              "matched_rule": "POC Fresh A - Palo Alto - High Threat"
+            },
+            "stix_context_details": [
+              {
+                "type": "identity",
+                "score": 100,
+                "details": {
+                  "name": {
+                    "weight": 60,
+                    "contributing_score": 60
+                  },
+                  "identity_class": {
+                    "weight": 20,
+                    "contributing_score": 20
+                  }
+                }
+              },
+              {
+                "type": "indicator",
+                "score": 100,
+                "details": {
+                  "indicator_types": {
+                    "weight": 15,
+                    "contributing_score": 15
+                  },
+                  "pattern": {
+                    "weight": 80,
+                    "contributing_score": 80
+                  },
+                  "valid_from": {
+                    "weight": 5,
+                    "contributing_score": 4.99994212962963
+                  }
+                }
+              }
+            ],
+            "stix_observable_details": [
+              {
+                "type": "ip",
+                "score": 100,
+                "incoming_values": [
+                  "10.20.0.7",
+                  "203.0.113.44"
+                ],
+                "stored_values": [
+                  "10.20.0.7",
+                  "203.0.113.44"
+                ],
+                "matched_values": [
+                  "10.20.0.7",
+                  "203.0.113.44"
+                ]
+              },
+              {
+                "type": "user",
+                "score": 100,
+                "incoming_values": [
+                  "rlee"
+                ],
+                "stored_values": [
+                  "rlee"
+                ],
+                "matched_values": [
+                  "rlee"
+                ]
+              }
+            ],
+            "iocs": {
+              "ip": [
+                "10.20.0.7",
+                "203.0.113.44"
+              ],
+              "user": [
+                "rlee"
+              ]
+            },
+            "filled_slots": [
+              "ip",
+              "user"
+            ],
+            "matched_slots": [],
+            "missed_slots": []
+          },
+          "correlation_id": "cWYNGL2LhHLLnfVQ860PU"
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,66 @@
+Apollo auto-closure: sample curl (PROD)
+
+Endpoint: PATCH https://apollo.cosmos.tekstream.com/api/v1/alerts/{alertId}/workflow-status
+Dev:      https://apollo-dev.cosmos.tekstream.com
+Auth:     x-api-key (same key as POST /api/v1/ingest/soar); set APOLLO_API_KEY first.
+
+# Auto-close an alert
+curl -i -X PATCH "https://apollo.cosmos.tekstream.com/api/v1/alerts/tekstream-950260902/workflow-status" \
+  -H "x-api-key: $APOLLO_API_KEY" \
+  -H "content-type: application/json" \
+  -d '{"status": "auto_closed", "reason": "Duplicate of tekstream-950260901"}'
+
+# Reopen it
+curl -i -X PATCH "https://apollo.cosmos.tekstream.com/api/v1/alerts/tekstream-950260902/workflow-status" \
+  -H "x-api-key: $APOLLO_API_KEY" \
+  -H "content-type: application/json" \
+  -d '{"status": "open"}'
+
+Allowed status values:
+  open, preparing, under_review, under_investigation, escalated,
+  customer_responded, closed, auto_closed
+"reason" is optional (max 1000 chars; stored as workflow_status_reason).
+
+Note: auto_closed may only be set on a DUPLICATE (an alert whose parent's dedup
+verdict is DUPLICATE). NEW / SIMILAR alerts get 409 not_a_duplicate; use "closed".
+
+----------------------------------------------------------------------
+Responses (from the route schema in apollo src/routes/alert-workflow-status.ts)
+----------------------------------------------------------------------
+
+# 200 OK
+{
+  "alert_id": "tekstream-950260902",
+  "changed": true,
+  "previous_status": "open",
+  "status": "auto_closed",
+  "changed_at": "2026-09-29T15:04:05.000Z",
+  "changed_by": "apikey:<key-id>",
+  "reason": "Duplicate of tekstream-950260901"
+}
+# Already in the requested status: still 200, "changed": false, nothing written.
+
+# Error envelope (400 / 403 / 404 / 409)
+{
+  "error": "Conflict",
+  "statusCode": 409,
+  "message": "auto_closed may only be set on a duplicate: ...",
+  "code": "not_a_duplicate",
+  "alert_id": "tekstream-950260901",
+  "correlationId": "..."
+}
+
+# 401 (gate's own body)
+{ "error": "...", "message": "..." }
+
+HTTP  code                  When
+400   status_invalid        status not one of the 8 values
+401   (none)                missing / invalid / revoked / expired key
+403   key_not_tenant_bound  tenant-scoped key with no tenant
+404   alert_not_found       no such alert in scope for this key
+409   not_a_duplicate       auto_closed asked on a non-duplicate
+409   status_conflict       alert changed mid-request; retry
+
+# Read current status (no change)
+curl -i "https://apollo.cosmos.tekstream.com/api/v1/alerts/tekstream-950260902/workflow-status" \
+  -H "x-api-key: $APOLLO_API_KEY"

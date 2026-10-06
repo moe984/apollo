@@ -1,0 +1,82 @@
+[
+  {
+    "epoch": 1,
+    "train_loss": 0.3182142698903162,
+    "val_micro_f1": 0.8970917225950783,
+    "val_macro_f1": 0.8295053690384733,
+    "val_heldout_recall": 0.896551724137931,
+    "seconds": 2611.9
+  },
+  {
+    "epoch": 2,
+    "train_loss": 0.00787839199658153,
+    "val_micro_f1": 0.8906538603620244,
+    "val_macro_f1": 0.8156115092610676,
+    "val_heldout_recall": 0.9103448275862069,
+    "seconds": 5076.4
+  },
+  {
+    "epoch": 3,
+    "train_loss": 0.0035067753206455264,
+    "val_micro_f1": 0.9086466165413535,
+    "val_macro_f1": 0.8676041945188657,
+    "val_heldout_recall": 0.9103448275862069,
+    "seconds": 7346.5
+  },
+  {
+    "epoch": 4,
+    "train_loss": 0.0015263323623960813,
+    "val_micro_f1": 0.8954891405234825,
+    "val_macro_f1": 0.8260567057469744,
+    "val_heldout_recall": 0.9172413793103448,
+    "seconds": 9591.7
+  },
+  {
+    "epoch": 5,
+    "train_loss": 0.0017980050388403108,
+    "val_micro_f1": 0.9010989010989012,
+    "val_macro_f1": 0.8480295777947167,
+    "val_heldout_recall": 0.9103448275862069,
+    "seconds": 11500.6
+  },
+  {
+    "epoch": 6,
+    "train_loss": 0.0009381240440901625,
+    "val_micro_f1": 0.9098083427282976,
+    "val_macro_f1": 0.8703093092950432,
+    "val_heldout_recall": 0.9172413793103448,
+    "seconds": 13558.0
+  },
+  {
+    "epoch": 7,
+    "train_loss": 0.0005278781171047789,
+    "val_micro_f1": 0.8989805375347544,
+    "val_macro_f1": 0.7872468189640524,
+    "val_heldout_recall": 0.9103448275862069,
+    "seconds": 15846.2
+  },
+  {
+    "epoch": 8,
+    "train_loss": 0.0007761579658836945,
+    "val_micro_f1": 0.9086475332958169,
+    "val_macro_f1": 0.8350892466946299,
+    "val_heldout_recall": 0.9103448275862069,
+    "seconds": 17658.8
+  },
+  {
+    "epoch": 9,
+    "train_loss": 0.000246547346404998,
+    "val_micro_f1": 0.9061682242990654,
+    "val_macro_f1": 0.8125005827179966,
+    "val_heldout_recall": 0.9172413793103448,
+    "seconds": 19535.8
+  },
+  {
+    "epoch": 10,
+    "train_loss": 0.00018809682468068687,
+    "val_micro_f1": 0.906133133881825,
+    "val_macro_f1": 0.818523509542862,
+    "val_heldout_recall": 0.9172413793103448,
+    "seconds": 21820.8
+  }
+]

@@ -1,0 +1,55 @@
+{
+  "alert_id": "TZwI14XIFEpZnf7QFqSd4",
+  "source": "splunk",
+  "severity": "HIGH",
+  "status": "queued",
+  "created_at": "2026-07-10T12:00:09.000Z",
+  "stix_bundle": {
+    "id": "bundle--157596b2-73f9-4f7b-88e2-7bc930055903",
+    "type": "bundle",
+    "objects": [
+      {
+        "id": "identity--74ddbb1c-54fe-4cef-bff1-35a6d1486bc0",
+        "name": "Splunk",
+        "type": "identity",
+        "created": "2026-07-10T12:00:09.000Z",
+        "modified": "2026-07-10T12:00:09.000Z",
+        "description": "Splunk app: SplunkSOAR",
+        "spec_version": "2.1",
+        "identity_class": "system"
+      },
+      {
+        "id": "indicator--6aebbf91-7d8f-43e4-9b83-21683a775616",
+        "name": "GRAM - Windows - Multiple Account Lockouts for User",
+        "type": "indicator",
+        "created": "2026-07-10T12:00:09.000Z",
+        "modified": "2026-07-10T12:00:09.000Z",
+        "pattern": "[ipv4-addr:value = '24.235.237.164']",
+        "pattern_type": "stix",
+        "spec_version": "2.1",
+        "valid_from": "2026-07-10T12:00:09.000Z",
+        "indicator_types": [
+          "anomalous-activity"
+        ],
+        "extensions": {
+          "extension-definition--a85759ca-e4a9-43be-98b9-77f3f1fc7686": {
+            "extension_type": "property-extension",
+            "apollo_severity": "MEDIUM"
+          }
+        }
+      },
+      {
+        "id": "ipv4-addr--c8587cfe-13df-49df-aa88-ef1fc65847c1",
+        "type": "ipv4-addr",
+        "value": "24.235.237.164"
+      },
+      {
+        "id": "file--41077e53-53ac-4106-89ac-4cebc2678aac",
+        "type": "file",
+        "hashes": {
+          "SHA-256": "6f6bd57670b5fa3939c1e8fda974f9d0eadcbf2f83fab17ed33236fcea7a92af"
+        }
+      }
+    ]
+  }
+}

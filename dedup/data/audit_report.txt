@@ -1,0 +1,639 @@
+HASH DEDUP FALSE POSITIVE AUDIT
+Generated: 2026-05-13T03:21:33.655736Z
+Total pairs: 99
+Flagged:     56
+====================================================================================================
+
+[!!! FP] VWz2Xhh9UTr4vNdEkNvf <- t0EF2cPtOTeWw6gsG42i  gap=599.9s
+        hash quality: canonical=WEAK duplicate=WEAK
+        hash input:   src=(empty)  dest=(empty)  cat=Threat - LSU - Defender - New High Severity Alerts
+        DIFF ioc:     'https://notebooklm.google.com/notebook/2' vs 'https://notebooklm.google.com/notebook/d'
+        IOCs only in canonical: [{"type": "url", "value": "https://notebooklm.google.com/notebook/24ed7416-24b7-4bb6-bc7d-088e16ea519a"}, {"type": "user", "value": "venecia.lee@lsu.edu"}]
+        IOCs only in duplicate: [{"type": "url", "value": "https://notebooklm.google.com/notebook/dd2a5ee0-c6f9-4895-a45b-68aefc3b1940"}, {"type": "user", "value": "alana.lowery@lsu.edu"}]
+        IOC overlap:  0 shared, 4 different, similarity=0%
+
+[!!! FP] 84iHpzv79uP_uXn9NQsZ <- _DHpuKcFg-k5vJsEOgD9  gap=599.9s
+        hash quality: canonical=WEAK duplicate=WEAK
+        hash input:   src=(empty)  dest=(empty)  cat=Threat - LSU - Defender - New High Severity Alerts
+        DIFF ioc:     'https://notebooklm.google.com/notebook/2' vs 'https://notebooklm.google.com/notebook/2'
+        IOCs only in canonical: [{"type": "url", "value": "https://notebooklm.google.com/notebook/27ab6b40-adeb-4274-84f6-3cc24c18b2ba"}, {"type": "user", "value": "aiden.karr@lsu.edu"}]
+        IOCs only in duplicate: [{"type": "url", "value": "https://notebooklm.google.com/notebook/24ed7416-24b7-4bb6-bc7d-088e16ea519a"}, {"type": "user", "value": "venecia.lee@lsu.edu"}]
+        IOC overlap:  0 shared, 4 different, similarity=0%
+
+[!!! FP] GAH-vNMMhb_-bPpJWJR5 <- RukMw61sDMUx_dRf-kGX  gap=1.2s
+        hash quality: canonical=WEAK duplicate=WEAK
+        hash input:   src=(empty)  dest=(empty)  cat=Threat - LSU - Defender - New High Severity Alerts
+        DIFF title:   'A potentially malicious URL click was de' vs 'Sensitive Group Membership Changed: Remo'
+        DIFF ioc:     'Undetermined' vs 'pschro1@lsu.edu'
+        DIFF account: '' vs 'pschro1'
+        IOCs only in duplicate: [{"type": "user", "value": "pschro1@lsu.edu"}]
+        IOC overlap:  0 shared, 1 different, similarity=0%
+
+[!!! FP] GAH-vNMMhb_-bPpJWJR5 <- HnCqaNAI0E2Qlb-kh0l6  gap=1.2s
+        hash quality: canonical=WEAK duplicate=WEAK
+        hash input:   src=(empty)  dest=(empty)  cat=Threat - LSU - Defender - New High Severity Alerts
+        DIFF title:   'A potentially malicious URL click was de' vs 'Sensitive Group Membership Changed: Remo'
+        DIFF ioc:     'Undetermined' vs 'pschro1@lsu.edu'
+        DIFF account: '' vs 'pschro1'
+        IOCs only in duplicate: [{"type": "user", "value": "pschro1@lsu.edu"}]
+        IOC overlap:  0 shared, 1 different, similarity=0%
+
+[!!! FP] GAH-vNMMhb_-bPpJWJR5 <- SjeB1xXWg_YA1ZNiBMtB  gap=1.2s
+        hash quality: canonical=WEAK duplicate=WEAK
+        hash input:   src=(empty)  dest=(empty)  cat=Threat - LSU - Defender - New High Severity Alerts
+        DIFF title:   'A potentially malicious URL click was de' vs 'Possible theft of passwords and other se'
+        DIFF ioc:     'Undetermined' vs 'bcf14b97a2ee13e4d0002a95c07fc67a759305df'
+        DIFF account: '' vs 'jareds'
+        IOCs only in duplicate: [{"type": "file_hash", "value": "bcf14b97a2ee13e4d0002a95c07fc67a759305df2f2abb862aea995a3e0bdd5c"}, {"type": "user", "value": "jareds@lsu.edu"}]
+        IOC overlap:  0 shared, 2 different, similarity=0%
+
+[!!! FP] KbLb0xnpVx9zkD5oaaYP <- w2Q8nx-qgBVCB55DTEJq  gap=1.1s
+        hash quality: canonical=WEAK duplicate=WEAK
+        hash input:   src=(empty)  dest=(empty)  cat=Threat - LSU - Defender - New High Severity Alerts
+        DIFF title:   'A potentially malicious URL click was de' vs 'Sensitive Group Membership Changed: Remo'
+        DIFF ioc:     'Undetermined' vs 'pschro1@lsu.edu'
+        DIFF account: '' vs 'pschro1'
+        IOCs only in duplicate: [{"type": "user", "value": "pschro1@lsu.edu"}]
+        IOC overlap:  0 shared, 1 different, similarity=0%
+
+[!!! FP] KbLb0xnpVx9zkD5oaaYP <- VGfr-JhHS738Z7VozzYy  gap=1.1s
+        hash quality: canonical=WEAK duplicate=WEAK
+        hash input:   src=(empty)  dest=(empty)  cat=Threat - LSU - Defender - New High Severity Alerts
+        DIFF title:   'A potentially malicious URL click was de' vs 'Possible theft of passwords and other se'
+        DIFF ioc:     'Undetermined' vs 'bcf14b97a2ee13e4d0002a95c07fc67a759305df'
+        DIFF account: '' vs 'jareds'
+        IOCs only in duplicate: [{"type": "file_hash", "value": "bcf14b97a2ee13e4d0002a95c07fc67a759305df2f2abb862aea995a3e0bdd5c"}, {"type": "user", "value": "jareds@lsu.edu"}]
+        IOC overlap:  0 shared, 2 different, similarity=0%
+
+[!!! FP] gE5fQZ-MkR2WnWdADs_Z <- kSoIzI8jNznve8o_bwMy  gap=0.8s
+        hash quality: canonical=WEAK duplicate=WEAK
+        hash input:   src=(empty)  dest=(empty)  cat=Threat - LSU - Defender - New High Severity Alerts
+        DIFF title:   'A potentially malicious URL click was de' vs 'Possible theft of passwords and other se'
+        DIFF ioc:     'Undetermined' vs 'bcf14b97a2ee13e4d0002a95c07fc67a759305df'
+        DIFF account: '' vs 'jareds'
+        IOCs only in duplicate: [{"type": "file_hash", "value": "bcf14b97a2ee13e4d0002a95c07fc67a759305df2f2abb862aea995a3e0bdd5c"}, {"type": "user", "value": "jareds@lsu.edu"}]
+        IOC overlap:  0 shared, 2 different, similarity=0%
+
+[!!! FP] B_ruqgK2IWxDp0iOyqmL <- r2jrhel-T-uGtpamdWtC  gap=0.7s
+        hash quality: canonical=WEAK duplicate=WEAK
+        hash input:   src=(empty)  dest=(empty)  cat=Threat - LSU - Defender - New High Severity Alerts
+        DIFF title:   'A potentially malicious URL click was de' vs 'Possible theft of passwords and other se'
+        DIFF ioc:     'Undetermined' vs 'bcf14b97a2ee13e4d0002a95c07fc67a759305df'
+        DIFF account: '' vs 'jareds'
+        IOCs only in duplicate: [{"type": "file_hash", "value": "bcf14b97a2ee13e4d0002a95c07fc67a759305df2f2abb862aea995a3e0bdd5c"}, {"type": "user", "value": "jareds@lsu.edu"}]
+        IOC overlap:  0 shared, 2 different, similarity=0%
+
+[!!! FP] KfSw4p1Xu33yCxiPgfel <- DTECvU4wWaKnWVWx7q_K  gap=0.7s
+        hash quality: canonical=WEAK duplicate=WEAK
+        hash input:   src=(empty)  dest=(empty)  cat=Threat - LSU - Defender - New High Severity Alerts
+        DIFF title:   'A potentially malicious URL click was de' vs 'Possible theft of passwords and other se'
+        DIFF ioc:     'Undetermined' vs 'bcf14b97a2ee13e4d0002a95c07fc67a759305df'
+        DIFF account: '' vs 'jareds'
+        IOCs only in duplicate: [{"type": "file_hash", "value": "bcf14b97a2ee13e4d0002a95c07fc67a759305df2f2abb862aea995a3e0bdd5c"}, {"type": "user", "value": "jareds@lsu.edu"}]
+        IOC overlap:  0 shared, 2 different, similarity=0%
+
+[!!! FP] xjw2pjzA9FIX78IqMkM3 <- ze_Dfp6loqmQaeRpfHKM  gap=0.6s
+        hash quality: canonical=WEAK duplicate=WEAK
+        hash input:   src=(empty)  dest=(empty)  cat=Threat - LSU - Defender - New High Severity Alerts
+        DIFF ioc:     'Undetermined' vs '2600:8807:612:1500:69b4:261b:7770:8719'
+        IOCs only in duplicate: [{"type": "user", "value": "smoses@lsu.edu"}]
+        IOC overlap:  0 shared, 1 different, similarity=0%
+
+[!!! FP] xjw2pjzA9FIX78IqMkM3 <- sTZWnEsELHdmnbDOWP5n  gap=0.6s
+        hash quality: canonical=WEAK duplicate=WEAK
+        hash input:   src=(empty)  dest=(empty)  cat=Threat - LSU - Defender - New High Severity Alerts
+        DIFF ioc:     'Undetermined' vs '2600:387:f:7f16::8'
+        IOCs only in duplicate: [{"type": "user", "value": "marion.fulton-wilson@lsu.edu"}]
+        IOC overlap:  0 shared, 1 different, similarity=0%
+
+[!!! FP] 2HTPJCg_k3p1sE6Hm8tS <- dZuyq2yzg-C_Nw_bk3uu  gap=0.5s
+        hash quality: canonical=WEAK duplicate=WEAK
+        hash input:   src=(empty)  dest=(empty)  cat=Threat - LSU - Defender - New High Severity Alerts
+        DIFF title:   'A potentially malicious URL click was de' vs 'Possible theft of passwords and other se'
+        DIFF ioc:     'Undetermined' vs 'bcf14b97a2ee13e4d0002a95c07fc67a759305df'
+        DIFF account: '' vs 'jareds'
+        IOCs only in duplicate: [{"type": "file_hash", "value": "bcf14b97a2ee13e4d0002a95c07fc67a759305df2f2abb862aea995a3e0bdd5c"}, {"type": "user", "value": "jareds@lsu.edu"}]
+        IOC overlap:  0 shared, 2 different, similarity=0%
+
+[!!! FP] rqYb7lcrh9bxQ1xP1STa <- SHS7Xe847mRliy1EuSbf  gap=0.5s
+        hash quality: canonical=WEAK duplicate=WEAK
+        hash input:   src=(empty)  dest=(empty)  cat=Threat - LSU - Defender - New High Severity Alerts
+        DIFF ioc:     'Undetermined' vs '2600:8807:612:1500:69b4:261b:7770:8719'
+        IOCs only in duplicate: [{"type": "user", "value": "smoses@lsu.edu"}]
+        IOC overlap:  0 shared, 1 different, similarity=0%
+
+[!!! FP] xjw2pjzA9FIX78IqMkM3 <- A-LGDyOsteVbSTWfuoYC  gap=0.5s
+        hash quality: canonical=WEAK duplicate=WEAK
+        hash input:   src=(empty)  dest=(empty)  cat=Threat - LSU - Defender - New High Severity Alerts
+        DIFF ioc:     'Undetermined' vs '2620:105:b00b:4135::296a'
+        IOCs only in duplicate: [{"type": "user", "value": "gthom@lsu.edu"}]
+        IOC overlap:  0 shared, 1 different, similarity=0%
+
+[!!! FP] rqYb7lcrh9bxQ1xP1STa <- r6s0pR-o9nfQq2AIOGRl  gap=0.4s
+        hash quality: canonical=WEAK duplicate=WEAK
+        hash input:   src=(empty)  dest=(empty)  cat=Threat - LSU - Defender - New High Severity Alerts
+        DIFF ioc:     'Undetermined' vs '2600:387:f:7f16::8'
+        IOCs only in duplicate: [{"type": "user", "value": "marion.fulton-wilson@lsu.edu"}]
+        IOC overlap:  0 shared, 1 different, similarity=0%
+
+[!!! FP] fCSYoXFdUdt8zIXvflCR <- fWFgejPim4c-Npa6Trcf  gap=0.4s
+        hash quality: canonical=WEAK duplicate=WEAK
+        hash input:   src=(empty)  dest=(empty)  cat=Threat - LSU - Defender - New High Severity Alerts
+        DIFF ioc:     'Undetermined' vs '2600:8807:612:1500:69b4:261b:7770:8719'
+        IOCs only in duplicate: [{"type": "user", "value": "smoses@lsu.edu"}]
+        IOC overlap:  0 shared, 1 different, similarity=0%
+
+[!!! FP] fCSYoXFdUdt8zIXvflCR <- mn24MXSBfi4nkVUbCsc4  gap=0.4s
+        hash quality: canonical=WEAK duplicate=WEAK
+        hash input:   src=(empty)  dest=(empty)  cat=Threat - LSU - Defender - New High Severity Alerts
+        DIFF ioc:     'Undetermined' vs '2600:387:f:7f16::8'
+        IOCs only in duplicate: [{"type": "user", "value": "marion.fulton-wilson@lsu.edu"}]
+        IOC overlap:  0 shared, 1 different, similarity=0%
+
+[!!! FP] xjw2pjzA9FIX78IqMkM3 <- PnX3UOMozcS0QuyLMhNt  gap=0.4s
+        hash quality: canonical=WEAK duplicate=WEAK
+        hash input:   src=(empty)  dest=(empty)  cat=Threat - LSU - Defender - New High Severity Alerts
+        DIFF ioc:     'Undetermined' vs '2600:6c4a:6140:318b:d8f4:8fa1:8dbd:ead'
+        IOCs only in duplicate: [{"type": "user", "value": "jgarno@lsu.edu"}]
+        IOC overlap:  0 shared, 1 different, similarity=0%
+
+[!!! FP] DG-GoDyVh7oI6CehR3OC <- 5OI0q_VtBY6W42UTVe9f  gap=0.3s
+        hash quality: canonical=WEAK duplicate=WEAK
+        hash input:   src=(empty)  dest=(empty)  cat=Threat - LSU - Defender - New High Severity Alerts
+        DIFF ioc:     'https://acrobat.adobe.com/id/urn:aaid:sc' vs 'https://acrobat.adobe.com/id/urn:aaid:sc'
+        IOCs only in canonical: [{"type": "url", "value": "https://acrobat.adobe.com/id/urn:aaid:sc:US:2cd33c75-d53b-467b-b1de-322218747ab7"}, {"type": "user", "value": "mrobin10@lsu.edu"}]
+        IOCs only in duplicate: [{"type": "url", "value": "https://acrobat.adobe.com/id/urn:aaid:sc:US:3b80e901-ddd8-42d3-9eeb-02485f80f352"}, {"type": "user", "value": "wdauza1@lsu.edu"}]
+        IOC overlap:  0 shared, 4 different, similarity=0%
+
+[!!! FP] UHZGEPzFRe2Tnu_7S6cZ <- A1OJsd6K8irk7_jS21ZY  gap=0.3s
+        hash quality: canonical=WEAK duplicate=WEAK
+        hash input:   src=(empty)  dest=(empty)  cat=Threat - LSU - Defender - New High Severity Alerts
+        DIFF ioc:     'https://apo-prod.adobe.io/po-server/link' vs 'https://apo-prod.adobe.io/po-server/link'
+        IOCs only in canonical: [{"type": "url", "value": "https://apo-prod.adobe.io/po-server/link/redirect?target=eyJhbGciOiJIUzUxMiJ9.eyJ0ZW1wbGF0ZSI6ImNjX2NvbGxhYl9kY3NoYXJpbmdfdmlld19lbWFpbCIsImVtYWlsQWRkcmVzcyI6IlFmbFlPNmdaM2l2Lzl5OWxiSU9odkM4NGx2R0FiaEsvZVB3TTdVU1JUVjcxWE5JczhLMUE0SzI5SW9LckpsM2UiLCJyZXF1ZXN0SWQiOiIyMzA5OTNiNy1kNjQ3LTRkZWQtOTg3My0xMmIxZjVlMmU0Y2YiLCJsa"}, {"type": "user", "value": "svollm4@lsu.edu"}]
+        IOCs only in duplicate: [{"type": "url", "value": "https://apo-prod.adobe.io/po-server/link/redirect?target=eyJhbGciOiJIUzUxMiJ9.eyJ0ZW1wbGF0ZSI6ImNjX2NvbGxhYl9kY3NoYXJpbmdfdmlld19lbWFpbCIsImVtYWlsQWRkcmVzcyI6IlN3eHR5cEZCVE82aHdtSXVMamNaZ0lUWWpoT3JpVEpUTm5VNkExc2tiTTQ9IiwicmVxdWVzdElkIjoiMWJkMWI3ODMtYTQ2Yi00MDNmLTg3ZWQtOGRlM2MwNWVmZWVjIiwibGluayI6Imh0dHBzOi8vYWNyb2Jhd"}, {"type": "user", "value": "mrobin10@lsu.edu"}]
+        IOC overlap:  0 shared, 4 different, similarity=0%
+
+[!!! FP] GAH-vNMMhb_-bPpJWJR5 <- TmfOx15aPiBx6OVnqsOI  gap=0.3s
+        hash quality: canonical=WEAK duplicate=WEAK
+        hash input:   src=(empty)  dest=(empty)  cat=Threat - LSU - Defender - New High Severity Alerts
+        DIFF ioc:     'Undetermined' vs '2600:8807:612:1500:69b4:261b:7770:8719'
+        IOCs only in duplicate: [{"type": "user", "value": "smoses@lsu.edu"}]
+        IOC overlap:  0 shared, 1 different, similarity=0%
+
+[!!! FP] GAH-vNMMhb_-bPpJWJR5 <- ZV2p28l1pLSMT5irOK3V  gap=0.3s
+        hash quality: canonical=WEAK duplicate=WEAK
+        hash input:   src=(empty)  dest=(empty)  cat=Threat - LSU - Defender - New High Severity Alerts
+        DIFF ioc:     'Undetermined' vs '2600:387:f:7f16::8'
+        IOCs only in duplicate: [{"type": "user", "value": "marion.fulton-wilson@lsu.edu"}]
+        IOC overlap:  0 shared, 1 different, similarity=0%
+
+[!!! FP] GAH-vNMMhb_-bPpJWJR5 <- aM9_ElccgfVS4FAmCk7H  gap=0.3s
+        hash quality: canonical=WEAK duplicate=WEAK
+        hash input:   src=(empty)  dest=(empty)  cat=Threat - LSU - Defender - New High Severity Alerts
+        DIFF ioc:     'Undetermined' vs '2620:105:b00b:4135::296a'
+        IOCs only in duplicate: [{"type": "user", "value": "gthom@lsu.edu"}]
+        IOC overlap:  0 shared, 1 different, similarity=0%
+
+[!!! FP] KbLb0xnpVx9zkD5oaaYP <- fa-EHsyyWuEU7Tt8wsP2  gap=0.3s
+        hash quality: canonical=WEAK duplicate=WEAK
+        hash input:   src=(empty)  dest=(empty)  cat=Threat - LSU - Defender - New High Severity Alerts
+        DIFF ioc:     'Undetermined' vs '2600:8807:612:1500:69b4:261b:7770:8719'
+        IOCs only in duplicate: [{"type": "user", "value": "smoses@lsu.edu"}]
+        IOC overlap:  0 shared, 1 different, similarity=0%
+
+[!!! FP] KbLb0xnpVx9zkD5oaaYP <- A-zFwhU7782TANykR1x5  gap=0.3s
+        hash quality: canonical=WEAK duplicate=WEAK
+        hash input:   src=(empty)  dest=(empty)  cat=Threat - LSU - Defender - New High Severity Alerts
+        DIFF ioc:     'Undetermined' vs '2600:387:f:7f16::8'
+        IOCs only in duplicate: [{"type": "user", "value": "marion.fulton-wilson@lsu.edu"}]
+        IOC overlap:  0 shared, 1 different, similarity=0%
+
+[!!! FP] KbLb0xnpVx9zkD5oaaYP <- cahGGWJQAn8uQjQD-77E  gap=0.3s
+        hash quality: canonical=WEAK duplicate=WEAK
+        hash input:   src=(empty)  dest=(empty)  cat=Threat - LSU - Defender - New High Severity Alerts
+        DIFF ioc:     'Undetermined' vs '2620:105:b00b:4135::296a'
+        IOCs only in duplicate: [{"type": "user", "value": "gthom@lsu.edu"}]
+        IOC overlap:  0 shared, 1 different, similarity=0%
+
+[!!! FP] KfSw4p1Xu33yCxiPgfel <- tlX2cYELPcc5ienE_GA0  gap=0.3s
+        hash quality: canonical=WEAK duplicate=WEAK
+        hash input:   src=(empty)  dest=(empty)  cat=Threat - LSU - Defender - New High Severity Alerts
+        DIFF ioc:     'Undetermined' vs '2600:8807:612:1500:69b4:261b:7770:8719'
+        IOCs only in duplicate: [{"type": "user", "value": "smoses@lsu.edu"}]
+        IOC overlap:  0 shared, 1 different, similarity=0%
+
+[!!! FP] KfSw4p1Xu33yCxiPgfel <- h4FlBLmfztV_-VCZndLQ  gap=0.3s
+        hash quality: canonical=WEAK duplicate=WEAK
+        hash input:   src=(empty)  dest=(empty)  cat=Threat - LSU - Defender - New High Severity Alerts
+        DIFF ioc:     'Undetermined' vs '2600:387:f:7f16::8'
+        IOCs only in duplicate: [{"type": "user", "value": "marion.fulton-wilson@lsu.edu"}]
+        IOC overlap:  0 shared, 1 different, similarity=0%
+
+[!!! FP] gE5fQZ-MkR2WnWdADs_Z <- VfYtPd-nUq_INNmsHrp5  gap=0.3s
+        hash quality: canonical=WEAK duplicate=WEAK
+        hash input:   src=(empty)  dest=(empty)  cat=Threat - LSU - Defender - New High Severity Alerts
+        DIFF ioc:     'Undetermined' vs '2600:8807:612:1500:69b4:261b:7770:8719'
+        IOCs only in duplicate: [{"type": "user", "value": "smoses@lsu.edu"}]
+        IOC overlap:  0 shared, 1 different, similarity=0%
+
+[!!! FP] 2HTPJCg_k3p1sE6Hm8tS <- Khr733UrVodslFm2VApC  gap=0.3s
+        hash quality: canonical=WEAK duplicate=WEAK
+        hash input:   src=(empty)  dest=(empty)  cat=Threat - LSU - Defender - New High Severity Alerts
+        DIFF ioc:     'Undetermined' vs '2600:8807:612:1500:69b4:261b:7770:8719'
+        IOCs only in duplicate: [{"type": "user", "value": "smoses@lsu.edu"}]
+        IOC overlap:  0 shared, 1 different, similarity=0%
+
+[!!! FP] 2HTPJCg_k3p1sE6Hm8tS <- tWhAmJaNp2reXxlKGQsl  gap=0.3s
+        hash quality: canonical=WEAK duplicate=WEAK
+        hash input:   src=(empty)  dest=(empty)  cat=Threat - LSU - Defender - New High Severity Alerts
+        DIFF ioc:     'Undetermined' vs '2600:387:f:7f16::8'
+        IOCs only in duplicate: [{"type": "user", "value": "marion.fulton-wilson@lsu.edu"}]
+        IOC overlap:  0 shared, 1 different, similarity=0%
+
+[!!! FP] 2HTPJCg_k3p1sE6Hm8tS <- gLE_r1-1fz6YpoIGFphw  gap=0.3s
+        hash quality: canonical=WEAK duplicate=WEAK
+        hash input:   src=(empty)  dest=(empty)  cat=Threat - LSU - Defender - New High Severity Alerts
+        DIFF ioc:     'Undetermined' vs '2620:105:b00b:4135::296a'
+        IOCs only in duplicate: [{"type": "user", "value": "gthom@lsu.edu"}]
+        IOC overlap:  0 shared, 1 different, similarity=0%
+
+[!!! FP] rqYb7lcrh9bxQ1xP1STa <- BChw2Z59D_o_F-Z2OvcM  gap=0.3s
+        hash quality: canonical=WEAK duplicate=WEAK
+        hash input:   src=(empty)  dest=(empty)  cat=Threat - LSU - Defender - New High Severity Alerts
+        DIFF ioc:     'Undetermined' vs '2620:105:b00b:4135::296a'
+        IOCs only in duplicate: [{"type": "user", "value": "gthom@lsu.edu"}]
+        IOC overlap:  0 shared, 1 different, similarity=0%
+
+[!!! FP] CNFNYoRwieQbIdu7TNyH <- gwcbf06gcyABEWIFN4Gq  gap=0.2s
+        hash quality: canonical=WEAK duplicate=WEAK
+        hash input:   src=(empty)  dest=(empty)  cat=Threat - LSU - Defender - New High Severity Alerts
+        DIFF ioc:     'https://acrobat.adobe.com/id/urn:aaid:sc' vs 'https://acrobat.adobe.com/id/urn:aaid:sc'
+        IOCs only in canonical: [{"type": "url", "value": "https://acrobat.adobe.com/id/urn:aaid:sc:US:cdaab7c4-c4e7-45a6-988c-e963d58cf34d"}, {"type": "user", "value": "samanthajarreau@lsu.edu"}]
+        IOCs only in duplicate: [{"type": "url", "value": "https://acrobat.adobe.com/id/urn:aaid:sc:US:c6390e90-c9a3-4c0c-9f2b-44a4031ed0fd"}, {"type": "user", "value": "mrobin10@lsu.edu"}]
+        IOC overlap:  0 shared, 4 different, similarity=0%
+
+[!!! FP] B_ruqgK2IWxDp0iOyqmL <- Bt1uIQl-MGzzliLBOtBG  gap=0.2s
+        hash quality: canonical=WEAK duplicate=WEAK
+        hash input:   src=(empty)  dest=(empty)  cat=Threat - LSU - Defender - New High Severity Alerts
+        DIFF ioc:     'Undetermined' vs '2600:8807:612:1500:69b4:261b:7770:8719'
+        IOCs only in duplicate: [{"type": "user", "value": "smoses@lsu.edu"}]
+        IOC overlap:  0 shared, 1 different, similarity=0%
+
+[!!! FP] B_ruqgK2IWxDp0iOyqmL <- sd0B2pGUtp5at3uCEfxG  gap=0.2s
+        hash quality: canonical=WEAK duplicate=WEAK
+        hash input:   src=(empty)  dest=(empty)  cat=Threat - LSU - Defender - New High Severity Alerts
+        DIFF ioc:     'Undetermined' vs '2600:387:f:7f16::8'
+        IOCs only in duplicate: [{"type": "user", "value": "marion.fulton-wilson@lsu.edu"}]
+        IOC overlap:  0 shared, 1 different, similarity=0%
+
+[!!! FP] B_ruqgK2IWxDp0iOyqmL <- AWyKq4YH6GX2UDEmWmhd  gap=0.2s
+        hash quality: canonical=WEAK duplicate=WEAK
+        hash input:   src=(empty)  dest=(empty)  cat=Threat - LSU - Defender - New High Severity Alerts
+        DIFF ioc:     'Undetermined' vs '2620:105:b00b:4135::296a'
+        IOCs only in duplicate: [{"type": "user", "value": "gthom@lsu.edu"}]
+        IOC overlap:  0 shared, 1 different, similarity=0%
+
+[!!! FP] KfSw4p1Xu33yCxiPgfel <- qicwlOf0fzauH9xO3uki  gap=0.2s
+        hash quality: canonical=WEAK duplicate=WEAK
+        hash input:   src=(empty)  dest=(empty)  cat=Threat - LSU - Defender - New High Severity Alerts
+        DIFF ioc:     'Undetermined' vs '2620:105:b00b:4135::296a'
+        IOCs only in duplicate: [{"type": "user", "value": "gthom@lsu.edu"}]
+        IOC overlap:  0 shared, 1 different, similarity=0%
+
+[!!! FP] gE5fQZ-MkR2WnWdADs_Z <- YW9dW9oU-THxCzeej0yZ  gap=0.2s
+        hash quality: canonical=WEAK duplicate=WEAK
+        hash input:   src=(empty)  dest=(empty)  cat=Threat - LSU - Defender - New High Severity Alerts
+        DIFF ioc:     'Undetermined' vs '2600:387:f:7f16::8'
+        IOCs only in duplicate: [{"type": "user", "value": "marion.fulton-wilson@lsu.edu"}]
+        IOC overlap:  0 shared, 1 different, similarity=0%
+
+[!!! FP] gE5fQZ-MkR2WnWdADs_Z <- 095rqVSkjJA_p0003njo  gap=0.2s
+        hash quality: canonical=WEAK duplicate=WEAK
+        hash input:   src=(empty)  dest=(empty)  cat=Threat - LSU - Defender - New High Severity Alerts
+        DIFF ioc:     'Undetermined' vs '2620:105:b00b:4135::296a'
+        IOCs only in duplicate: [{"type": "user", "value": "gthom@lsu.edu"}]
+        IOC overlap:  0 shared, 1 different, similarity=0%
+
+[!!! FP] EPxv1DyGu91D2ekcglvm <- ejQUOmP_FcBoV92x-wxK  gap=0.2s
+        hash quality: canonical=WEAK duplicate=WEAK
+        hash input:   src=(empty)  dest=(empty)  cat=Threat - LSU - Defender - New High Severity Alerts
+        DIFF ioc:     'Undetermined' vs '2600:8807:612:1500:69b4:261b:7770:8719'
+        IOCs only in duplicate: [{"type": "user", "value": "smoses@lsu.edu"}]
+        IOC overlap:  0 shared, 1 different, similarity=0%
+
+[!!! FP] EPxv1DyGu91D2ekcglvm <- 7oeEKiU-4pbpfwcv5uGt  gap=0.2s
+        hash quality: canonical=WEAK duplicate=WEAK
+        hash input:   src=(empty)  dest=(empty)  cat=Threat - LSU - Defender - New High Severity Alerts
+        DIFF ioc:     'Undetermined' vs '2600:387:f:7f16::8'
+        IOCs only in duplicate: [{"type": "user", "value": "marion.fulton-wilson@lsu.edu"}]
+        IOC overlap:  0 shared, 1 different, similarity=0%
+
+[!!! FP] GMIh3CF-MCgQAgiAL1gC <- xvnxUCfX0hiM1rtQg9mU  gap=0.1s
+        hash quality: canonical=WEAK duplicate=WEAK
+        hash input:   src=(empty)  dest=(empty)  cat=Threat - LSU - Defender - New High Severity Alerts
+        DIFF ioc:     'https://acrobat.adobe.com/id/urn:aaid:sc' vs 'https://acrobat.adobe.com/id/urn:aaid:sc'
+        IOCs only in canonical: [{"type": "url", "value": "https://acrobat.adobe.com/id/urn:aaid:sc:US:cdaab7c4-c4e7-45a6-988c-e963d58cf34d"}, {"type": "user", "value": "samanthajarreau@lsu.edu"}]
+        IOCs only in duplicate: [{"type": "url", "value": "https://acrobat.adobe.com/id/urn:aaid:sc:US:f5ea4d93-3c91-4e84-83df-6e278cc8f6b4"}, {"type": "user", "value": "mrobin10@lsu.edu"}]
+        IOC overlap:  0 shared, 4 different, similarity=0%
+
+[!!! FP] -g5yc9HQFt3yG8-Yi12l <- UmVCeM6f0FeW43faxhr4  gap=0.1s
+        hash quality: canonical=WEAK duplicate=WEAK
+        hash input:   src=(empty)  dest=(empty)  cat=Threat - LSU - Defender - New High Severity Alerts
+        DIFF ioc:     'https://acrobat.adobe.com/id/urn:aaid:sc' vs 'https://acrobat.adobe.com/id/urn:aaid:sc'
+        IOCs only in canonical: [{"type": "url", "value": "https://acrobat.adobe.com/id/urn:aaid:sc:US:12cdb44c-83a3-4c23-8bf3-fab45d280526"}, {"type": "user", "value": "brust1@lsu.edu"}]
+        IOCs only in duplicate: [{"type": "url", "value": "https://acrobat.adobe.com/id/urn:aaid:sc:VA6C2:83dcf31e-c4fb-490b-acc8-d05794ed8128"}, {"type": "user", "value": "zabaski@lsu.edu"}]
+        IOC overlap:  0 shared, 4 different, similarity=0%
+
+[!!! FP] GAH-vNMMhb_-bPpJWJR5 <- nG66x5WFgmQiXiQBGLDu  gap=0.1s
+        hash quality: canonical=WEAK duplicate=WEAK
+        hash input:   src=(empty)  dest=(empty)  cat=Threat - LSU - Defender - New High Severity Alerts
+        DIFF ioc:     'Undetermined' vs '2600:6c4a:6140:318b:d8f4:8fa1:8dbd:ead'
+        IOCs only in duplicate: [{"type": "user", "value": "jgarno@lsu.edu"}]
+        IOC overlap:  0 shared, 1 different, similarity=0%
+
+[!!! FP] KbLb0xnpVx9zkD5oaaYP <- vWEsXOPcqgDcWb2q_Me_  gap=0.1s
+        hash quality: canonical=WEAK duplicate=WEAK
+        hash input:   src=(empty)  dest=(empty)  cat=Threat - LSU - Defender - New High Severity Alerts
+        DIFF ioc:     'Undetermined' vs '2600:6c4a:6140:318b:d8f4:8fa1:8dbd:ead'
+        IOCs only in duplicate: [{"type": "user", "value": "jgarno@lsu.edu"}]
+        IOC overlap:  0 shared, 1 different, similarity=0%
+
+[!!! FP] KfSw4p1Xu33yCxiPgfel <- CXDU1P7Q0k1xJpNq1vXm  gap=0.1s
+        hash quality: canonical=WEAK duplicate=WEAK
+        hash input:   src=(empty)  dest=(empty)  cat=Threat - LSU - Defender - New High Severity Alerts
+        DIFF ioc:     'Undetermined' vs '2600:6c4a:6140:318b:d8f4:8fa1:8dbd:ead'
+        IOCs only in duplicate: [{"type": "user", "value": "jgarno@lsu.edu"}]
+        IOC overlap:  0 shared, 1 different, similarity=0%
+
+[!!! FP] gE5fQZ-MkR2WnWdADs_Z <- BsfjGWzsrfdplNX_d6wq  gap=0.1s
+        hash quality: canonical=WEAK duplicate=WEAK
+        hash input:   src=(empty)  dest=(empty)  cat=Threat - LSU - Defender - New High Severity Alerts
+        DIFF ioc:     'Undetermined' vs '2600:6c4a:6140:318b:d8f4:8fa1:8dbd:ead'
+        IOCs only in duplicate: [{"type": "user", "value": "jgarno@lsu.edu"}]
+        IOC overlap:  0 shared, 1 different, similarity=0%
+
+[!!! FP] 2HTPJCg_k3p1sE6Hm8tS <- 7BMY33q6VZrD0yEd2s_l  gap=0.1s
+        hash quality: canonical=WEAK duplicate=WEAK
+        hash input:   src=(empty)  dest=(empty)  cat=Threat - LSU - Defender - New High Severity Alerts
+        DIFF ioc:     'Undetermined' vs '2600:6c4a:6140:318b:d8f4:8fa1:8dbd:ead'
+        IOCs only in duplicate: [{"type": "user", "value": "jgarno@lsu.edu"}]
+        IOC overlap:  0 shared, 1 different, similarity=0%
+
+[!!! FP] fCSYoXFdUdt8zIXvflCR <- gxnmRGYwrX2-NeRuseTC  gap=0.1s
+        hash quality: canonical=WEAK duplicate=WEAK
+        hash input:   src=(empty)  dest=(empty)  cat=Threat - LSU - Defender - New High Severity Alerts
+        DIFF ioc:     'Undetermined' vs '2620:105:b00b:4135::296a'
+        IOCs only in duplicate: [{"type": "user", "value": "gthom@lsu.edu"}]
+        IOC overlap:  0 shared, 1 different, similarity=0%
+
+[!!! FP] EPxv1DyGu91D2ekcglvm <- v6NeqbiQ80cUJ45R1550  gap=0.1s
+        hash quality: canonical=WEAK duplicate=WEAK
+        hash input:   src=(empty)  dest=(empty)  cat=Threat - LSU - Defender - New High Severity Alerts
+        DIFF ioc:     'Undetermined' vs '2620:105:b00b:4135::296a'
+        IOCs only in duplicate: [{"type": "user", "value": "gthom@lsu.edu"}]
+        IOC overlap:  0 shared, 1 different, similarity=0%
+
+[!!! FP] EPxv1DyGu91D2ekcglvm <- FbOOlncvWK-C0IePjqW_  gap=0.1s
+        hash quality: canonical=WEAK duplicate=WEAK
+        hash input:   src=(empty)  dest=(empty)  cat=Threat - LSU - Defender - New High Severity Alerts
+        DIFF ioc:     'Undetermined' vs '2600:6c4a:6140:318b:d8f4:8fa1:8dbd:ead'
+        IOCs only in duplicate: [{"type": "user", "value": "jgarno@lsu.edu"}]
+        IOC overlap:  0 shared, 1 different, similarity=0%
+
+[!!! FP] B_ruqgK2IWxDp0iOyqmL <- aOHQmdk0rVtOLDWisdtq  gap=0.0s
+        hash quality: canonical=WEAK duplicate=WEAK
+        hash input:   src=(empty)  dest=(empty)  cat=Threat - LSU - Defender - New High Severity Alerts
+        DIFF ioc:     'Undetermined' vs '2600:6c4a:6140:318b:d8f4:8fa1:8dbd:ead'
+        IOCs only in duplicate: [{"type": "user", "value": "jgarno@lsu.edu"}]
+        IOC overlap:  0 shared, 1 different, similarity=0%
+
+[!!! FP] rqYb7lcrh9bxQ1xP1STa <- fGVtzrrP3sjJTm9jyGps  gap=0.0s
+        hash quality: canonical=WEAK duplicate=WEAK
+        hash input:   src=(empty)  dest=(empty)  cat=Threat - LSU - Defender - New High Severity Alerts
+        DIFF ioc:     'Undetermined' vs '2600:6c4a:6140:318b:d8f4:8fa1:8dbd:ead'
+        IOCs only in duplicate: [{"type": "user", "value": "jgarno@lsu.edu"}]
+        IOC overlap:  0 shared, 1 different, similarity=0%
+
+[!!! FP] fCSYoXFdUdt8zIXvflCR <- unau2k6cO782QTHliukm  gap=0.0s
+        hash quality: canonical=WEAK duplicate=WEAK
+        hash input:   src=(empty)  dest=(empty)  cat=Threat - LSU - Defender - New High Severity Alerts
+        DIFF ioc:     'Undetermined' vs '2600:6c4a:6140:318b:d8f4:8fa1:8dbd:ead'
+        IOCs only in duplicate: [{"type": "user", "value": "jgarno@lsu.edu"}]
+        IOC overlap:  0 shared, 1 different, similarity=0%
+
+[! WEAK] tfAcMes2axv_Qt6Cd-zp <- yCtJmGeb1ec9VUyCcnrc  gap=2.2s
+        hash quality: canonical=WEAK duplicate=WEAK
+        hash input:   src=(empty)  dest=(empty)  cat=claude-real-e2e-rule-1
+        IOC overlap:  2 shared, 0 different, similarity=100%
+
+[! WEAK] ey9ycrL2O2S0RNkjZNoO <- vhTVMpwtB0KBYZZzvrnC  gap=2.1s
+        hash quality: canonical=WEAK duplicate=WEAK
+        hash input:   src=(empty)  dest=(empty)  cat=claude-real-e2e-rule-RETRY
+        IOC overlap:  2 shared, 0 different, similarity=100%
+
+[! WEAK] bcQLB4Vcg73d6pH1P3YM <- -PqfdmYq9Sj5e0B82_Gk  gap=0.8s
+        hash quality: canonical=WEAK duplicate=WEAK
+        hash input:   src=(empty)  dest=(empty)  cat=Threat - LSU - Azure Audit - Login from Suspicious
+        IOC overlap:  0 shared, 0 different, similarity=0%
+
+[! WEAK] X8Y3-F8QSpk2kEQREYvZ <- HwE3Nz7IR6XFgJ1GuclK  gap=0.7s
+        hash quality: canonical=WEAK duplicate=WEAK
+        hash input:   src=(empty)  dest=(empty)  cat=Threat - LSU - Azure Audit - Login from Suspicious
+        IOC overlap:  0 shared, 0 different, similarity=0%
+
+[! WEAK] md7i8Z0jE0M9N3POV9_9 <- Tv24gTprYrBn3lA1thAE  gap=0.7s
+        hash quality: canonical=WEAK duplicate=WEAK
+        hash input:   src=(empty)  dest=(empty)  cat=Threat - LSU - Azure Audit - Login from Suspicious
+        IOC overlap:  0 shared, 0 different, similarity=0%
+
+[! WEAK] CgORNvIye97ayAkCEhEM <- UGDTVECThbL_5bj8B_CQ  gap=0.6s
+        hash quality: canonical=WEAK duplicate=WEAK
+        hash input:   src=(empty)  dest=(empty)  cat=Threat - LSU - Azure Audit - Login from Suspicious
+        IOC overlap:  0 shared, 0 different, similarity=0%
+
+[! WEAK] 7Jj9NrqZO7EIh34VAR02 <- 8zPsP9iTTT7l8bG1tHmx  gap=0.5s
+        hash quality: canonical=WEAK duplicate=WEAK
+        hash input:   src=(empty)  dest=(empty)  cat=Audit - TS - HealthMonitoring - Heartbeat Check - 
+        IOC overlap:  0 shared, 0 different, similarity=0%
+
+[! WEAK] AuJaMODwEUDtZEov6id6 <- NW5LBafXbONStw2Y34Zg  gap=0.5s
+        hash quality: canonical=WEAK duplicate=WEAK
+        hash input:   src=(empty)  dest=(empty)  cat=Threat - LSU - Azure Audit - Login from Suspicious
+        IOC overlap:  0 shared, 0 different, similarity=0%
+
+[! WEAK] KZutmiwrMOcXNy5l3Ao_ <- PzU0uhsATQO_UnFWm3QL  gap=0.5s
+        hash quality: canonical=WEAK duplicate=WEAK
+        hash input:   src=(empty)  dest=(empty)  cat=Threat - LSU - Azure Audit - Login from Suspicious
+        IOC overlap:  0 shared, 0 different, similarity=0%
+
+[! WEAK] UBKT6GHQZcxIMPTw6y8J <- D6FlH69GrKeCrbHDRRq3  gap=0.5s
+        hash quality: canonical=WEAK duplicate=WEAK
+        hash input:   src=(empty)  dest=(empty)  cat=Threat - LSU - Azure Audit - Login from Suspicious
+        IOC overlap:  0 shared, 0 different, similarity=0%
+
+[! WEAK] 7Jj9NrqZO7EIh34VAR02 <- G5ZCvOxlRNVefeYTk_aH  gap=0.4s
+        hash quality: canonical=WEAK duplicate=WEAK
+        hash input:   src=(empty)  dest=(empty)  cat=Audit - TS - HealthMonitoring - Heartbeat Check - 
+        IOC overlap:  0 shared, 0 different, similarity=0%
+
+[! WEAK] 8Cv2RKx09kmScSpXQAob <- 6Rpu6sZz3yXzgPzAHMyr  gap=0.4s
+        hash quality: canonical=WEAK duplicate=WEAK
+        hash input:   src=(empty)  dest=(empty)  cat=Audit - TS - HealthMonitoring - Heartbeat Check - 
+        IOC overlap:  0 shared, 0 different, similarity=0%
+
+[! WEAK] K8HGidnewSXA8jWAEoxV <- v7GlrAGenH8rG2OWIvNj  gap=0.3s
+        hash quality: canonical=WEAK duplicate=WEAK
+        hash input:   src=(empty)  dest=(empty)  cat=Audit - TS - HealthMonitoring - Heartbeat Check - 
+        IOC overlap:  0 shared, 0 different, similarity=0%
+
+[! WEAK] K8HGidnewSXA8jWAEoxV <- PZXNCEULuuzmQCwuJ1YB  gap=0.3s
+        hash quality: canonical=WEAK duplicate=WEAK
+        hash input:   src=(empty)  dest=(empty)  cat=Audit - TS - HealthMonitoring - Heartbeat Check - 
+        IOC overlap:  0 shared, 0 different, similarity=0%
+
+[! WEAK] QNqNVuyfDdkt_dkPMzpk <- x7ZRbnJTyfKVuxRcPT4L  gap=0.3s
+        hash quality: canonical=WEAK duplicate=WEAK
+        hash input:   src=(empty)  dest=(empty)  cat=Audit - TS - HealthMonitoring - Heartbeat Check - 
+        IOC overlap:  0 shared, 0 different, similarity=0%
+
+[! WEAK] Tkmz8o8Fq3SfaQFyFbJO <- BZnRl_-2AEsYzDVN5bkJ  gap=0.3s
+        hash quality: canonical=WEAK duplicate=WEAK
+        hash input:   src=(empty)  dest=(empty)  cat=Audit - TS - HealthMonitoring - Heartbeat Check - 
+        IOC overlap:  0 shared, 0 different, similarity=0%
+
+[! WEAK] Tkmz8o8Fq3SfaQFyFbJO <- Yux8jsbPYI2qSG7gO_4Q  gap=0.3s
+        hash quality: canonical=WEAK duplicate=WEAK
+        hash input:   src=(empty)  dest=(empty)  cat=Audit - TS - HealthMonitoring - Heartbeat Check - 
+        IOC overlap:  0 shared, 0 different, similarity=0%
+
+[! WEAK] nBGU7hNFwGg_dynuedPU <- egDEQ09UQ7yCy256fVpN  gap=0.3s
+        hash quality: canonical=WEAK duplicate=WEAK
+        hash input:   src=(empty)  dest=(empty)  cat=Audit - TS - HealthMonitoring - Heartbeat Check - 
+        IOC overlap:  0 shared, 0 different, similarity=0%
+
+[! WEAK] 8Cv2RKx09kmScSpXQAob <- teAzIzPBsXj2Ub1Li3ZM  gap=0.2s
+        hash quality: canonical=WEAK duplicate=WEAK
+        hash input:   src=(empty)  dest=(empty)  cat=Audit - TS - HealthMonitoring - Heartbeat Check - 
+        IOC overlap:  0 shared, 0 different, similarity=0%
+
+[! WEAK] QNqNVuyfDdkt_dkPMzpk <- KXp_GnDwmSTywqlYwAPw  gap=0.2s
+        hash quality: canonical=WEAK duplicate=WEAK
+        hash input:   src=(empty)  dest=(empty)  cat=Audit - TS - HealthMonitoring - Heartbeat Check - 
+        IOC overlap:  0 shared, 0 different, similarity=0%
+
+[! WEAK] nBGU7hNFwGg_dynuedPU <- P8PAAYkLJtad7DHSwwfi  gap=0.2s
+        hash quality: canonical=WEAK duplicate=WEAK
+        hash input:   src=(empty)  dest=(empty)  cat=Audit - TS - HealthMonitoring - Heartbeat Check - 
+        IOC overlap:  0 shared, 0 different, similarity=0%
+
+[! WEAK] yCdSGXbrC65cQ7v68Flx <- aXISTTBGFcshhVpsPM90  gap=0.2s
+        hash quality: canonical=WEAK duplicate=WEAK
+        hash input:   src=(empty)  dest=(empty)  cat=Audit - TS - HealthMonitoring - Heartbeat Check - 
+        IOC overlap:  0 shared, 0 different, similarity=0%
+
+[! WEAK] yCdSGXbrC65cQ7v68Flx <- kZ9jkpt_fZrQWq8AsUvZ  gap=0.2s
+        hash quality: canonical=WEAK duplicate=WEAK
+        hash input:   src=(empty)  dest=(empty)  cat=Audit - TS - HealthMonitoring - Heartbeat Check - 
+        IOC overlap:  0 shared, 0 different, similarity=0%
+
+[! WEAK] oS5rpmeDGv7rinS5_u-H <- Mifvdb0xjZOUeSQ37E3x  gap=0.1s
+        hash quality: canonical=WEAK duplicate=WEAK
+        hash input:   src=(empty)  dest=(empty)  cat=Risk - 24 Hour Risk Threshold Exceeded - Rule
+        IOC overlap:  0 shared, 0 different, similarity=0%
+
+[! WEAK] aVg74tnei8hypIdLXXPd <- tpEd5n-BF_-3jgjTUY32  gap=0.0s
+        hash quality: canonical=WEAK duplicate=WEAK
+        hash input:   src=(empty)  dest=(empty)  cat=Risk - 24 Hour Risk Threshold Exceeded - Rule
+        IOC overlap:  0 shared, 0 different, similarity=0%
+
+[! WEAK] IULBSfTY34ayl-48ZIy1 <- 847aKqmdVOQeP7ldurqn  gap=0.0s
+        hash quality: canonical=WEAK duplicate=WEAK
+        hash input:   src=(empty)  dest=(empty)  cat=Threat - LSU - Defender - New High Severity Alerts
+        DIFF ioc:     '2600:387:f:7f16::8' vs '2600:8807:612:1500:69b4:261b:7770:8719'
+        IOC overlap:  1 shared, 0 different, similarity=100%
+
+[  TEST] 0_wqVu-59esPzZZi_mtp <- 6TSZ03IH7krMUEUp7YcZ  gap=52.0s
+        hash quality: canonical=WEAK duplicate=WEAK
+        hash input:   src=(empty)  dest=(empty)  cat=claude-e2e-dedup-rule-1
+        IOC overlap:  0 shared, 0 different, similarity=0%
+
+[  TEST] 0_wqVu-59esPzZZi_mtp <- yS_WbDefG-Q97E7Q8nMh  gap=51.9s
+        hash quality: canonical=WEAK duplicate=WEAK
+        hash input:   src=(empty)  dest=(empty)  cat=claude-e2e-dedup-rule-1
+        IOC overlap:  0 shared, 0 different, similarity=0%
+
+[  TEST] 0_wqVu-59esPzZZi_mtp <- j5w-Xb4tY0cTkksgxX-g  gap=22.9s
+        hash quality: canonical=WEAK duplicate=WEAK
+        hash input:   src=(empty)  dest=(empty)  cat=claude-e2e-dedup-rule-1
+        IOC overlap:  0 shared, 0 different, similarity=0%
+
+[  TEST] 0_wqVu-59esPzZZi_mtp <- GdlOax5BK_x-kqbCgsGu  gap=22.3s
+        hash quality: canonical=WEAK duplicate=WEAK
+        hash input:   src=(empty)  dest=(empty)  cat=claude-e2e-dedup-rule-1
+        IOC overlap:  0 shared, 0 different, similarity=0%
+
+[  TEST] 0_wqVu-59esPzZZi_mtp <- D5ytNaJllRBcFXuFIWCc  gap=21.8s
+        hash quality: canonical=WEAK duplicate=WEAK
+        hash input:   src=(empty)  dest=(empty)  cat=claude-e2e-dedup-rule-1
+        IOC overlap:  0 shared, 0 different, similarity=0%
+
+[  TEST] 1a5ipH7UeW48iQGitKW- <- 0_OWJSKzF5ufFbUpXS0D  gap=2.1s
+        hash quality: canonical=WEAK duplicate=WEAK
+        hash input:   src=(empty)  dest=(empty)  cat=claude-e2e-soar-link
+        IOC overlap:  0 shared, 0 different, similarity=0%
+
+[  TEST] mRzIKdVukHPQtXrSuynG <- EDbf_yV6N5XcK45957Bl  gap=1.1s
+        hash quality: canonical=WEAK duplicate=WEAK
+        hash input:   src=(empty)  dest=(empty)  cat=audit2-ws-rule
+        IOC overlap:  0 shared, 0 different, similarity=0%
+
+[  TEST] qJ-RS95sGhwFYFj2oIkU <- YsH8wh3YuYrH3hNa-TzT  gap=0.8s
+        hash quality: canonical=WEAK duplicate=WEAK
+        hash input:   src=(empty)  dest=(empty)  cat=audit2-baseline-fd32632c
+        IOC overlap:  0 shared, 0 different, similarity=0%
+
+[  TEST] vAabQ0qcNo7mnwJffcqa <- 2SVOWHW6k_8YlgPVr05Q  gap=0.1s
+        hash quality: canonical=WEAK duplicate=WEAK
+        hash input:   src=(empty)  dest=(empty)  cat=claude-empty-test
+        IOC overlap:  0 shared, 0 different, similarity=0%
+
+[    OK] kHm1wh4kXnw4LwJ-zwgw <- DygRhmUhsb_Y8WCt9LIm  gap=0.6s
+        hash quality: canonical=MODERATE duplicate=MODERATE
+        hash input:   src=2620:105:b001:6100:8a27:25d3:db1c:cc3e  dest=(empty)  cat=Threat - LSU - Windows - Basic Brute Force Detecti
+        IOC overlap:  2 shared, 0 different, similarity=100%
+
+[    OK] TzcPARO8xU9ddCvT9nQM <- eBt9BMPBvGSOYBqjeHYc  gap=0.5s
+        hash quality: canonical=MODERATE duplicate=MODERATE
+        hash input:   src=2620:105:b001:6100:8a27:25d3:db1c:cc3e  dest=(empty)  cat=Threat - LSU - Windows - Basic Brute Force Detecti
+        IOC overlap:  2 shared, 0 different, similarity=100%
+
+[    OK] UGvqo2DmyW2AAsyBNpnS <- uWF1oAL4aJVrv6fYWx2Z  gap=0.5s
+        hash quality: canonical=MODERATE duplicate=MODERATE
+        hash input:   src=2620:105:b001:6100:8a27:25d3:db1c:cc3e  dest=(empty)  cat=Threat - LSU - Windows - Basic Brute Force Detecti
+        IOC overlap:  2 shared, 0 different, similarity=100%
+
+[    OK] Q03fzjMK3D9SHI8T-NC4 <- ZCrpnEpC7TxqhWzeXqQt  gap=0.4s
+        hash quality: canonical=MODERATE duplicate=MODERATE
+        hash input:   src=2620:105:b001:6100:8a27:25d3:db1c:cc3e  dest=(empty)  cat=Threat - LSU - Windows - Basic Brute Force Detecti
+        IOC overlap:  2 shared, 0 different, similarity=100%
+
+[    OK] bHuEU70kVGREuAF3cU0a <- 465zlRh6ZMFlpZGZMwcM  gap=0.3s
+        hash quality: canonical=MODERATE duplicate=MODERATE
+        hash input:   src=2620:105:b001:6100:8a27:25d3:db1c:cc3e  dest=(empty)  cat=Threat - LSU - Windows - Basic Brute Force Detecti
+        IOC overlap:  2 shared, 0 different, similarity=100%
+
+[    OK] NDWHDV6n7-aOfI-JmQNV <- oLnPHJ4EDWKJ-2FvVldo  gap=0.3s
+        hash quality: canonical=MODERATE duplicate=MODERATE
+        hash input:   src=2620:105:b001:6100:8a27:25d3:db1c:cc3e  dest=(empty)  cat=Threat - LSU - Windows - Basic Brute Force Detecti
+        IOC overlap:  2 shared, 0 different, similarity=100%
+
+[    OK] mILnhfthXRgGUrs0dP6S <- jCpIxLBXASAQg0BjEvl-  gap=0.3s
+        hash quality: canonical=MODERATE duplicate=MODERATE
+        hash input:   src=2620:105:b001:6100:8a27:25d3:db1c:cc3e  dest=(empty)  cat=Threat - LSU - Windows - Basic Brute Force Detecti
+        IOC overlap:  2 shared, 0 different, similarity=100%
+
+[    OK] HFNVsa35Miy8vhhi4xjS <- q_0RO4-MBjV8GQw9HUkr  gap=0.1s
+        hash quality: canonical=MODERATE duplicate=MODERATE
+        hash input:   src=78.158.15.43  dest=(empty)  cat=Threat - LSU - Defender - New High Severity Alerts
+        IOC overlap:  2 shared, 0 different, similarity=100%
+
