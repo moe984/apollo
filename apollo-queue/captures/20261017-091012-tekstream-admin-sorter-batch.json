@@ -1,0 +1,284 @@
+{
+  "run_started": "2026-10-17T12:58:38.606715+00:00",
+  "target": "https://apollo.cosmos.tekstream.com/api/v1/ingest/soar",
+  "client": "tekstream-admin",
+  "customer_id": "cust_PZrCDKLOyIAY7Zvt677sf",
+  "send_order": [
+    999505,
+    999502,
+    999504,
+    999503,
+    999501
+  ],
+  "iocs": {
+    "sourceAddress": "10.198.183.13",
+    "destinationAddress": "172.22.180.235",
+    "sourceUserName": "sortertest_7502ca4",
+    "destinationHostName": "host-6586.corp7502ca4.example",
+    "fileHashSha256": "98f9fd7ea0fc8644ef9e0bea49cb1b5ac06650b244ec39d6707a0458dfcf0833",
+    "requestURL": "http://c2-462.badnet7502ca4.example/77919/payload"
+  },
+  "events": [
+    {
+      "container": {
+        "id": 999505,
+        "name": "Palo Alto - Critical Threat Allowed Inbound (sorter test)",
+        "tenant_name": "tekstream-admin",
+        "severity": "high",
+        "source_data_identifier": "tekstream-admin-sortertest-999505"
+      },
+      "artifacts": [
+        {
+          "label": "artifact",
+          "name": "network-observable",
+          "cef": {
+            "ClientName": "tekstream-admin",
+            "soar_instance": "LOCALDEVSOAR",
+            "rule_name": "Palo Alto - Critical Threat Allowed Inbound (sorter test)",
+            "source": "Threat - Palo Alto - Critical Threat Allowed Inbound (sorter test) - Rule",
+            "search_name": "Threat - Palo Alto - Critical Threat Allowed Inbound (sorter test) - Rule",
+            "severity": "high",
+            "urgency": "high",
+            "security_domain": "network",
+            "label": "generic",
+            "sourceAddress": "10.198.183.13",
+            "destinationAddress": "172.22.180.235",
+            "sourceUserName": "sortertest_7502ca4",
+            "destinationHostName": "host-6586.corp7502ca4.example",
+            "fileHashSha256": "98f9fd7ea0fc8644ef9e0bea49cb1b5ac06650b244ec39d6707a0458dfcf0833",
+            "requestURL": "http://c2-462.badnet7502ca4.example/77919/payload"
+          }
+        }
+      ]
+    },
+    {
+      "container": {
+        "id": 999502,
+        "name": "Palo Alto - Critical Threat Allowed Inbound (sorter test)",
+        "tenant_name": "tekstream-admin",
+        "severity": "high",
+        "source_data_identifier": "tekstream-admin-sortertest-999502"
+      },
+      "artifacts": [
+        {
+          "label": "artifact",
+          "name": "network-observable",
+          "cef": {
+            "ClientName": "tekstream-admin",
+            "soar_instance": "LOCALDEVSOAR",
+            "rule_name": "Palo Alto - Critical Threat Allowed Inbound (sorter test)",
+            "source": "Threat - Palo Alto - Critical Threat Allowed Inbound (sorter test) - Rule",
+            "search_name": "Threat - Palo Alto - Critical Threat Allowed Inbound (sorter test) - Rule",
+            "severity": "high",
+            "urgency": "high",
+            "security_domain": "network",
+            "label": "generic",
+            "sourceAddress": "10.198.183.13",
+            "destinationAddress": "172.22.180.235",
+            "sourceUserName": "sortertest_7502ca4",
+            "destinationHostName": "host-6586.corp7502ca4.example",
+            "fileHashSha256": "98f9fd7ea0fc8644ef9e0bea49cb1b5ac06650b244ec39d6707a0458dfcf0833",
+            "requestURL": "http://c2-462.badnet7502ca4.example/77919/payload"
+          }
+        }
+      ]
+    },
+    {
+      "container": {
+        "id": 999504,
+        "name": "Palo Alto - Critical Threat Allowed Inbound (sorter test)",
+        "tenant_name": "tekstream-admin",
+        "severity": "high",
+        "source_data_identifier": "tekstream-admin-sortertest-999504"
+      },
+      "artifacts": [
+        {
+          "label": "artifact",
+          "name": "network-observable",
+          "cef": {
+            "ClientName": "tekstream-admin",
+            "soar_instance": "LOCALDEVSOAR",
+            "rule_name": "Palo Alto - Critical Threat Allowed Inbound (sorter test)",
+            "source": "Threat - Palo Alto - Critical Threat Allowed Inbound (sorter test) - Rule",
+            "search_name": "Threat - Palo Alto - Critical Threat Allowed Inbound (sorter test) - Rule",
+            "severity": "high",
+            "urgency": "high",
+            "security_domain": "network",
+            "label": "generic",
+            "sourceAddress": "10.198.183.13",
+            "destinationAddress": "172.22.180.235",
+            "sourceUserName": "sortertest_7502ca4",
+            "destinationHostName": "host-6586.corp7502ca4.example",
+            "fileHashSha256": "98f9fd7ea0fc8644ef9e0bea49cb1b5ac06650b244ec39d6707a0458dfcf0833",
+            "requestURL": "http://c2-462.badnet7502ca4.example/77919/payload"
+          }
+        }
+      ]
+    },
+    {
+      "container": {
+        "id": 999503,
+        "name": "Palo Alto - Critical Threat Allowed Inbound (sorter test)",
+        "tenant_name": "tekstream-admin",
+        "severity": "high",
+        "source_data_identifier": "tekstream-admin-sortertest-999503"
+      },
+      "artifacts": [
+        {
+          "label": "artifact",
+          "name": "network-observable",
+          "cef": {
+            "ClientName": "tekstream-admin",
+            "soar_instance": "LOCALDEVSOAR",
+            "rule_name": "Palo Alto - Critical Threat Allowed Inbound (sorter test)",
+            "source": "Threat - Palo Alto - Critical Threat Allowed Inbound (sorter test) - Rule",
+            "search_name": "Threat - Palo Alto - Critical Threat Allowed Inbound (sorter test) - Rule",
+            "severity": "high",
+            "urgency": "high",
+            "security_domain": "network",
+            "label": "generic",
+            "sourceAddress": "10.198.183.13",
+            "destinationAddress": "172.22.180.235",
+            "sourceUserName": "sortertest_7502ca4",
+            "destinationHostName": "host-6586.corp7502ca4.example",
+            "fileHashSha256": "98f9fd7ea0fc8644ef9e0bea49cb1b5ac06650b244ec39d6707a0458dfcf0833",
+            "requestURL": "http://c2-462.badnet7502ca4.example/77919/payload"
+          }
+        }
+      ]
+    },
+    {
+      "container": {
+        "id": 999501,
+        "name": "Palo Alto - Critical Threat Allowed Inbound (sorter test)",
+        "tenant_name": "tekstream-admin",
+        "severity": "high",
+        "source_data_identifier": "tekstream-admin-sortertest-999501"
+      },
+      "artifacts": [
+        {
+          "label": "artifact",
+          "name": "network-observable",
+          "cef": {
+            "ClientName": "tekstream-admin",
+            "soar_instance": "LOCALDEVSOAR",
+            "rule_name": "Palo Alto - Critical Threat Allowed Inbound (sorter test)",
+            "source": "Threat - Palo Alto - Critical Threat Allowed Inbound (sorter test) - Rule",
+            "search_name": "Threat - Palo Alto - Critical Threat Allowed Inbound (sorter test) - Rule",
+            "severity": "high",
+            "urgency": "high",
+            "security_domain": "network",
+            "label": "generic",
+            "sourceAddress": "10.198.183.13",
+            "destinationAddress": "172.22.180.235",
+            "sourceUserName": "sortertest_7502ca4",
+            "destinationHostName": "host-6586.corp7502ca4.example",
+            "fileHashSha256": "98f9fd7ea0fc8644ef9e0bea49cb1b5ac06650b244ec39d6707a0458dfcf0833",
+            "requestURL": "http://c2-462.badnet7502ca4.example/77919/payload"
+          }
+        }
+      ]
+    }
+  ],
+  "preflight": {
+    "sent_at": "2026-10-17T12:58:38.606909+00:00",
+    "status": 200,
+    "ms": 894.3110830150545,
+    "body": {
+      "client": "tekstream-admin",
+      "customerId": "cust_PZrCDKLOyIAY7Zvt677sf",
+      "customerSlug": "tekstream-admin",
+      "status": "active",
+      "acceptingIngestion": true,
+      "message": "\"tekstream-admin\" resolves to customer cust_PZrCDKLOyIAY7Zvt677sf and is accepting alerts."
+    },
+    "headers": {
+      "date": "Sat, 17 Oct 2026 12:58:39 GMT",
+      "content-type": "application/json; charset=utf-8",
+      "x-correlation-id": "TXHylF8wKI3nQBCNArRS3"
+    }
+  },
+  "health_before": {
+    "status": 200,
+    "health": "ok",
+    "gitSha": "8a1522eb",
+    "task_boot": "2026-10-17T09:39:53+00:00"
+  },
+  "health_after": {
+    "status": 200,
+    "health": "ok",
+    "gitSha": "8a1522eb",
+    "task_boot": "2026-10-17T09:39:53+00:00"
+  },
+  "results": {
+    "999503": {
+      "sent_at": "2026-10-17T12:58:40.114619+00:00",
+      "status": 0,
+      "ms": 30208.83566699922,
+      "body": "<transport error: The read operation timed out>",
+      "headers": {},
+      "start_ms": 20.46562498435378
+    },
+    "999501": {
+      "sent_at": "2026-10-17T12:58:40.122357+00:00",
+      "status": 0,
+      "ms": 30201.15837501362,
+      "body": "<transport error: The read operation timed out>",
+      "headers": {},
+      "start_ms": 28.205999988131225
+    },
+    "999504": {
+      "sent_at": "2026-10-17T12:58:40.107036+00:00",
+      "status": 0,
+      "ms": 30216.51920900331,
+      "body": "<transport error: The read operation timed out>",
+      "headers": {},
+      "start_ms": 12.876083987066522
+    },
+    "999505": {
+      "sent_at": "2026-10-17T12:58:40.094268+00:00",
+      "status": 0,
+      "ms": 30310.971291997703,
+      "body": "<transport error: The read operation timed out>",
+      "headers": {},
+      "start_ms": 0.10887498501688242
+    },
+    "999502": {
+      "sent_at": "2026-10-17T12:58:40.099593+00:00",
+      "status": 0,
+      "ms": 30463.894083019113,
+      "body": "<transport error: The read operation timed out>",
+      "headers": {},
+      "start_ms": 5.407291988376528
+    }
+  },
+  "server": null,
+  "checks": [
+    {
+      "status": "FAIL",
+      "check": "HTTP 200 on every call",
+      "detail": "{\"999505\": 0, \"999502\": 0, \"999504\": 0, \"999503\": 0, \"999501\": 0}"
+    },
+    {
+      "status": "PASS",
+      "check": "alerts filed under the client",
+      "detail": "all tekstream-admin-<id>"
+    },
+    {
+      "status": "FAIL",
+      "check": "SOAR round trip within budget",
+      "detail": "worst 30464 ms > 10000 ms"
+    },
+    {
+      "status": "FAIL",
+      "check": "one NEW, the rest DUPLICATE",
+      "detail": "{\"999505\": null, \"999502\": null, \"999504\": null, \"999503\": null, \"999501\": null}"
+    },
+    {
+      "status": "PASS",
+      "check": "no task restart during the run",
+      "detail": "boot 2026-10-17T09:39:53+00:00 -> 2026-10-17T09:39:53+00:00"
+    }
+  ],
+  "overall": "FAIL"
+}

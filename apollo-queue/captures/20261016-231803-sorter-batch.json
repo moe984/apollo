@@ -1,0 +1,911 @@
+{
+  "target": "https://apollo.cosmos.tekstream.com/api/v1/ingest/soar",
+  "client": "tekstream-admin",
+  "send_order": [
+    999005,
+    999002,
+    999004,
+    999003,
+    999001
+  ],
+  "iocs": {
+    "sourceAddress": "10.151.93.230",
+    "destinationAddress": "172.26.0.50",
+    "sourceUserName": "sortertest_3f109f3",
+    "destinationHostName": "host-7733.corp3f109f3.example",
+    "fileHashSha256": "f031d6ace78cf104cc6d03ec51dd79551f3f088eedff6c7500917a1352b3d61f",
+    "requestURL": "http://c2-845.badnet3f109f3.example/48001/payload"
+  },
+  "events": [
+    {
+      "container": {
+        "id": 999005,
+        "name": "Palo Alto - Critical Threat Allowed Inbound (sorter test)",
+        "tenant_name": "tekstream-admin",
+        "severity": "high",
+        "source_data_identifier": "tekstream-admin-sortertest-999005"
+      },
+      "artifacts": [
+        {
+          "label": "artifact",
+          "name": "network-observable",
+          "cef": {
+            "ClientName": "tekstream-admin",
+            "soar_instance": "LOCALDEVSOAR",
+            "rule_name": "Palo Alto - Critical Threat Allowed Inbound (sorter test)",
+            "source": "Threat - Palo Alto - Critical Threat Allowed Inbound (sorter test) - Rule",
+            "search_name": "Threat - Palo Alto - Critical Threat Allowed Inbound (sorter test) - Rule",
+            "severity": "high",
+            "urgency": "high",
+            "security_domain": "network",
+            "label": "generic",
+            "sourceAddress": "10.151.93.230",
+            "destinationAddress": "172.26.0.50",
+            "sourceUserName": "sortertest_3f109f3",
+            "destinationHostName": "host-7733.corp3f109f3.example",
+            "fileHashSha256": "f031d6ace78cf104cc6d03ec51dd79551f3f088eedff6c7500917a1352b3d61f",
+            "requestURL": "http://c2-845.badnet3f109f3.example/48001/payload"
+          }
+        }
+      ]
+    },
+    {
+      "container": {
+        "id": 999002,
+        "name": "Palo Alto - Critical Threat Allowed Inbound (sorter test)",
+        "tenant_name": "tekstream-admin",
+        "severity": "high",
+        "source_data_identifier": "tekstream-admin-sortertest-999002"
+      },
+      "artifacts": [
+        {
+          "label": "artifact",
+          "name": "network-observable",
+          "cef": {
+            "ClientName": "tekstream-admin",
+            "soar_instance": "LOCALDEVSOAR",
+            "rule_name": "Palo Alto - Critical Threat Allowed Inbound (sorter test)",
+            "source": "Threat - Palo Alto - Critical Threat Allowed Inbound (sorter test) - Rule",
+            "search_name": "Threat - Palo Alto - Critical Threat Allowed Inbound (sorter test) - Rule",
+            "severity": "high",
+            "urgency": "high",
+            "security_domain": "network",
+            "label": "generic",
+            "sourceAddress": "10.151.93.230",
+            "destinationAddress": "172.26.0.50",
+            "sourceUserName": "sortertest_3f109f3",
+            "destinationHostName": "host-7733.corp3f109f3.example",
+            "fileHashSha256": "f031d6ace78cf104cc6d03ec51dd79551f3f088eedff6c7500917a1352b3d61f",
+            "requestURL": "http://c2-845.badnet3f109f3.example/48001/payload"
+          }
+        }
+      ]
+    },
+    {
+      "container": {
+        "id": 999004,
+        "name": "Palo Alto - Critical Threat Allowed Inbound (sorter test)",
+        "tenant_name": "tekstream-admin",
+        "severity": "high",
+        "source_data_identifier": "tekstream-admin-sortertest-999004"
+      },
+      "artifacts": [
+        {
+          "label": "artifact",
+          "name": "network-observable",
+          "cef": {
+            "ClientName": "tekstream-admin",
+            "soar_instance": "LOCALDEVSOAR",
+            "rule_name": "Palo Alto - Critical Threat Allowed Inbound (sorter test)",
+            "source": "Threat - Palo Alto - Critical Threat Allowed Inbound (sorter test) - Rule",
+            "search_name": "Threat - Palo Alto - Critical Threat Allowed Inbound (sorter test) - Rule",
+            "severity": "high",
+            "urgency": "high",
+            "security_domain": "network",
+            "label": "generic",
+            "sourceAddress": "10.151.93.230",
+            "destinationAddress": "172.26.0.50",
+            "sourceUserName": "sortertest_3f109f3",
+            "destinationHostName": "host-7733.corp3f109f3.example",
+            "fileHashSha256": "f031d6ace78cf104cc6d03ec51dd79551f3f088eedff6c7500917a1352b3d61f",
+            "requestURL": "http://c2-845.badnet3f109f3.example/48001/payload"
+          }
+        }
+      ]
+    },
+    {
+      "container": {
+        "id": 999003,
+        "name": "Palo Alto - Critical Threat Allowed Inbound (sorter test)",
+        "tenant_name": "tekstream-admin",
+        "severity": "high",
+        "source_data_identifier": "tekstream-admin-sortertest-999003"
+      },
+      "artifacts": [
+        {
+          "label": "artifact",
+          "name": "network-observable",
+          "cef": {
+            "ClientName": "tekstream-admin",
+            "soar_instance": "LOCALDEVSOAR",
+            "rule_name": "Palo Alto - Critical Threat Allowed Inbound (sorter test)",
+            "source": "Threat - Palo Alto - Critical Threat Allowed Inbound (sorter test) - Rule",
+            "search_name": "Threat - Palo Alto - Critical Threat Allowed Inbound (sorter test) - Rule",
+            "severity": "high",
+            "urgency": "high",
+            "security_domain": "network",
+            "label": "generic",
+            "sourceAddress": "10.151.93.230",
+            "destinationAddress": "172.26.0.50",
+            "sourceUserName": "sortertest_3f109f3",
+            "destinationHostName": "host-7733.corp3f109f3.example",
+            "fileHashSha256": "f031d6ace78cf104cc6d03ec51dd79551f3f088eedff6c7500917a1352b3d61f",
+            "requestURL": "http://c2-845.badnet3f109f3.example/48001/payload"
+          }
+        }
+      ]
+    },
+    {
+      "container": {
+        "id": 999001,
+        "name": "Palo Alto - Critical Threat Allowed Inbound (sorter test)",
+        "tenant_name": "tekstream-admin",
+        "severity": "high",
+        "source_data_identifier": "tekstream-admin-sortertest-999001"
+      },
+      "artifacts": [
+        {
+          "label": "artifact",
+          "name": "network-observable",
+          "cef": {
+            "ClientName": "tekstream-admin",
+            "soar_instance": "LOCALDEVSOAR",
+            "rule_name": "Palo Alto - Critical Threat Allowed Inbound (sorter test)",
+            "source": "Threat - Palo Alto - Critical Threat Allowed Inbound (sorter test) - Rule",
+            "search_name": "Threat - Palo Alto - Critical Threat Allowed Inbound (sorter test) - Rule",
+            "severity": "high",
+            "urgency": "high",
+            "security_domain": "network",
+            "label": "generic",
+            "sourceAddress": "10.151.93.230",
+            "destinationAddress": "172.26.0.50",
+            "sourceUserName": "sortertest_3f109f3",
+            "destinationHostName": "host-7733.corp3f109f3.example",
+            "fileHashSha256": "f031d6ace78cf104cc6d03ec51dd79551f3f088eedff6c7500917a1352b3d61f",
+            "requestURL": "http://c2-845.badnet3f109f3.example/48001/payload"
+          }
+        }
+      ]
+    }
+  ],
+  "results": {
+    "999005": {
+      "start_ms": 0.14383302186615765,
+      "status": 200,
+      "ms": 532.376542018028,
+      "response": {
+        "contract_version": "1.4",
+        "transition_state": "new",
+        "is_duplicate": false,
+        "verdict": "NEW",
+        "confidence": null,
+        "reasoning": "New alert; tenant validated at the SOAR gate, persisted, and resting in Apollo.",
+        "apollo_alert_id": "tekstream-admin-999005",
+        "canonical_alert_id": null,
+        "matched_alert_id": null,
+        "match_type": null,
+        "container_id": 999005,
+        "tenant": "tekstream-admin",
+        "parent_container_id": null,
+        "alert_url": "https://apollo.cosmos.tekstream.com/dashboard/alerts/tekstream-admin-999005",
+        "dedup_engine": {
+          "alert_id": "tekstream-admin-999005",
+          "verdict": "NEW",
+          "hash_confidence": 0,
+          "stix_context_similarity": 0,
+          "stix_observable_by_type": 0,
+          "stix_observable_by_value": 0,
+          "layer": 0,
+          "matched_alert_id": "",
+          "canonical_alert_id": "",
+          "score_breakdown": {},
+          "stix_context_details": [],
+          "stix_observable_details": [],
+          "iocs": {
+            "ip": [
+              "10.151.93.230",
+              "172.26.0.50"
+            ],
+            "domain": [
+              "host-7733.corp3f109f3.example"
+            ],
+            "url": [
+              "http://c2-845.badnet3f109f3.example/48001/payload"
+            ],
+            "user": [
+              "sortertest_3f109f3"
+            ]
+          },
+          "filled_slots": [
+            "ip",
+            "user",
+            "domain",
+            "url"
+          ],
+          "matched_slots": [],
+          "missed_slots": [],
+          "applied_thresholds": {
+            "layer1_confidence_threshold": 0.8,
+            "layer2_similarity_threshold": 80
+          },
+          "threshold_source": "STATIC"
+        },
+        "correlation_id": "lhZECtzzWRv-OPwQTlkXR"
+      }
+    },
+    "999003": {
+      "start_ms": 19.640417012851685,
+      "status": 200,
+      "ms": 547.0283330068924,
+      "response": {
+        "contract_version": "1.4",
+        "transition_state": "duplicate",
+        "is_duplicate": true,
+        "verdict": "DUPLICATE",
+        "confidence": 1,
+        "reasoning": "Exact match (exact_hash) against canonical alert tekstream-admin-999005; suppressed as duplicate.",
+        "apollo_alert_id": "tekstream-admin-999003",
+        "canonical_alert_id": "tekstream-admin-999005",
+        "matched_alert_id": "tekstream-admin-999005",
+        "match_type": "exact_hash",
+        "container_id": 999003,
+        "tenant": "tekstream-admin",
+        "parent_container_id": 999005,
+        "alert_url": "https://apollo.cosmos.tekstream.com/dashboard/alerts/tekstream-admin-999003",
+        "dedup_engine": {
+          "alert_id": "tekstream-admin-999003",
+          "verdict": "DUPLICATE",
+          "hash_confidence": 1,
+          "stix_context_similarity": 100,
+          "stix_observable_by_type": 100,
+          "stix_observable_by_value": 100,
+          "layer": 1,
+          "matched_alert_id": "tekstream-admin-999005",
+          "canonical_alert_id": "tekstream-admin-999005",
+          "score_breakdown": {
+            "matched": [
+              "ip",
+              "user",
+              "domain",
+              "url"
+            ],
+            "missed": []
+          },
+          "stix_context_details": [
+            {
+              "type": "identity",
+              "score": 100,
+              "details": {
+                "name": {
+                  "weight": 60,
+                  "contributing_score": 60
+                },
+                "identity_class": {
+                  "weight": 20,
+                  "contributing_score": 20
+                }
+              }
+            },
+            {
+              "type": "indicator",
+              "score": 100,
+              "details": {
+                "indicator_types": {
+                  "weight": 15,
+                  "contributing_score": 15
+                },
+                "pattern": {
+                  "weight": 80,
+                  "contributing_score": 80
+                },
+                "valid_from": {
+                  "weight": 5,
+                  "contributing_score": 5
+                }
+              }
+            }
+          ],
+          "stix_observable_details": [
+            {
+              "type": "domain",
+              "score": 100,
+              "incoming_values": [
+                "host-7733.corp3f109f3.example"
+              ],
+              "stored_values": [
+                "host-7733.corp3f109f3.example"
+              ],
+              "matched_values": [
+                "host-7733.corp3f109f3.example"
+              ]
+            },
+            {
+              "type": "ip",
+              "score": 100,
+              "incoming_values": [
+                "10.151.93.230",
+                "172.26.0.50"
+              ],
+              "stored_values": [
+                "10.151.93.230",
+                "172.26.0.50"
+              ],
+              "matched_values": [
+                "10.151.93.230",
+                "172.26.0.50"
+              ]
+            },
+            {
+              "type": "url",
+              "score": 100,
+              "incoming_values": [
+                "http://c2-845.badnet3f109f3.example/48001/payload"
+              ],
+              "stored_values": [
+                "http://c2-845.badnet3f109f3.example/48001/payload"
+              ],
+              "matched_values": [
+                "http://c2-845.badnet3f109f3.example/48001/payload"
+              ]
+            },
+            {
+              "type": "user",
+              "score": 100,
+              "incoming_values": [
+                "sortertest_3f109f3"
+              ],
+              "stored_values": [
+                "sortertest_3f109f3"
+              ],
+              "matched_values": [
+                "sortertest_3f109f3"
+              ]
+            }
+          ],
+          "iocs": {
+            "ip": [
+              "10.151.93.230",
+              "172.26.0.50"
+            ],
+            "domain": [
+              "host-7733.corp3f109f3.example"
+            ],
+            "url": [
+              "http://c2-845.badnet3f109f3.example/48001/payload"
+            ],
+            "user": [
+              "sortertest_3f109f3"
+            ]
+          },
+          "filled_slots": [
+            "ip",
+            "user",
+            "domain",
+            "url"
+          ],
+          "matched_slots": [
+            "ip",
+            "user",
+            "domain",
+            "url"
+          ],
+          "missed_slots": [],
+          "applied_thresholds": {
+            "layer1_confidence_threshold": 0.8,
+            "layer2_similarity_threshold": 80
+          },
+          "threshold_source": "STATIC"
+        },
+        "correlation_id": "SObXo1okDvvQ2_XMG6V0z"
+      }
+    },
+    "999004": {
+      "start_ms": 13.172125007258728,
+      "status": 200,
+      "ms": 578.0187500058673,
+      "response": {
+        "contract_version": "1.4",
+        "transition_state": "duplicate",
+        "is_duplicate": true,
+        "verdict": "DUPLICATE",
+        "confidence": 1,
+        "reasoning": "Exact match (exact_hash) against canonical alert tekstream-admin-999005; suppressed as duplicate.",
+        "apollo_alert_id": "tekstream-admin-999004",
+        "canonical_alert_id": "tekstream-admin-999005",
+        "matched_alert_id": "tekstream-admin-999005",
+        "match_type": "exact_hash",
+        "container_id": 999004,
+        "tenant": "tekstream-admin",
+        "parent_container_id": 999005,
+        "alert_url": "https://apollo.cosmos.tekstream.com/dashboard/alerts/tekstream-admin-999004",
+        "dedup_engine": {
+          "alert_id": "tekstream-admin-999004",
+          "verdict": "DUPLICATE",
+          "hash_confidence": 1,
+          "stix_context_similarity": 100,
+          "stix_observable_by_type": 100,
+          "stix_observable_by_value": 100,
+          "layer": 1,
+          "matched_alert_id": "tekstream-admin-999005",
+          "canonical_alert_id": "tekstream-admin-999005",
+          "score_breakdown": {
+            "matched": [
+              "ip",
+              "user",
+              "domain",
+              "url"
+            ],
+            "missed": []
+          },
+          "stix_context_details": [
+            {
+              "type": "identity",
+              "score": 100,
+              "details": {
+                "name": {
+                  "weight": 60,
+                  "contributing_score": 60
+                },
+                "identity_class": {
+                  "weight": 20,
+                  "contributing_score": 20
+                }
+              }
+            },
+            {
+              "type": "indicator",
+              "score": 100,
+              "details": {
+                "indicator_types": {
+                  "weight": 15,
+                  "contributing_score": 15
+                },
+                "pattern": {
+                  "weight": 80,
+                  "contributing_score": 80
+                },
+                "valid_from": {
+                  "weight": 5,
+                  "contributing_score": 5
+                }
+              }
+            }
+          ],
+          "stix_observable_details": [
+            {
+              "type": "domain",
+              "score": 100,
+              "incoming_values": [
+                "host-7733.corp3f109f3.example"
+              ],
+              "stored_values": [
+                "host-7733.corp3f109f3.example"
+              ],
+              "matched_values": [
+                "host-7733.corp3f109f3.example"
+              ]
+            },
+            {
+              "type": "ip",
+              "score": 100,
+              "incoming_values": [
+                "10.151.93.230",
+                "172.26.0.50"
+              ],
+              "stored_values": [
+                "10.151.93.230",
+                "172.26.0.50"
+              ],
+              "matched_values": [
+                "10.151.93.230",
+                "172.26.0.50"
+              ]
+            },
+            {
+              "type": "url",
+              "score": 100,
+              "incoming_values": [
+                "http://c2-845.badnet3f109f3.example/48001/payload"
+              ],
+              "stored_values": [
+                "http://c2-845.badnet3f109f3.example/48001/payload"
+              ],
+              "matched_values": [
+                "http://c2-845.badnet3f109f3.example/48001/payload"
+              ]
+            },
+            {
+              "type": "user",
+              "score": 100,
+              "incoming_values": [
+                "sortertest_3f109f3"
+              ],
+              "stored_values": [
+                "sortertest_3f109f3"
+              ],
+              "matched_values": [
+                "sortertest_3f109f3"
+              ]
+            }
+          ],
+          "iocs": {
+            "ip": [
+              "10.151.93.230",
+              "172.26.0.50"
+            ],
+            "domain": [
+              "host-7733.corp3f109f3.example"
+            ],
+            "url": [
+              "http://c2-845.badnet3f109f3.example/48001/payload"
+            ],
+            "user": [
+              "sortertest_3f109f3"
+            ]
+          },
+          "filled_slots": [
+            "ip",
+            "user",
+            "domain",
+            "url"
+          ],
+          "matched_slots": [
+            "ip",
+            "user",
+            "domain",
+            "url"
+          ],
+          "missed_slots": [],
+          "applied_thresholds": {
+            "layer1_confidence_threshold": 0.8,
+            "layer2_similarity_threshold": 80
+          },
+          "threshold_source": "STATIC"
+        },
+        "correlation_id": "-AhQGUqH8_J9g_LM0Z9N4"
+      }
+    },
+    "999002": {
+      "start_ms": 6.70837500365451,
+      "status": 200,
+      "ms": 594.4545830134302,
+      "response": {
+        "contract_version": "1.4",
+        "transition_state": "duplicate",
+        "is_duplicate": true,
+        "verdict": "DUPLICATE",
+        "confidence": 1,
+        "reasoning": "Exact match (exact_hash) against canonical alert tekstream-admin-999005; suppressed as duplicate.",
+        "apollo_alert_id": "tekstream-admin-999002",
+        "canonical_alert_id": "tekstream-admin-999005",
+        "matched_alert_id": "tekstream-admin-999005",
+        "match_type": "exact_hash",
+        "container_id": 999002,
+        "tenant": "tekstream-admin",
+        "parent_container_id": 999005,
+        "alert_url": "https://apollo.cosmos.tekstream.com/dashboard/alerts/tekstream-admin-999002",
+        "dedup_engine": {
+          "alert_id": "tekstream-admin-999002",
+          "verdict": "DUPLICATE",
+          "hash_confidence": 1,
+          "stix_context_similarity": 100,
+          "stix_observable_by_type": 100,
+          "stix_observable_by_value": 100,
+          "layer": 1,
+          "matched_alert_id": "tekstream-admin-999005",
+          "canonical_alert_id": "tekstream-admin-999005",
+          "score_breakdown": {
+            "matched": [
+              "ip",
+              "user",
+              "domain",
+              "url"
+            ],
+            "missed": []
+          },
+          "stix_context_details": [
+            {
+              "type": "identity",
+              "score": 100,
+              "details": {
+                "name": {
+                  "weight": 60,
+                  "contributing_score": 60
+                },
+                "identity_class": {
+                  "weight": 20,
+                  "contributing_score": 20
+                }
+              }
+            },
+            {
+              "type": "indicator",
+              "score": 100,
+              "details": {
+                "indicator_types": {
+                  "weight": 15,
+                  "contributing_score": 15
+                },
+                "pattern": {
+                  "weight": 80,
+                  "contributing_score": 80
+                },
+                "valid_from": {
+                  "weight": 5,
+                  "contributing_score": 5
+                }
+              }
+            }
+          ],
+          "stix_observable_details": [
+            {
+              "type": "domain",
+              "score": 100,
+              "incoming_values": [
+                "host-7733.corp3f109f3.example"
+              ],
+              "stored_values": [
+                "host-7733.corp3f109f3.example"
+              ],
+              "matched_values": [
+                "host-7733.corp3f109f3.example"
+              ]
+            },
+            {
+              "type": "ip",
+              "score": 100,
+              "incoming_values": [
+                "10.151.93.230",
+                "172.26.0.50"
+              ],
+              "stored_values": [
+                "10.151.93.230",
+                "172.26.0.50"
+              ],
+              "matched_values": [
+                "10.151.93.230",
+                "172.26.0.50"
+              ]
+            },
+            {
+              "type": "url",
+              "score": 100,
+              "incoming_values": [
+                "http://c2-845.badnet3f109f3.example/48001/payload"
+              ],
+              "stored_values": [
+                "http://c2-845.badnet3f109f3.example/48001/payload"
+              ],
+              "matched_values": [
+                "http://c2-845.badnet3f109f3.example/48001/payload"
+              ]
+            },
+            {
+              "type": "user",
+              "score": 100,
+              "incoming_values": [
+                "sortertest_3f109f3"
+              ],
+              "stored_values": [
+                "sortertest_3f109f3"
+              ],
+              "matched_values": [
+                "sortertest_3f109f3"
+              ]
+            }
+          ],
+          "iocs": {
+            "ip": [
+              "10.151.93.230",
+              "172.26.0.50"
+            ],
+            "domain": [
+              "host-7733.corp3f109f3.example"
+            ],
+            "url": [
+              "http://c2-845.badnet3f109f3.example/48001/payload"
+            ],
+            "user": [
+              "sortertest_3f109f3"
+            ]
+          },
+          "filled_slots": [
+            "ip",
+            "user",
+            "domain",
+            "url"
+          ],
+          "matched_slots": [
+            "ip",
+            "user",
+            "domain",
+            "url"
+          ],
+          "missed_slots": [],
+          "applied_thresholds": {
+            "layer1_confidence_threshold": 0.8,
+            "layer2_similarity_threshold": 80
+          },
+          "threshold_source": "STATIC"
+        },
+        "correlation_id": "AG9aWCZfn5bkiqNSF-r0a"
+      }
+    },
+    "999001": {
+      "start_ms": 26.08787501230836,
+      "status": 200,
+      "ms": 694.6865000063553,
+      "response": {
+        "contract_version": "1.4",
+        "transition_state": "duplicate",
+        "is_duplicate": true,
+        "verdict": "DUPLICATE",
+        "confidence": 1,
+        "reasoning": "Exact match (exact_hash) against canonical alert tekstream-admin-999005; suppressed as duplicate.",
+        "apollo_alert_id": "tekstream-admin-999001",
+        "canonical_alert_id": "tekstream-admin-999005",
+        "matched_alert_id": "tekstream-admin-999005",
+        "match_type": "exact_hash",
+        "container_id": 999001,
+        "tenant": "tekstream-admin",
+        "parent_container_id": 999005,
+        "alert_url": "https://apollo.cosmos.tekstream.com/dashboard/alerts/tekstream-admin-999001",
+        "dedup_engine": {
+          "alert_id": "tekstream-admin-999001",
+          "verdict": "DUPLICATE",
+          "hash_confidence": 1,
+          "stix_context_similarity": 100,
+          "stix_observable_by_type": 100,
+          "stix_observable_by_value": 100,
+          "layer": 1,
+          "matched_alert_id": "tekstream-admin-999005",
+          "canonical_alert_id": "tekstream-admin-999005",
+          "score_breakdown": {
+            "matched": [
+              "ip",
+              "user",
+              "domain",
+              "url"
+            ],
+            "missed": []
+          },
+          "stix_context_details": [
+            {
+              "type": "identity",
+              "score": 100,
+              "details": {
+                "name": {
+                  "weight": 60,
+                  "contributing_score": 60
+                },
+                "identity_class": {
+                  "weight": 20,
+                  "contributing_score": 20
+                }
+              }
+            },
+            {
+              "type": "indicator",
+              "score": 100,
+              "details": {
+                "indicator_types": {
+                  "weight": 15,
+                  "contributing_score": 15
+                },
+                "pattern": {
+                  "weight": 80,
+                  "contributing_score": 80
+                },
+                "valid_from": {
+                  "weight": 5,
+                  "contributing_score": 5
+                }
+              }
+            }
+          ],
+          "stix_observable_details": [
+            {
+              "type": "domain",
+              "score": 100,
+              "incoming_values": [
+                "host-7733.corp3f109f3.example"
+              ],
+              "stored_values": [
+                "host-7733.corp3f109f3.example"
+              ],
+              "matched_values": [
+                "host-7733.corp3f109f3.example"
+              ]
+            },
+            {
+              "type": "ip",
+              "score": 100,
+              "incoming_values": [
+                "10.151.93.230",
+                "172.26.0.50"
+              ],
+              "stored_values": [
+                "10.151.93.230",
+                "172.26.0.50"
+              ],
+              "matched_values": [
+                "10.151.93.230",
+                "172.26.0.50"
+              ]
+            },
+            {
+              "type": "url",
+              "score": 100,
+              "incoming_values": [
+                "http://c2-845.badnet3f109f3.example/48001/payload"
+              ],
+              "stored_values": [
+                "http://c2-845.badnet3f109f3.example/48001/payload"
+              ],
+              "matched_values": [
+                "http://c2-845.badnet3f109f3.example/48001/payload"
+              ]
+            },
+            {
+              "type": "user",
+              "score": 100,
+              "incoming_values": [
+                "sortertest_3f109f3"
+              ],
+              "stored_values": [
+                "sortertest_3f109f3"
+              ],
+              "matched_values": [
+                "sortertest_3f109f3"
+              ]
+            }
+          ],
+          "iocs": {
+            "ip": [
+              "10.151.93.230",
+              "172.26.0.50"
+            ],
+            "domain": [
+              "host-7733.corp3f109f3.example"
+            ],
+            "url": [
+              "http://c2-845.badnet3f109f3.example/48001/payload"
+            ],
+            "user": [
+              "sortertest_3f109f3"
+            ]
+          },
+          "filled_slots": [
+            "ip",
+            "user",
+            "domain",
+            "url"
+          ],
+          "matched_slots": [
+            "ip",
+            "user",
+            "domain",
+            "url"
+          ],
+          "missed_slots": [],
+          "applied_thresholds": {
+            "layer1_confidence_threshold": 0.8,
+            "layer2_similarity_threshold": 80
+          },
+          "threshold_source": "STATIC"
+        },
+        "correlation_id": "7F95I43S8DEzRV4dNco0x"
+      }
+    }
+  }
+}
