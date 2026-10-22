@@ -88,7 +88,7 @@ families lack it, and one of those carries the label itself.
 
 Every surviving field becomes `key value`, lowercased, space-joined. 1,312
 distinct keys across the corpus, a median of 41 per alert. Full inventory:
-`model-training-pipeline/TRAINING_KEYS.md`.
+`../../triage-model/TRAINING_KEYS.md`.
 
 Dropped: 44 keys (Splunk plumbing, per-event identifiers, ES triage state), every
 value matching a date/epoch/clock time, and values reading `none`/`null`/`-`/
@@ -180,4 +180,4 @@ would move it, in order:
 | `freeze.py` | cut a release; `--verify` re-scores every one against its fingerprint |
 | `FEATURES.md` | what is fitted, why, and what was rejected |
 | `APOLLO_MAPPING.md` | what Apollo sends, measured by value matching |
-| `model-training-pipeline/` | the whole pipeline as a Jupyter notebook, plus EDA |
+| `../../triage-model/` | the whole pipeline as Jupyter notebooks — SOAR pull, training, EDA |

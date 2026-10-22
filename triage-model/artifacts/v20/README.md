@@ -1,6 +1,6 @@
 # Router v20
 
-Frozen 2026-09-24T16:23:44+00:00 — deployment (all rows), built by `train.ipynb`. Do not edit anything in this directory; cut a new version instead.
+Frozen 2026-09-24T16:23:44+00:00 — deployment (all rows), built by `02-train-model.ipynb`. Do not edit anything in this directory; cut a new version instead.
 
 ```python
 import joblib

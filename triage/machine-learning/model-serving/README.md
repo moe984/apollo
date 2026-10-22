@@ -99,7 +99,7 @@ the line through its scores does.
    calibration is always optimistic by a few points of coverage
 4. re-run monthly; `THRESHOLD=<value>` to deploy without retraining
 
-Stage 7 of `../model-training-pipeline/train.ipynb` runs this end to end.
+Stage 7 of `../../../triage-model/02-train-model.ipynb` runs this end to end.
 
 ## Guardrails
 

@@ -1,0 +1,172 @@
+{
+  "version": "v20",
+  "frozen_at": "2026-09-24T07:12:05+00:00",
+  "git_sha": "eda7ece89207a2e96f55fe9e7ccec8e44be1ecdf",
+  "task": "route an alert to an AI analyst or a human analyst",
+  "stack": "TF-IDF over the 937 ES notable fields Apollo has actually been observed to forward - the intersection of the training corpus and the live feed - into an averaged SGDClassifier. The model is fitted on exactly what it will be served, and nothing it will never receive",
+  "labels": {
+    "0_ai_lane": [
+      "Benign Positive"
+    ],
+    "1_human_lane": [
+      "True Positive",
+      "False Positive"
+    ],
+    "dropped": [
+      "Other"
+    ]
+  },
+  "decision_rule": "score = P(needs a human). Route to the AI lane when score < threshold, otherwise to a human.",
+  "release_kind": "deployment (all rows)",
+  "data": {
+    "dataset_file": "dataset_v20.parquet",
+    "source_file": "soar-containers-12mo-20260923.jsonl.gz",
+    "source_sha256": "6cec9690a391934f131325e144ac3c5b30ad8516ecff1fe622f9e1501eed4590",
+    "rows_total": 32427,
+    "rows_trained_on": 32427,
+    "trained_through": "2026-09-23 00:22:28.577186+00:00",
+    "metrics_from": "out-of-fold scores, 5 expanding forward folds",
+    "rows_scored_for_metrics": 27023
+  },
+  "features": [
+    "text_v20"
+  ],
+  "preprocessing": {
+    "config_file": "config/preprocessing.json",
+    "config_sha256": "4365700b56b37d3207b06d36425086b16325ff59a68c9b553db8a4c3f2ee6f85",
+    "keys_dropped": 44,
+    "drop_groups": {
+      "splunk_plumbing": 6,
+      "per_event_identifiers": 6,
+      "timestamps": 10,
+      "date_parts": 8,
+      "console_urls": 4,
+      "triage_state": 8,
+      "serving_alignment": 2
+    },
+    "artifact_selection": [
+      "rule_id"
+    ]
+  },
+  "excluded_features": {
+    "identity": {
+      "columns": [
+        "rule",
+        "tenant"
+      ],
+      "reason": "memorises the training window; ROC falls 0.840 -> 0.806 when included"
+    },
+    "clock": {
+      "columns": [
+        "hour",
+        "weekday",
+        "date"
+      ],
+      "reason": "_time is arrival not decision; the session effect is a staffing artifact"
+    }
+  },
+  "estimator": "Pipeline",
+  "hyperparameters": {
+    "input_column": "text_v20",
+    "tfidf": "the 937 ES notable keys present in both the training corpus and the Apollo export, each as 'key value' text (word 1-2gram, min_df=1, sublinear_tf); timestamps, epochs and bare years scrubbed; the shared 44-key drop set applied first",
+    "sgd_loss": "log_loss",
+    "sgd_penalty": "l2",
+    "tfidf_min_df": 1,
+    "sgd_alpha": 1e-05,
+    "sgd_average": true,
+    "calibration": "none - log_loss is already near the diagonal",
+    "reads_tabular_features": false
+  },
+  "metrics": {
+    "roc_auc": 0.854,
+    "pr_auc": 0.6893,
+    "base_rate_pct": 21.73,
+    "test_rows": 27023,
+    "test_positives": 5872,
+    "operating_points": {
+      "0": {
+        "threshold": 0.001524,
+        "ai_share_pct": 1.65,
+        "ai_lane_rows": 444,
+        "missed": 0,
+        "residual_rate_pct": 0.0
+      },
+      "1": {
+        "threshold": 0.001536,
+        "ai_share_pct": 1.68,
+        "ai_lane_rows": 452,
+        "missed": 1,
+        "residual_rate_pct": 0.221
+      },
+      "2": {
+        "threshold": 0.001544,
+        "ai_share_pct": 1.71,
+        "ai_lane_rows": 461,
+        "missed": 2,
+        "residual_rate_pct": 0.434
+      },
+      "5": {
+        "threshold": 0.002069,
+        "ai_share_pct": 3.0,
+        "ai_lane_rows": 811,
+        "missed": 5,
+        "residual_rate_pct": 0.617
+      },
+      "10": {
+        "threshold": 0.002448,
+        "ai_share_pct": 3.91,
+        "ai_lane_rows": 1055,
+        "missed": 10,
+        "residual_rate_pct": 0.948
+      },
+      "20": {
+        "threshold": 0.003656,
+        "ai_share_pct": 6.28,
+        "ai_lane_rows": 1697,
+        "missed": 20,
+        "residual_rate_pct": 1.179
+      },
+      "50": {
+        "threshold": 0.006603,
+        "ai_share_pct": 11.23,
+        "ai_lane_rows": 3033,
+        "missed": 50,
+        "residual_rate_pct": 1.649
+      }
+    },
+    "calibration_by_score_fifth": [
+      {
+        "fifth": 1,
+        "predicted_pct": 0.6,
+        "actual_pct": 1.8
+      },
+      {
+        "fifth": 2,
+        "predicted_pct": 2.3,
+        "actual_pct": 5.8
+      },
+      {
+        "fifth": 3,
+        "predicted_pct": 6.9,
+        "actual_pct": 13.2
+      },
+      {
+        "fifth": 4,
+        "predicted_pct": 20.0,
+        "actual_pct": 27.7
+      },
+      {
+        "fifth": 5,
+        "predicted_pct": 65.4,
+        "actual_pct": 62.3
+      }
+    ]
+  },
+  "predictions_sha256": "1bd5d154db460fa82ec0486e01b62c91a0011f654951c6ad55e829a124853163",
+  "environment": {
+    "python": "3.14.4",
+    "scikit_learn": "1.9.1",
+    "pandas": "3.0.6",
+    "numpy": "2.5.3"
+  }
+}

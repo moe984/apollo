@@ -56,7 +56,7 @@ Absence of `soar_event` is **not** the test - two of the three unsafe families
 lack it too. `is_notable()` requires `rule_id` present **and** `SA_DISPOSITION`
 absent.
 
-A worked example is in `soar/def07_cef_sample.txt`: five artifacts, 203 keys, of
+A worked example is in `../../triage-model/reference/def07_cef_sample.txt` (local only, git-ignored): five artifacts, 203 keys, of
 which four artifacts contain the verdict, the analyst's reasoning, the escalation
 chain, or a written investigation summary.
 

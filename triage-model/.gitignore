@@ -1,0 +1,8 @@
+.venv/
+jupyter.log
+.ipynb_checkpoints/
+.env
+data/
+reference/
+*.joblib
+soar-api/output/
